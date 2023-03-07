@@ -81,7 +81,7 @@ a span {
 
 .content {
 	flex: 1;
-	padding: 40px;
+	
 }
 
 h2 {
@@ -109,6 +109,81 @@ p {
     border-radius: 50%;
     
 }
+
+
+
+.container {
+			display: flex;
+			
+		}
+		
+		.item {
+			flex-basis: 25%;
+			background-color: #333;
+			color: #fff;
+			padding: 10px;
+			margin: 10px;
+			text-align: center;
+		}
+
+        table {
+			border-collapse: collapse;
+			width: 100%;
+			margin-bottom: 20px;
+			border: 1px solid #ddd;
+			font-size: 17px;
+            
+		}
+		
+		th, td {
+			text-align: left;
+			padding: 8px;
+			border: 1px solid #ddd;
+		}
+		
+		th {
+			background-color: #29166F;
+			color: white;
+		}
+		
+		tr:nth-child(even) {
+			background-color: #c0c0c0;
+		}
+		
+		tr:hover {
+			background-color: #ddd;
+		}
+		
+		/* Add a scrollbar to the table body */
+		tbody {
+			height: 200px;
+			overflow-y: scroll;
+		}
+		
+		/* Style the scrollbar */
+		tbody::-webkit-scrollbar {
+			width: 10px;
+		}
+		
+		tbody::-webkit-scrollbar-track {
+			background: #f1f1f1;
+		}
+		
+		tbody::-webkit-scrollbar-thumb {
+			background-color: #888;
+			border-radius: 5px;
+		}
+        h2 {
+        text-align: center;
+        font-weight: 1000;
+        padding-top: 10px;
+        }
+        .div_ng_table{
+            height:75%;
+            overflow:auto;  
+            padding-left: 20px;
+            padding-right: 20px;
+        }
 </style>
 
 <body>
@@ -158,8 +233,114 @@ p {
 			</ul>
 		</nav>
 		<main class="content">
-			<h1>Welcome to your Dashboard</h1>
-			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec aliquam sapien id diam euismod ullamcorper. Sed malesuada ante sit amet mauris ornare, id ultricies purus maximus. Ut ac semper mauris, vel convallis ipsum. Suspendisse suscipit ex ac neque hendrerit, non posuere tellus fermentum. Sed in turpis sit amet libero sollicitudin lobortis.</p>
+            <h2>Active Tasks</h2>
+            <div class="div_ng_table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Task Name</th>
+                            <th>Category</th>
+                            <th>Place</th>
+                            <th>Published By</th>
+                            <th>Date Published</th>
+                            <th>Date Started</th>
+                            <th>Details</th>
+                            <th>Start</th>
+                            <th>Finish</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Row 1, Column 1</td>
+                            <td>Row 1, Column 2</td>
+                            <td>Row 1, Column 3</td>
+                            <td>Row 1, Column 1</td>
+                            <td>Row 1, Column 2</td>
+                            <td>Row 1, Column 3</td>
+                            <td>Row 1, Column 1</td>
+                            <td>Row 1, Column 2</td>
+                            <td>Row 1, Column 3</td>
+                        </tr>
+                        <tr>
+                            <td>Row 2, Column 1</td>
+                            <td>Row 2, Column 2</td>
+                            <td>Row 2, Column 3</td>
+                            <td>Row 1, Column 1</td>
+                            <td>Row 1, Column 2</td>
+                            <td>Row 1, Column 3</td>
+                            <td>Row 1, Column 1</td>
+                            <td>Row 1, Column 2</td>
+                            <td>Row 1, Column 3</td>
+                        </tr>
+                        <tr>
+                            <td>Row 3, Column 1</td>
+                            <td>Row 3, Column 2</td>
+                            <td>Row 3, Column 3</td>
+                            <td>Row 1, Column 1</td>
+                            <td>Row 1, Column 2</td>
+                            <td>Row 1, Column 3</td>
+                            <td>Row 1, Column 1</td>
+                            <td>Row 1, Column 2</td>
+                            <td>Row 1, Column 3</td>
+                        </tr>
+                        <tr>
+                            <td>Row 4, Column 1</td>
+                            <td>Row 4, Column 2</td>
+                            <td>Row 4, Column 3</td>
+                            <td>Row 1, Column 1</td>
+                            <td>Row 1, Column 2</td>
+                            <td>Row 1, Column 3</td>
+                            <td>Row 1, Column 1</td>
+                            <td>Row 1, Column 2</td>
+                            <td>Row 1, Column 3</td>
+                        </tr>
+                        <tr>
+                            <td>Row 5, Column 1</td>
+                            <td>Row 5, Column 2</td>
+                            <td>Row 5, Column 3</td>
+                            <td>Row 1, Column 1</td>
+                            <td>Row 1, Column 2</td>
+                            <td>Row 1, Column 3</td>
+                            <td>Row 1, Column 1</td>
+                            <td>Row 1, Column 2</td>
+                            <td>Row 1, Column 3</td>
+                        </tr>
+                        <tr>
+                            <td>Row 6, Column 1</td>
+                            <td>Row 6, Column 2</td>
+                            <td>Row 6, Column 3</td>
+                            <td>Row 1, Column 1</td>
+                            <td>Row 1, Column 2</td>
+                            <td>Row 1, Column 3</td>
+                            <td>Row 1, Column 1</td>
+                            <td>Row 1, Column 2</td>
+                            <td>Row 1, Column 3</td>
+                        </tr>
+                        <tr>
+                            <td>Row 7, Column 1</td>
+                            <td>Row 7, Column 2</td>
+                            <td>Row 7, Column 3</td>
+                            <td>Row 1, Column 1</td>
+                            <td>Row 1, Column 2</td>
+                            <td>Row 1, Column 3</td>
+                            <td>Row 1, Column 1</td>
+                            <td>Row 1, Column 2</td>
+                            <td>Row 1, Column 3</td>
+                        </tr>
+                        <tr>
+                            <td>Row 8, Column 1</td>
+                            <td>Row 8, Column 2</td>
+                            <td>Row 8, Column 3</td>
+                            <td>Row 1, Column 1</td>
+                            <td>Row 1, Column 2</td>
+                            <td>Row 1, Column 3</td>
+                            <td>Row 1, Column 1</td>
+                            <td>Row 1, Column 2</td>
+                            <td>Row 1, Column 3</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
 		</main>
 	</div>
 </body>
