@@ -10,180 +10,190 @@
     <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
     <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
     <script src="js/custom.js"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 </head>
 
 <style>
    * {
 	box-sizing: border-box;
-}
+    }
 
-body {
-	margin: 0;
-	font-family: Arial, sans-serif;
-	background-color: #f2f2f2;
-}
+    body {
+        max-height: 100%;
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background-color: #f2f2f2;
+    }
 
-header {
-    display: flex;
-	background-color: #29166F;
-	color: #fff;
-	padding: 20px;
-}
+    header {
+        display: flex;
+        background-color: #29166F;
+        color: #fff;
+        padding: 20px;
+    }
 
-h1 {
-	margin: 0;
-	font-size: 2rem;
-    padding-left: 2%;
-}
+    h1 {
+        margin: 0;
+        font-size: 2rem;
+        padding-left: 2%;
+    }
 
-.dashboard-container {
-	display: flex;
-	height: auto;
-}
+    .dashboard-container {
+        display: flex;
+        height: auto;
+    }
 
-.sidebar {
-	flex: 0 0 220px;
-	background-color: #29166F;
-	color: #fff;
-}
+    .sidebar {
+        flex: 0 0 220px;
+        background-color: #29166F;
+        color: #fff;
+    }
 
-ul {
-	list-style-type: none;
-	padding: 0;
-	margin: 0;
-}
+    ul {
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+    }
 
-li {
-	margin: 9px 0;
-}
+    li {
+        margin: 9px 0;
+    }
 
-a {
-	display: flex;
-	align-items: center;
-	padding: 10px 20px;
-	color: #fff;
-	text-decoration: none;
-	transition: all 0.3s ease-in-out;
-}
+    a {
+        display: flex;
+        align-items: center;
+        padding: 10px 20px;
+        color: #fff;
+        text-decoration: none;
+        transition: all 0.3s ease-in-out;
+    }
 
-a:hover {
-	background-color: #00BFFF;
-}
+    a:hover {
+        background-color: #00BFFF;
+    }
 
-a i {
-	font-size: 1.5rem;
-	margin-right: 10px;
-}
+    a i {
+        font-size: 1.5rem;
+        margin-right: 10px;
+    }
 
-a span {
-	font-size: 1.2rem;
-}
+    a span {
+        font-size: 1.2rem;
+    }
 
-.content {
-	flex: 1;
-	
-}
+    .content {
+        flex: 1;
+        
+    }
 
-h2 {
-	color: #333;
-	margin-bottom: 20px;
-	font-size: 2rem;
-}
+    h2 {
+        color: #333;
+        margin-bottom: 20px;
+        font-size: 2rem;
+    }
 
-p {
-	color: #333;
-	font-size: 1.2rem;
-	line-height: 1
-}
+    p {
+        color: #333;
+        font-size: 1.2rem;
+        line-height: 1
+    }
 
-.logo_top {
-  width: 3%;
-  height: 3%;
-  border-radius: 50%;
-  }
-
-.profile_pic{
-    margin-left: 13%;
-    width: 70%;
-    height: auto;
+    .logo_top {
+    width: 3%;
+    height: 3%;
     border-radius: 50%;
+    }
+
+    .profile_pic{
+        margin-left: 13%;
+        width: 70%;
+        height: auto;
+        border-radius: 50%;
+        
+    }
+
+
+
+    .container {
+        display: flex;
+		
+    }
     
-}
+    .item {
+        flex-basis: 25%;
+        background-color: #333;
+        color: #fff;
+        padding: 10px;
+        margin: 10px;
+        text-align: center;
+    }
 
-
-
-.container {
-			display: flex;
-			
-		}
-		
-		.item {
-			flex-basis: 25%;
-			background-color: #333;
-			color: #fff;
-			padding: 10px;
-			margin: 10px;
-			text-align: center;
-		}
-
-        table {
-			border-collapse: collapse;
-			width: 100%;
-			margin-bottom: 20px;
-			border: 1px solid #ddd;
-			font-size: 17px;
-            
-		}
-		
-		th, td {
-			text-align: left;
-			padding: 8px;
-			border: 1px solid #ddd;
-		}
-		
-		th {
-			background-color: #29166F;
-			color: white;
-		}
-		
-		tr:nth-child(even) {
-			background-color: #c0c0c0;
-		}
-		
-		tr:hover {
-			background-color: #ddd;
-		}
-		
-		/* Add a scrollbar to the table body */
-		tbody {
-			height: 200px;
-			overflow-y: scroll;
-		}
-		
-		/* Style the scrollbar */
-		tbody::-webkit-scrollbar {
-			width: 10px;
-		}
-		
-		tbody::-webkit-scrollbar-track {
-			background: #f1f1f1;
-		}
-		
-		tbody::-webkit-scrollbar-thumb {
-			background-color: #888;
-			border-radius: 5px;
-		}
-        h2 {
+    .tableFixHead {
+        margin: 1.5%;
+        overflow-y: auto; /* make the table scrollable if height is more than 200 px  */
+        height: 460px; /* gives an initial height of 200px to the table */
+        
+    }
+    .tableFixHead thead th {
+        position: sticky; /* make the table heads sticky */
+        top: 0px; /* table head will be placed from the top of the table and sticks to it */
+    }
+    table {
+        border-collapse: collapse; /* make the table borders collapse to each other */
+        width: 100%;
+        text-align: center;
+    }
+    th,
+    td {
+        padding: 8px 16px;
+        border: 1px solid #ccc;
+    }
+    th {
+        background: #29166F;
+        color: white;
+    }
+    tr:nth-child(even) {
+            background-color: rgb(212, 209, 209);
+    }
+    h2 {
         text-align: center;
         font-weight: 1000;
         padding-top: 10px;
-        }
-        .div_ng_table{
-            height:75%;
-            overflow:auto;  
-            padding-left: 20px;
-            padding-right: 20px;
-        }
+    }
+    .div_ng_table{
+        height:45%;
+        overflow:auto;  
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+    h5{
+        padding-left: 20px;
+    }
+    .start_btn {
+        background-color: green;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease-in-out;
+    }
+    .start_btn:hover {
+        background-color: rgb(0, 213, 0);
+    }
+    .finish_btn {
+        background-color: rgb(145, 0, 0);
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease-in-out;
+    }
+    .finish_btn:hover {
+        background-color: red;
+    }
+    .material-icons{
+        color: rgb(0, 126, 251);
+    }
 </style>
 
 <body>
@@ -234,113 +244,199 @@ p {
 		</nav>
 		<main class="content">
             <h2>Active Tasks</h2>
-            <div class="div_ng_table">
+            <div class="details">
+                <h5>Name: Sheik Josiah S. Bautista</h5>
+                <h5>Id Number: TUPC-19-0598</h5>
+                <h5>Total Active Task:16</h5>
+            </div>
+            <div class="tableFixHead">
                 <table>
                     <thead>
                         <tr>
+                            <th>Task ID</th>
                             <th>Task Name</th>
                             <th>Category</th>
-                            <th>Place</th>
                             <th>Published By</th>
                             <th>Date Published</th>
                             <th>Date Started</th>
                             <th>Details</th>
-                            <th>Start</th>
                             <th>Finish</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td>Row 1, Column 1</td>
+                            <td>T-0001</td>
                             <td>Row 1, Column 2</td>
                             <td>Row 1, Column 3</td>
                             <td>Row 1, Column 1</td>
                             <td>Row 1, Column 2</td>
                             <td>Row 1, Column 3</td>
-                            <td>Row 1, Column 1</td>
-                            <td>Row 1, Column 2</td>
-                            <td>Row 1, Column 3</td>
+                            <td><i class="material-icons">info</i></td>
+                            <td><button class="finish_btn">Finish</button></td>
                         </tr>
                         <tr>
-                            <td>Row 2, Column 1</td>
+                            <td>T-0002</td>
                             <td>Row 2, Column 2</td>
                             <td>Row 2, Column 3</td>
                             <td>Row 1, Column 1</td>
                             <td>Row 1, Column 2</td>
                             <td>Row 1, Column 3</td>
-                            <td>Row 1, Column 1</td>
-                            <td>Row 1, Column 2</td>
-                            <td>Row 1, Column 3</td>
+                            <td><i class="material-icons">info</i></td>
+                            <td><button class="finish_btn">Finish</button></td>
                         </tr>
                         <tr>
-                            <td>Row 3, Column 1</td>
+                            <td>T-0003</td>
                             <td>Row 3, Column 2</td>
                             <td>Row 3, Column 3</td>
                             <td>Row 1, Column 1</td>
                             <td>Row 1, Column 2</td>
                             <td>Row 1, Column 3</td>
-                            <td>Row 1, Column 1</td>
-                            <td>Row 1, Column 2</td>
-                            <td>Row 1, Column 3</td>
+                            <td><i class="material-icons">info</i></td>
+                            <td><button class="finish_btn">Finish</button></td>
                         </tr>
                         <tr>
-                            <td>Row 4, Column 1</td>
+                            <td>T-0004</td>
                             <td>Row 4, Column 2</td>
                             <td>Row 4, Column 3</td>
                             <td>Row 1, Column 1</td>
                             <td>Row 1, Column 2</td>
                             <td>Row 1, Column 3</td>
-                            <td>Row 1, Column 1</td>
-                            <td>Row 1, Column 2</td>
-                            <td>Row 1, Column 3</td>
+                            <td><i class="material-icons">info</i></td>
+                            <td><button class="finish_btn">Finish</button></td>
                         </tr>
                         <tr>
-                            <td>Row 5, Column 1</td>
+                            <td>T-0005</td>
                             <td>Row 5, Column 2</td>
                             <td>Row 5, Column 3</td>
                             <td>Row 1, Column 1</td>
                             <td>Row 1, Column 2</td>
                             <td>Row 1, Column 3</td>
-                            <td>Row 1, Column 1</td>
-                            <td>Row 1, Column 2</td>
-                            <td>Row 1, Column 3</td>
+                            <td><i class="material-icons">info</i></td>
+                            <td><button class="finish_btn">Finish</button></td>
                         </tr>
                         <tr>
-                            <td>Row 6, Column 1</td>
+                            <td>T-0006</td>
                             <td>Row 6, Column 2</td>
                             <td>Row 6, Column 3</td>
                             <td>Row 1, Column 1</td>
                             <td>Row 1, Column 2</td>
                             <td>Row 1, Column 3</td>
-                            <td>Row 1, Column 1</td>
-                            <td>Row 1, Column 2</td>
-                            <td>Row 1, Column 3</td>
+                            <td><i class="material-icons">info</i></td>
+                            <td><button class="finish_btn">Finish</button></td>
                         </tr>
                         <tr>
-                            <td>Row 7, Column 1</td>
+                            <td>T-0007</td>
                             <td>Row 7, Column 2</td>
                             <td>Row 7, Column 3</td>
                             <td>Row 1, Column 1</td>
                             <td>Row 1, Column 2</td>
                             <td>Row 1, Column 3</td>
-                            <td>Row 1, Column 1</td>
-                            <td>Row 1, Column 2</td>
-                            <td>Row 1, Column 3</td>
+                            <td><i class="material-icons">info</i></td>
+                            <td><button class="finish_btn">Finish</button></td>
                         </tr>
                         <tr>
-                            <td>Row 8, Column 1</td>
+                            <td>T-0008</td>
                             <td>Row 8, Column 2</td>
                             <td>Row 8, Column 3</td>
                             <td>Row 1, Column 1</td>
                             <td>Row 1, Column 2</td>
                             <td>Row 1, Column 3</td>
+                            <td><i class="material-icons">info</i></td>
+                            <td><button class="finish_btn">Finish</button></td>
+                        </tr>
+                        <tr>
+                            <td>T-0009</td>
+                            <td>Row 8, Column 2</td>
+                            <td>Row 8, Column 3</td>
                             <td>Row 1, Column 1</td>
                             <td>Row 1, Column 2</td>
                             <td>Row 1, Column 3</td>
+                            <td><i class="material-icons">info</i></td>
+                            <td><button class="finish_btn">Finish</button></td>
+                        </tr>
+                        <tr>
+                            <td>T-0010</td>
+                            <td>Row 8, Column 2</td>
+                            <td>Row 8, Column 3</td>
+                            <td>Row 1, Column 1</td>
+                            <td>Row 1, Column 2</td>
+                            <td>Row 1, Column 3</td>
+                            <td><i class="material-icons">info</i></td>
+                            <td><button class="finish_btn">Finish</button></td>
+                        </tr>
+                        <tr>
+                            <td>T-0011</td>
+                            <td>Row 8, Column 2</td>
+                            <td>Row 8, Column 3</td>
+                            <td>Row 1, Column 1</td>
+                            <td>Row 1, Column 2</td>
+                            <td>Row 1, Column 3</td>
+                            <td><i class="material-icons">info</i></td>
+                            <td><button class="finish_btn">Finish</button></td>
+                        </tr>
+                        <tr>
+                            <td>T-0012</td>
+                            <td>Row 8, Column 2</td>
+                            <td>Row 8, Column 3</td>
+                            <td>Row 1, Column 1</td>
+                            <td>Row 1, Column 2</td>
+                            <td>Row 1, Column 3</td>
+                            <td><i class="material-icons">info</i></td>
+                            <td><button class="finish_btn">Finish</button></td>
+                        </tr>
+                        <tr>
+                            <td>T-0013</td>
+                            <td>Row 8, Column 2</td>
+                            <td>Row 8, Column 3</td>
+                            <td>Row 1, Column 1</td>
+                            <td>Row 1, Column 2</td>
+                            <td>Row 1, Column 3</td>
+                            <td><i class="material-icons">info</i></td>
+                            <td><button class="finish_btn">Finish</button></td>
+                        </tr>
+                        <tr>
+                            <td>T-0014</td>
+                            <td>Row 8, Column 2</td>
+                            <td>Row 8, Column 3</td>
+                            <td>Row 1, Column 1</td>
+                            <td>Row 1, Column 2</td>
+                            <td>Row 1, Column 3</td>
+                            <td><i class="material-icons">info</i></td>
+                            <td><button class="finish_btn">Finish</button></td>
+                        </tr>
+                        <tr>
+                            <td>T-0015</td>
+                            <td>Row 8, Column 2</td>
+                            <td>Row 8, Column 3</td>
+                            <td>Row 1, Column 1</td>
+                            <td>Row 1, Column 2</td>
+                            <td>Row 1, Column 3</td>
+                            <td><i class="material-icons">info</i></td>
+                            <td><button class="finish_btn">Finish</button></td>
+                        </tr>
+                        <tr>
+                            <td>T-0016</td>
+                            <td>Row 8, Column 2</td>
+                            <td>Row 8, Column 3</td>
+                            <td>Row 1, Column 1</td>
+                            <td>Row 1, Column 2</td>
+                            <td>Row 1, Column 3</td>
+                            <td><i class="material-icons">info</i></td>
+                            <td><button class="finish_btn">Finish</button></td>
+                        </tr>
+                        <tr>
+                            <td>T-0017</td>
+                            <td>Row 8, Column 2</td>
+                            <td>Row 8, Column 3</td>
+                            <td>Row 1, Column 1</td>
+                            <td>Row 1, Column 2</td>
+                            <td>Row 1, Column 3</td>
+                            <td><i class="material-icons">info</i></td>
+                            <td><button class="finish_btn">Finish</button></td>
                         </tr>
                     </tbody>
                 </table>
-            </div>
+              </div>
 		</main>
 	</div>
 </body>
