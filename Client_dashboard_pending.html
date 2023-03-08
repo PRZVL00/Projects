@@ -129,9 +129,9 @@
     }
 
     .tableFixHead {
-        margin: 1.5%;
+        margin: 0% 1.5% 1.5% 1.5%;
         overflow-y: auto; /* make the table scrollable if height is more than 200 px  */
-        height: 460px; /* gives an initial height of 200px to the table */
+        height: 410px; /* gives an initial height of 200px to the table */
         
     }
     .tableFixHead thead th {
@@ -180,19 +180,53 @@
     .start_btn:hover {
         background-color: rgb(0, 213, 0);
     }
-    .finish_btn {
-        background-color: rgb(145, 0, 0);
-        color: #fff;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-        transition: background-color 0.3s ease-in-out;
-    }
-    .finish_btn:hover {
-        background-color: red;
-    }
     .material-icons{
         color: rgb(0, 126, 251);
+    }
+    .input-container {
+        position: relative;
+        margin: 1.5%;
+        
+    }
+
+    .input-container i {
+        position: absolute;
+        left: 10px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: #999;
+    }
+
+    input[type="text"], input[type="password"] {
+        width: 15%;
+        padding: 5px 50px 5px 35px;
+        border: black;
+        border-radius: 5px;
+        background-color: #f2f2f2;
+        color: #333;
+        font-size: small;
+    }
+    .elmnt{
+        margin-left: 1.5%;
+        display: flex;
+    }
+    .elmnt i{
+        font-size: small;
+        padding-top: 3px;
+    }
+    .urgent{
+        margin-left: 1%;
+        margin-right: 2%;
+    }
+    .late{
+        margin-left: 1%;
+        margin-right: 2%;
+    }
+    .urgent_icon{
+        color: red;
+    }
+    .late_icon{
+        color: rgb(255, 162, 0);
     }
 </style>
 
@@ -243,195 +277,209 @@
 			</ul>
 		</nav>
 		<main class="content">
-            <h2>Active Tasks</h2>
+            <h2>Pending Tasks</h2>
             <div class="details">
                 <h5>Name: Sheik Josiah S. Bautista</h5>
-                <h5>Total Active Task:16</h5>
+                <h5>Total Pending Task:16</h5>
+            </div>
+            <div class="side_by_side">
+                <div class="input-container">
+                    <i class="fas fa-search"></i>
+                    <input type="text" placeholder="Task ID">   
+                </div>
+                <div class="elmnt">
+                    <i class="fa fa-circle normal_icon"></i>
+                    <p class="urgent">Normal</p>
+                    <i class="fa fa-circle urgent_icon"></i>
+                    <p class="urgent">Urgent</p>
+                    <i class="fa fa-circle late_icon"></i>
+                    <p class="late">Late</p>
+                </div>
             </div>
             <div class="tableFixHead">
                 <table>
                     <thead>
                         <tr>
+                            <th>Status</th>
                             <th>Task ID</th>
                             <th>Task Name</th>
                             <th>Category</th>
                             <th>Published By</th>
                             <th>Date Published</th>
-                            <th>Date Started</th>
                             <th>Details</th>
-                            <th>Finish</th>
+                            <th>Start</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
+                            <td><i class="fa fa-circle urgent_icon"></td>
                             <td>T-0001</td>
                             <td>Row 1, Column 2</td>
                             <td>Row 1, Column 3</td>
                             <td>Row 1, Column 1</td>
                             <td>Row 1, Column 2</td>
-                            <td>Row 1, Column 3</td>
                             <td><i class="material-icons">info</i></td>
-                            <td><button class="finish_btn">Finish</button></td>
+                            <td><button class="start_btn">Start</button></td>
                         </tr>
                         <tr>
+                            <td><i class="fa fa-circle late_icon"></td>
                             <td>T-0002</td>
                             <td>Row 2, Column 2</td>
                             <td>Row 2, Column 3</td>
                             <td>Row 1, Column 1</td>
                             <td>Row 1, Column 2</td>
-                            <td>Row 1, Column 3</td>
                             <td><i class="material-icons">info</i></td>
-                            <td><button class="finish_btn">Finish</button></td>
+                            <td><button class="start_btn">Start</button></td>
                         </tr>
                         <tr>
+                            <td><i class="fa fa-circle normal_icon"></td>
                             <td>T-0003</td>
                             <td>Row 3, Column 2</td>
                             <td>Row 3, Column 3</td>
                             <td>Row 1, Column 1</td>
                             <td>Row 1, Column 2</td>
-                            <td>Row 1, Column 3</td>
                             <td><i class="material-icons">info</i></td>
-                            <td><button class="finish_btn">Finish</button></td>
+                            <td><button class="start_btn">Start</button></td>
                         </tr>
                         <tr>
+                            <td><i class="fa fa-circle urgent_icon"></td>
                             <td>T-0004</td>
                             <td>Row 4, Column 2</td>
                             <td>Row 4, Column 3</td>
                             <td>Row 1, Column 1</td>
                             <td>Row 1, Column 2</td>
-                            <td>Row 1, Column 3</td>
                             <td><i class="material-icons">info</i></td>
-                            <td><button class="finish_btn">Finish</button></td>
+                            <td><button class="start_btn">Start</button></td>
                         </tr>
                         <tr>
+                            <td><i class="fa fa-circle late_icon"></td>
                             <td>T-0005</td>
                             <td>Row 5, Column 2</td>
                             <td>Row 5, Column 3</td>
                             <td>Row 1, Column 1</td>
                             <td>Row 1, Column 2</td>
-                            <td>Row 1, Column 3</td>
                             <td><i class="material-icons">info</i></td>
-                            <td><button class="finish_btn">Finish</button></td>
+                            <td><button class="start_btn">Start</button></td>
                         </tr>
                         <tr>
+                            <td><i class="fa fa-circle normal_icon"></td>
                             <td>T-0006</td>
                             <td>Row 6, Column 2</td>
                             <td>Row 6, Column 3</td>
                             <td>Row 1, Column 1</td>
                             <td>Row 1, Column 2</td>
-                            <td>Row 1, Column 3</td>
                             <td><i class="material-icons">info</i></td>
-                            <td><button class="finish_btn">Finish</button></td>
+                            <td><button class="start_btn">Start</button></td>
                         </tr>
                         <tr>
+                            <td><i class="fa fa-circle urgent_icon"></td>
                             <td>T-0007</td>
                             <td>Row 7, Column 2</td>
                             <td>Row 7, Column 3</td>
                             <td>Row 1, Column 1</td>
                             <td>Row 1, Column 2</td>
-                            <td>Row 1, Column 3</td>
                             <td><i class="material-icons">info</i></td>
-                            <td><button class="finish_btn">Finish</button></td>
+                            <td><button class="start_btn">Start</button></td>
                         </tr>
                         <tr>
+                            <td><i class="fa fa-circle late_icon"></td>
                             <td>T-0008</td>
                             <td>Row 8, Column 2</td>
                             <td>Row 8, Column 3</td>
-                            <td>Row 1, Column 1</td>
                             <td>Row 1, Column 2</td>
                             <td>Row 1, Column 3</td>
                             <td><i class="material-icons">info</i></td>
-                            <td><button class="finish_btn">Finish</button></td>
+                            <td><button class="start_btn">Start</button></td>
                         </tr>
                         <tr>
+                            <td><i class="fa fa-circle normal_icon"></td>
                             <td>T-0009</td>
                             <td>Row 8, Column 2</td>
                             <td>Row 8, Column 3</td>
                             <td>Row 1, Column 1</td>
                             <td>Row 1, Column 2</td>
-                            <td>Row 1, Column 3</td>
                             <td><i class="material-icons">info</i></td>
-                            <td><button class="finish_btn">Finish</button></td>
+                            <td><button class="start_btn">Start</button></td>
                         </tr>
                         <tr>
+                            <td><i class="fa fa-circle urgent_icon"></td>
                             <td>T-0010</td>
                             <td>Row 8, Column 2</td>
                             <td>Row 8, Column 3</td>
                             <td>Row 1, Column 1</td>
-                            <td>Row 1, Column 2</td>
                             <td>Row 1, Column 3</td>
                             <td><i class="material-icons">info</i></td>
-                            <td><button class="finish_btn">Finish</button></td>
+                            <td><button class="start_btn">Start</button></td>
                         </tr>
                         <tr>
+                            <td><i class="fa fa-circle late_icon"></td>
                             <td>T-0011</td>
                             <td>Row 8, Column 2</td>
                             <td>Row 8, Column 3</td>
-                            <td>Row 1, Column 1</td>
                             <td>Row 1, Column 2</td>
                             <td>Row 1, Column 3</td>
                             <td><i class="material-icons">info</i></td>
-                            <td><button class="finish_btn">Finish</button></td>
+                            <td><button class="start_btn">Start</button></td>
                         </tr>
                         <tr>
+                            <td><i class="fa fa-circle normal_icon"></td>
                             <td>T-0012</td>
                             <td>Row 8, Column 2</td>
                             <td>Row 8, Column 3</td>
                             <td>Row 1, Column 1</td>
-                            <td>Row 1, Column 2</td>
                             <td>Row 1, Column 3</td>
                             <td><i class="material-icons">info</i></td>
-                            <td><button class="finish_btn">Finish</button></td>
+                            <td><button class="start_btn">Start</button></td>
                         </tr>
                         <tr>
+                            <td><i class="fa fa-circle urgent_icon"></td>
                             <td>T-0013</td>
                             <td>Row 8, Column 2</td>
                             <td>Row 8, Column 3</td>
-                            <td>Row 1, Column 1</td>
                             <td>Row 1, Column 2</td>
                             <td>Row 1, Column 3</td>
                             <td><i class="material-icons">info</i></td>
-                            <td><button class="finish_btn">Finish</button></td>
+                            <td><button class="start_btn">Start</button></td>
                         </tr>
                         <tr>
+                            <td><i class="fa fa-circle urgent_icon"></td>
                             <td>T-0014</td>
                             <td>Row 8, Column 2</td>
                             <td>Row 8, Column 3</td>
                             <td>Row 1, Column 1</td>
-                            <td>Row 1, Column 2</td>
                             <td>Row 1, Column 3</td>
                             <td><i class="material-icons">info</i></td>
-                            <td><button class="finish_btn">Finish</button></td>
+                            <td><button class="start_btn">Start</button></td>
                         </tr>
                         <tr>
+                            <td><i class="fa fa-circle urgent_icon"></td>
                             <td>T-0015</td>
                             <td>Row 8, Column 2</td>
-                            <td>Row 8, Column 3</td>
                             <td>Row 1, Column 1</td>
                             <td>Row 1, Column 2</td>
                             <td>Row 1, Column 3</td>
                             <td><i class="material-icons">info</i></td>
-                            <td><button class="finish_btn">Finish</button></td>
+                            <td><button class="start_btn">Start</button></td>
                         </tr>
                         <tr>
+                            <td><i class="fa fa-circle urgent_icon"></td>
                             <td>T-0016</td>
                             <td>Row 8, Column 2</td>
                             <td>Row 8, Column 3</td>
-                            <td>Row 1, Column 1</td>
                             <td>Row 1, Column 2</td>
                             <td>Row 1, Column 3</td>
                             <td><i class="material-icons">info</i></td>
-                            <td><button class="finish_btn">Finish</button></td>
+                            <td><button class="start_btn">Start</button></td>
                         </tr>
                         <tr>
+                            <td><i class="fa fa-circle urgent_icon"></td>
                             <td>T-0017</td>
                             <td>Row 8, Column 2</td>
-                            <td>Row 8, Column 3</td>
                             <td>Row 1, Column 1</td>
                             <td>Row 1, Column 2</td>
                             <td>Row 1, Column 3</td>
                             <td><i class="material-icons">info</i></td>
-                            <td><button class="finish_btn">Finish</button></td>
+                            <td><button class="start_btn">Start</button></td>
                         </tr>
                     </tbody>
                 </table>
