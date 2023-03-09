@@ -192,7 +192,7 @@
     }
     .input-container {
         position: relative;
-        margin: 1.5%;
+        margin-top: 1.5%;
         
     }
 
@@ -205,7 +205,7 @@
     }
 
     input[type="text"], input[type="password"] {
-        width: 15%;
+        width: 75%;
         padding: 5px 50px 5px 35px;
         border: black;
         border-radius: 5px;
@@ -241,6 +241,27 @@
     .sign_out{
         margin-top: 20px;
     }
+    .side_by_side{
+        display: flex;
+        margin: 1.5% 3% 1.5% 1.5%;
+    }
+    .login-btn {
+        margin-left: auto;
+        margin-top: 1%;
+        width: auto;
+        height: 40px;
+        background-color: #29166F;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        font-size: 1.2rem;
+        cursor: pointer;
+        transition: background-color 0.3s ease-in-out;
+    }
+
+    .login-btn:hover {
+        background-color: #00BFFF;
+    }
 </style>
 
 <body>
@@ -271,7 +292,7 @@
 					</a>
 				</li>
                 <li>
-					<a href="file:///C:/Users/A/Desktop/PRZVL/OJT/Projects/Admin_dashboard_add_user.html">
+					<a href="file:///C:/Users/A/Desktop/PRZVL/OJT/Projects/Admin_dashboard_users.html">
 						<i class="fas fa-user-tie"></i>
 						<span>Employees</span>
 					</a>
@@ -306,6 +327,7 @@
                     <i class="fas fa-search"></i>
                     <input type="text" placeholder="Task ID">   
                 </div>
+                <a href="file:///C:/Users/A/Desktop/PRZVL/OJT/Projects/Add_user.html" class="login-btn">Add User</a>
             </div>
             <div class="tableFixHead">
                 <table>
