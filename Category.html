@@ -76,9 +76,18 @@
     a span {
         font-size: 1.2rem;
     }
+    
+    .content_1 {
+        margin: 50px auto auto auto;
+        text-align: center;
+
+        
+        
+    }
 
     .content {
-        margin: auto;
+        display: flex;
+        margin-top: 10%;
 
         
         
@@ -86,7 +95,7 @@
 
     h2 {
         color: #333;
-        margin-bottom: 20px;
+        margin-bottom: 10px;
         font-size: 2rem;
     }
 
@@ -130,7 +139,7 @@
     h2 {
         text-align: center;
         font-weight: 1000;
-        padding: 10px 10px 50px 10px;  
+        padding: 10px 10px 5px 10px;  
     }
     
     .material-icons{
@@ -159,6 +168,7 @@
         justify-content: center;
         align-items: center;
         height: auto;
+        margin-right: 10px;
       }
       
       /* style for the form */
@@ -175,7 +185,7 @@
       }
       
       /* style for the round edge input */
-      input[type=text], input[type=email], input[type=password] {
+      input[type=text], input[type=email], input[type=password], select {
         border-radius: 10px;
         border: 2px solid #ccc;
         padding: 10px;
@@ -195,13 +205,14 @@
 
       
       /* style for the active input */
-      input[type=text]:focus, input[type=email]:focus, input[type=password], input[type="file"]:focus {
+      input[type=text]:focus, input[type=email]:focus, input[type=password], input[type="file"], select:focus {
         border-color: #00BFFF;
         box-shadow: 0 0 8px 0 #00BFFF;
       }
       
       /* style for the rounded button */
       button {
+        height: auto;
         width: 50%;
         border-radius: 20px;
         padding: 10px 10px;
@@ -287,35 +298,42 @@
 				</li>
 			</ul>
 		</nav>
-		<main class="content">
-            <div class="container_2">
-                <h1>Information Sheet</h1>
-                <form>
-                  <label for="fname">First Name:</label>
-                  <input type="text" id="fname" name="fname" placeholder="Enter your first name">
+		<main class="content_1">
+            <h2>Category</h2>
+            <div class="content">
+                <div class="container_2">
+                    <h1>Add</h1>
+                    <form>
+                    <label for="ncat">New Category</label>
+                    <input type="text" id="ncat" name="ncat" placeholder="Enter category name">
 
-                  <label for="lname">Last Name:</label>
-                  <input type="text" id="lname" name="lname" placeholder="Enter your last name">
+                    <br>
+                    <div class="btn_sidebyside">
+                        <button type="button" class="cancel">Cancel</button>
+                        <button type="submit">Submit</button>
+                    </div>
+                    
+                    </form>
+                </div>
+                <div class="container_2">
+                    <h1>Delete</h1>
+                    <form>
+                    <label for="dcat">Select Category</label>
+                    <select name="" id="">
+                        <option value="sample_1">sample_1</option>
+                        <option value="sample_1">sample_1</option>
+                        <option value="sample_1">sample_1</option>
+                        <option value="sample_1">sample_1</option>
+                    </select>
 
-                  <label for="idnum">ID Number:</label>
-                  <input type="text" id="idnum" name="idnum" placeholder="Enter your ID number">
-
-                  <label for="cnum">Cellphone Number:</label>
-                  <input type="text" id="cnum" name="cnum" placeholder="Enter your cellphone number">
-                  
-                  <label for="email">Email:</label>
-                  <input type="email" id="email" name="email" placeholder="Enter your email">
-                  
-                  <label for="pic">Picture:</label>
-                  <input type="file"  accept="image/*" id="pic" name="pic" >
-                  
-                  <br>
-                  <div class="btn_sidebyside">
-                    <button type="button" class="cancel">Cancel</button>
-                    <button type="submit">Submit</button>
-                  </div>
-                  
-                </form>
+                    <br>
+                    <div class="btn_sidebyside">
+                        <button type="button" class="cancel">Cancel</button>
+                        <button type="submit">Submit</button>
+                    </div>
+                    
+                    </form>
+                </div>
             </div>
 		</main>
 	</div>

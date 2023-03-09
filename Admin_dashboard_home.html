@@ -127,7 +127,7 @@
     .tableFixHead {
         margin: 1.5%;
         overflow-y: auto; /* make the table scrollable if height is more than 200 px  */
-        height: 530px; /* gives an initial height of 200px to the table */
+        height: 500px; /* gives an initial height of 200px to the table */
         
     }
     .tableFixHead thead th {
@@ -195,7 +195,7 @@
     }
     .input-container {
         position: relative;
-        margin: 1.5%;
+        margin-top: 1.5%;
         
     }
 
@@ -215,6 +215,28 @@
         background-color: #f2f2f2;
         color: #333;
         font-size: small;
+    }
+    .side_by_side{
+        display: flex;
+        margin: 1.5% 3% 1.5% 1.5%;
+    }
+    .login-btn {
+        margin-left: auto;
+        margin-top: 1%;
+        width: auto;
+        height: 40px;
+        background-color: #29166F;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        font-size: 1.2rem;
+        cursor: pointer;
+        transition: background-color 0.3s ease-in-out;
+    }
+
+    .login-btn:hover {
+        background-color: #00BFFF;
+        color: black;
     }
 </style>
 
@@ -276,9 +298,12 @@
 		</nav>
 		<main class="content">
             <h2>Active Tasks</h2>
-            <div class="input-container">
-                <i class="fas fa-search"></i>
-                <input type="text" placeholder="Task ID">   
+            <div class="side_by_side">
+                <div class="input-container">
+                    <i class="fas fa-search"></i>
+                    <input type="text" placeholder="Task ID">   
+                </div>
+                <a href="#" class="login-btn">Report</a>
             </div>
             <div class="tableFixHead">
                 <table>
