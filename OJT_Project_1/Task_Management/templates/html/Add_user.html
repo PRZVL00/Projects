@@ -290,24 +290,25 @@
 		<main class="content">
             <div class="container_2">
                 <h1>Information Sheet</h1>
-                <form>
+                <form method="POST" enctype= multipart/form-data>
+                    {% csrf_token %}
                   <label for="fname">First Name:</label>
-                  <input type="text" id="fname" name="fname" placeholder="Enter your first name">
+                  <input type="text" id="fname" name="fname" placeholder="Enter your first name" required>
 
                   <label for="lname">Last Name:</label>
-                  <input type="text" id="lname" name="lname" placeholder="Enter your last name">
+                  <input type="text" id="lname" name="lname" placeholder="Enter your last name" required> 
 
                   <label for="idnum">ID Number:</label>
-                  <input type="text" id="idnum" name="idnum" placeholder="Enter your ID number">
+                  <input type="text" id="idnum" name="idnum" placeholder="Enter your ID number" required>
 
                   <label for="cnum">Cellphone Number:</label>
-                  <input type="text" id="cnum" name="cnum" placeholder="Enter your cellphone number">
+                  <input type="text" id="cnum" name="cnum" placeholder="Enter your cellphone number" required>
                   
                   <label for="email">Email:</label>
-                  <input type="email" id="email" name="email" placeholder="Enter your email">
+                  <input type="email" id="email" name="email" placeholder="Enter your email" required>
                   
                   <label for="pic">Picture:</label>
-                  <input type="file"  accept="image/*" id="pic" name="pic" >
+                  <input type="file"  accept="image/*" id="pic" name="pic" required>
                   
                   <br>
                   <div class="btn_sidebyside">

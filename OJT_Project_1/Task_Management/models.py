@@ -29,3 +29,21 @@ class logbook(models.Model):
     id_number = models.CharField(max_length=30)
     date_logged = models.CharField(max_length=30)
     time_logged = models.CharField(max_length=30)
+
+
+class categories(models.Model):
+    id = models.AutoField(primary_key=True, unique=True)
+    category = models.CharField(max_length=30)
+
+
+class subcategories(models.Model):
+    id = models.AutoField(primary_key=True, unique=True)
+    category = models.CharField(max_length=30)
+    subcategory = models.CharField(max_length=30)
+
+
+class steps(models.Model):
+    id = models.AutoField(primary_key=True, unique=True)
+    category = models.CharField(max_length=30)
+    subcategory = models.CharField(max_length=30)
+    details = models.TextField(max_length=1000)

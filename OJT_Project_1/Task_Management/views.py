@@ -1,6 +1,12 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 
+from django.contrib.auth.hashers import make_password
+
+from .models import *
+
+from datetime import *
+
 
 def index(request):
     return render(request, 'html/Login_Page.html')
@@ -35,10 +41,45 @@ def admin_users(request):
 
 
 def add_user(request):
+    if request.method == "POST":
+        fname = request.POST.get('fname')
+        lname = request.POST.get('lname')
+        idnum = request.POST.get('idnum')
+        cnum = request.POST.get('cnum')
+        email = request.POST.get('email')
+        pic = request.FILES['pic']
+
+        decrypted_pass = lname + '-' + idnum
+        password = make_password(decrypted_pass)
+        username = idnum
+
+        position = "Employee"
+
+        new_user = app_users.objects.create(username=username, password=password, first_name=fname, last_name=lname, email=email,
+                                            id_number=idnum, contact_number=cnum, position=position, profile_pic=pic)
+        new_user.save()
+        return redirect("add_user")
+
     return render(request, 'html/Add_user.html')
 
 
 def admin_add_task(request):
+    if request.method == "POST":
+        task_name = request.POST.get('task_name')
+        employees = request.POST.get('employees')
+        categories = request.POST.get('categories')
+        subcategories = request.POST.get('subcategories')
+        stat = request.POST.get('stat')
+        steps = request.POST.get('steps')
+
+        published_date = date.today()
+
+        new_task = tasks.objects.create(task_name=task_name, category=categories, subcategory=subcategories, details=steps,
+                                        assigned_by="SAMPLE", assigned_to=employees, date_published=published_date,
+                                        date_completed="NONE", status=stat)
+        new_task.save()
+        return redirect("admin_add_task")
+
     return render(request, 'html/Admin_dashboard_add_task.html')
 
 

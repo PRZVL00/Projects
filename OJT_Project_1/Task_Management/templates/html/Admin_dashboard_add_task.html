@@ -246,6 +246,11 @@
       .btn_sidebyside{
         display: flex;
       }
+
+      .btn_sidebyside2{
+        display: block;
+        align-items: center;
+      }
       textarea{
         border-radius: 15;
         resize: none;
@@ -310,40 +315,40 @@
 		<main class="content_1">
             <h2>New Task</h2>
             <div class="content">
-                <form>
+                <form method="POST">
+                    {% csrf_token %}
                     <div class="form_style">
-                        <label for="ncat">Task Name:</label>
-                        <input type="text" id="ncat" name="ncat" placeholder="Enter task name">
-                        <label for="dcat">Select Employee</label>
-                        <select name="" id="">
-                            <option value="sample_1">sample_1</option>
-                            <option value="sample_1">sample_1</option>
-                            <option value="sample_1">sample_1</option>
-                            <option value="sample_1">sample_1</option>
+                        <label for="task_name">Task Name:</label>
+                        <input type="text" id="task_name" name="task_name" placeholder="Enter task name" required>
+
+                        <label for="employees">Select Employee</label>
+                        <select name="employees" id="employees" required>
+                            <option value="employee_1">employee_1</option>
+                            <option value="employee_2">employee_2</option>
+                            <option value="employee_3">employee_3</option>
+                            <option value="employee_4">employee_4</option>
                         </select>
 
-                        <label for="dcat">Select Category</label>
-                        <select name="" id="">
-                            <option value="sample_1">sample_1</option>
-                            <option value="sample_1">sample_1</option>
-                            <option value="sample_1">sample_1</option>
-                            <option value="sample_1">sample_1</option>
+                        <label for="categories">Select Category</label>
+                        <select name="categories" id="categories" required>
+                            <option value="category_1">category_1</option>
+                            <option value="category_2">category_2</option>
+                            <option value="category_3">category_3</option>
+                            <option value="category_4">category_4</option>
                         </select>
 
-                        <label for="dcat">Select Subcategory</label>
-                        <select name="" id="">
-                            <option value="sample_1">sample_1</option>
-                            <option value="sample_1">sample_1</option>
-                            <option value="sample_1">sample_1</option>
-                            <option value="sample_1">sample_1</option>
+                        <label for="subcategories">Select Subcategory</label>
+                        <select name="subcategories" id="subcategories" required>
+                            <option value="subcategories_1">subcategories_1</option>
+                            <option value="subcategories_2">subcategories_2</option>
+                            <option value="subcategories_3">subcategories_3</option>
+                            <option value="subcategories_4">subcategories_4</option>
                         </select>
 
-                        <label for="dcat">Select Status</label>
-                        <select name="" id="">
-                            <option value="sample_1">sample_1</option>
-                            <option value="sample_1">sample_1</option>
-                            <option value="sample_1">sample_1</option>
-                            <option value="sample_1">sample_1</option>
+                        <label for="stat">Select Status</label>
+                        <select name="stat" id="stat" required>
+                            <option value="Normal">Normal</option>
+                            <option value="Urgent">Urgent</option>
                         </select>
 
                         <br>
@@ -354,10 +359,12 @@
                     </div>
                     
                     <div class="form_style">
-                        <textarea id="steps" name="steps" rows="18" cols="50"></textarea>
+                        <textarea style="padding-bottom: 25px;" id="steps" name="steps" rows="15.5" cols="50" required disabled></textarea>
+                        <br>
+                        <div class="btn_sidebyside2">
+                            <button type="button" class="cancel">Cancel</button>
+                        </div>
                     </div>
-                    
-                
                 </form>
                 
             </div>
