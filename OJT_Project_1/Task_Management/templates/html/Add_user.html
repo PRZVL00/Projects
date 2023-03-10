@@ -242,37 +242,36 @@
 			<ul>
                 <img class="profile_pic" src="1x1x1.jpg" alt="">
 				<li>
-					<a href="file:///C:/Users/A/Desktop/PRZVL/OJT/Projects/Admin_dashboard_home.html">
+					<a href="{% url 'admin_home' %}">
 						<i class="fas fa-home"></i>
 						<span>Home</span>
 					</a>
 				</li>
 				<li>
-					<a href="file:///C:/Users/A/Desktop/PRZVL/OJT/Projects/Admin_dashboard_pending.html">
+					<a href="{% url 'admin_pending' %}">
 						<i class="fa fa-hourglass-half"></i>
 						<span>Pending Task</span>
 					</a>
 				</li>
 				<li>
-					<a href="file:///C:/Users/A/Desktop/PRZVL/OJT/Projects/Admin_dashboard_complete.html">
+					<a href="{% url 'admin_complete' %}">
 						<i class="fa fa-check-circle"></i>
 						<span>Complete Task</span>
 					</a>
 				</li>
-                <li>
-					<a href="file:///C:/Users/A/Desktop/PRZVL/OJT/Projects/Admin_dashboard_users.html">
-						<i class="fas fa-user-tie"></i>
+                    <a href="{% url 'admin_users' %}">
+                        <i class="fas fa-user-tie"></i>
 						<span>Employees</span>
 					</a>
 				</li>
                 <li>
-					<a href="file:///C:/Users/A/Desktop/PRZVL/OJT/Projects/Admin_dashboard_add_task.html">
+					<a href="{% url 'admin_add_task' %}">
 						<i class="fas fa-tasks"></i>
 						<span>Add Task</span>
 					</a>
 				</li>
                 <li>
-					<a href="file:///C:/Users/A/Desktop/PRZVL/OJT/Projects/Admin_dashboard_edit.html">
+					<a href="{% url 'admin_edit' %}">
 						<i class="fas fa-edit"></i>
 						<span>Edit</span>
 					</a>

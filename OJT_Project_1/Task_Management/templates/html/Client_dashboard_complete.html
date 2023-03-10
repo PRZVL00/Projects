@@ -237,19 +237,19 @@
 			<ul>
                 <img class="profile_pic" src="1x1x1.jpg" alt="">
 				<li>
-					<a href="file:///C:/Users/A/Desktop/PRZVL/OJT/Projects/Client_dashboard_home.html">
+					<a href="{% url 'client_home' %}">
 						<i class="fas fa-home"></i>
 						<span>Home</span>
 					</a>
 				</li>
 				<li>
-					<a href="file:///C:/Users/A/Desktop/PRZVL/OJT/Projects/Client_dashboard_pending.html">
+					<a href="{% url 'client_pending' %}">
 						<i class="fa fa-hourglass-half"></i>
 						<span>Pending Task</span>
 					</a>
 				</li>
 				<li>
-					<a href="file:///C:/Users/A/Desktop/PRZVL/OJT/Projects/Client_dashboard_complete.html">
+					<a href="{% url 'client_complete' %}">
 						<i class="fa fa-check-circle"></i>
 						<span>Complete Task</span>
 					</a>
