@@ -84,7 +84,7 @@ DATABASES = {
         'NAME': 'rsb_task_management',
         'PORT': '3306',
         'USER': 'RSB_admin',
-        'PASSWORD': 'RSBarletas',
+        'PASSWORD': 'RSBarleta',
         'HOST': 'localhost'
     }
 }
@@ -135,3 +135,4 @@ MEDIA_URL = '/media/'
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+AUTH_USER_MODEL = 'Task_Management.app_users'
