@@ -88,14 +88,71 @@ def admin_edit(request):
 
 
 def category(request):
-    return render(request, 'html/Category.html')
+    if request.method == "POST":
+        if 'form1' in request.POST:
+            ncat = request.POST.get('ncat')
+
+            new_category = categories.objects.create(category=ncat.upper())
+            new_category.save()
+            return redirect("category")
+
+        else:
+            dcat = request.POST.get('dcat')
+
+            selected_category = categories.objects.get(category=dcat)
+            selected_category.delete()
+            return redirect('category')
+
+    category_list = categories.objects.all()
+    context = {"category_list": category_list}
+    return render(request, 'html/Category.html', context)
 
 
 def subcategory(request):
-    return render(request, 'html/Subcategory.html')
+    if request.method == "POST":
+        if 'form1' in request.POST:
+            cat_add = request.POST.get('cat_add')
+            nsubcat = request.POST.get('nsubcat')
+
+            new_subcategory = subcategories.objects.create(
+                category=cat_add, subcategory=nsubcat.upper())
+            new_subcategory.save()
+            return redirect("subcategory")
+
+        else:
+            cat_del = request.POST.get('cat_del')
+            dsubcat = request.POST.get('dsubcat')
+
+            selected_subcategory = subcategories.objects.get(
+                category=cat_del, subcategory=dsubcat)
+            selected_subcategory.delete()
+            return redirect('subcategory')
+
+    category_list = categories.objects.all()
+    context = {"category_list": category_list}
+    subcategory_list = subcategories.objects.all()
+    context = {"category_list": category_list,
+               "subcategory_list": subcategory_list}
+    return render(request, 'html/Subcategory.html', context)
 
 
 def steps(request):
     return render(request, 'html/Steps.html')
 
 # Create your views here.
+
+
+# for 2 forms submital
+# def submit_form(request):
+#     if request.method == 'POST':
+#         if 'form1' in request.POST:
+#             # process form1 data
+#             # ...
+#             return redirect('form1_success')
+#         else:
+#             # process form2 data
+#             # ...
+#             return redirect('form2_success')
+
+#     # render the initial form page
+#     return render(request, 'mytemplate.html')

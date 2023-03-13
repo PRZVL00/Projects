@@ -303,33 +303,35 @@
             <div class="content">
                 <div class="container_2">
                     <h1>Add</h1>
-                    <form>
+                    <form method="POST">
+                        {% csrf_token %}
                     <label for="ncat">New Category</label>
-                    <input type="text" id="ncat" name="ncat" placeholder="Enter category name">
+                    <input type="text" id="ncat" name="ncat" placeholder="Enter category name" required>
 
                     <br>
                     <div class="btn_sidebyside">
                         <button type="button" class="cancel">Cancel</button>
-                        <button type="submit">Submit</button>
+                        <button type="submit" name="form1" id="form1">Submit</button>
                     </div>
                     
                     </form>
                 </div>
                 <div class="container_2">
                     <h1>Delete</h1>
-                    <form>
+                    <form method="POST">
+                        {% csrf_token %}
                     <label for="dcat">Select Category</label>
-                    <select name="" id="">
-                        <option value="sample_1">sample_1</option>
-                        <option value="sample_1">sample_1</option>
-                        <option value="sample_1">sample_1</option>
-                        <option value="sample_1">sample_1</option>
+                    <select name="dcat" id="dcat" required>
+                        <option value="" disabled selected>Select your option</option>
+                    {% for category in category_list %}
+                        <option value="{{category.category}}">{{category.category}}</option>
+                    {% endfor %}
                     </select>
 
                     <br>
                     <div class="btn_sidebyside">
                         <button type="button" class="cancel">Cancel</button>
-                        <button type="submit">Submit</button>
+                        <button type="submit" name="form2" id="form2">Submit</button>
                     </div>
                     
                     </form>
