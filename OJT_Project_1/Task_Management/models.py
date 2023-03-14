@@ -42,7 +42,7 @@ class subcategories(models.Model):
     subcategory = models.CharField(max_length=30)
 
 
-class steps(models.Model):
+class detail(models.Model):
     id = models.AutoField(primary_key=True, unique=True)
     category = models.CharField(max_length=30)
     subcategory = models.CharField(max_length=30)

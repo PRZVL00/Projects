@@ -241,6 +241,15 @@
       .btn_sidebyside{
         display: flex;
       }
+      textarea:disabled {
+        background-color: #ffffff; /* Change the background color */
+        color: #000000; /* Change the text color */
+      }
+      textarea {
+        resize: none;
+      }
+
+
 </style>
 
 <body>
@@ -303,57 +312,72 @@
             <div class="content">
                 <div class="container_2">
                     <h1>Add</h1>
-                    <form>
-                        <label for="dcat">Select Category</label>
-                        <select name="" id="">
-                            <option value="sample_1">sample_1</option>
-                            <option value="sample_1">sample_1</option>
-                            <option value="sample_1">sample_1</option>
-                            <option value="sample_1">sample_1</option>
+                    <form method="POST">
+                        {% csrf_token %}
+                        <label for="cat_to_add">Select Category</label>
+                        <select name="cat_to_add" id="cat_to_add" onchange="filter_sub()" required>
+                            <option value="" disabled selected>Select your option</option>
+                            {% for category in category_list %}
+                            <option value="{{category.category}}">{{category.category}}</option>
+                            {% endfor %}
                         </select>
 
-                        <label for="dcat">Select Subcategory</label>
-                        <select name="" id="">
-                            <option value="sample_1">sample_1</option>
-                            <option value="sample_1">sample_1</option>
-                            <option value="sample_1">sample_1</option>
-                            <option value="sample_1">sample_1</option>
+                        <label for="sub_to_add">Select Subcategory</label>
+                        <select name="sub_to_add" id="sub_to_add" required>
+                            <option value="" disabled selected>Select your option</option>
+                            {% for subcategory in subcategory_list %}
+                            <option style="display: none;" value="{{subcategory.subcategory}}" class="{{subcategory.category}}">{{subcategory.subcategory}}</option>
+                            {% endfor %}
                         </select>
 
-                        <textarea id="steps" name="steps" rows="8" cols="50"></textarea>
+                        {% for subcategory in subcategory_list %}
+                        <input type="text" class="cat_of_sub" value="{{subcategory.category}}" hidden>
+                        {% endfor %}
+
+                        <textarea id="new_details" name="new_details" rows="8" cols="50" placeholder="Enter default details here." required></textarea>
 
                         <br>
                         <div class="btn_sidebyside">
                             <button type="button" class="cancel">Cancel</button>
-                            <button type="submit">Submit</button>
+                            <button type="submit" name="form1" id="form1">Submit</button>
                         </div>
                     </form>
                 </div>
                 <div class="container_2">
                     <h1>Delete</h1>
-                    <form>
-                        <label for="dcat">Select Category</label>
-                        <select name="" id="">
-                            <option value="sample_1">sample_1</option>
-                            <option value="sample_1">sample_1</option>
-                            <option value="sample_1">sample_1</option>
-                            <option value="sample_1">sample_1</option>
+                    <form method="POST">
+                        {% csrf_token %}
+                        <label for="cat_to_del">Select Category</label>
+                        <select name="cat_to_del" id="cat_to_del" onchange="filter_sub_2()" required>
+                            <option value="" disabled selected>Select your option</option>
+                            {% for category in category_list %}
+                            <option value="{{category.category}}">{{category.category}}</option>
+                            {% endfor %}
                         </select>
 
-                        <label for="dcat">Select Subcategory</label>
-                        <select name="" id="">
-                            <option value="sample_1">sample_1</option>
-                            <option value="sample_1">sample_1</option>
-                            <option value="sample_1">sample_1</option>
-                            <option value="sample_1">sample_1</option>
+                        <label for="sub_to_del">Select Subcategory</label>
+                        <select name="sub_to_del" id="sub_to_del" onchange="filter_sub_2_a()" required>
+                            <option value="" disabled selected>Select your option</option>
+                            {% for detail in details_list %}
+                            <option style="display: none;" value="{{detail.subcategory}}" class="{{detail.category}}_2">{{detail.subcategory}}</option>
+                            {% endfor %}
                         </select>
 
-                        <textarea id="steps" name="steps" rows="8" cols="50" disabled></textarea>
+                        {% for subcategory in subcategory_list %}
+                        <input type="text" class="cat_of_sub_2" value="{{subcategory.category}}" hidden>
+                        {% endfor %}
+
+                        <textarea id="steps" name="steps" rows="8" cols="50" placeholder="Details will show here"disabled></textarea>
+
+                        {% for detail in details_list %}
+                        <textarea style="display: none;" class='{{detail.subcategory}}' id="{{detail.subcategory}}" name="new_details" rows="8" cols="50" disabled>{{detail.details}}</textarea>
+                        <input type="text" class="subcat_of_details" value="{{detail.subcategory}}" hidden>
+                        {% endfor %}
 
                         <br>
                         <div class="btn_sidebyside">
                             <button type="button" class="cancel">Cancel</button>
-                            <button type="submit">Submit</button>
+                            <button type="submit" name="form2" id="form2">Submit</button>
                         </div>
                     </form>
                 </div>
@@ -376,7 +400,7 @@
                             <option value="sample_1">sample_1</option>
                         </select>
 
-                        <textarea id="steps" name="steps" rows="8" cols="50"></textarea>
+                        <textarea id="step" name="step" rows="8" cols="50"></textarea>
 
                         <br>
                         <div class="btn_sidebyside">
@@ -389,4 +413,120 @@
 		</main>
 	</div>
 </body>
+<script>
+    function filter_sub(){
+        hiding_function()
+        const chosen_category = document.getElementById("cat_to_add").value;
+        const inputs = document.getElementsByClassName("cat_of_sub");
+        const values = [];
+
+        for (let i = 0; i < inputs.length; i++) {
+            const value = inputs[i].value;
+            if (!values.includes(value)) {
+            values.push(value);
+            }
+        }
+
+        if (values.includes(chosen_category)) {
+            var option_list = document.getElementsByClassName(chosen_category)
+            for (var i = 0; i < option_list.length; i++) {
+                option_list[i].style.display = "block";
+            }
+        } else {
+        console.log('Element not found in array');
+        }
+    }
+
+    function hiding_function (){
+        const inputs = document.getElementsByClassName("cat_of_sub");
+        const values = [];
+
+        for (let i = 0; i < inputs.length; i++) {
+            const value = inputs[i].value;
+            if (!values.includes(value)) {
+            values.push(value);
+            }
+        }
+
+        for (let e = 0; e < values.length; e++) {
+            var items_hide = document.getElementsByClassName(values[e])
+            for (var o = 0; o < items_hide.length; o++) {
+                items_hide[o].style.display = "none";
+            }
+        }
+    }
+
+    function filter_sub_2(){
+        hiding_function_2()
+        const chosen_category = document.getElementById("cat_to_del").value;
+        const inputs = document.getElementsByClassName("cat_of_sub_2");
+        const values = [];
+
+        for (let i = 0; i < inputs.length; i++) {
+            const value = inputs[i].value;
+            if (!values.includes(value)) {
+            values.push(value);
+            }
+        }
+
+        if (values.includes(chosen_category)) {
+            var option_list = document.getElementsByClassName(chosen_category + '_2')
+            for (var i = 0; i < option_list.length; i++) {
+                option_list[i].style.display = "block";
+            }
+        } else {
+        console.log('Element not found in array');
+        }
+    }
+
+    function hiding_function_2(){
+        const inputs = document.getElementsByClassName("cat_of_sub_2");
+        const values = [];
+
+        for (let i = 0; i < inputs.length; i++) {
+            const value = inputs[i].value;
+            if (!values.includes(value)) {
+            values.push(value);
+            }
+        }
+
+        for (let e = 0; e < values.length; e++) {
+            var items_hide = document.getElementsByClassName(values[e] + '_2')
+            for (var o = 0; o < items_hide.length; o++) {
+                items_hide[o].style.display = "none";
+            }
+        }
+    }
+    function filter_sub_2_a(){
+        hiding_function_2_a()
+        const chosen_subcategory = document.getElementById("sub_to_del").value;
+        const detail_to_display = document.getElementById(chosen_subcategory);
+        const hide_default = document.getElementById('steps');
+
+        hide_default.diabled = false;
+        hide_default.style.display = "none";
+        hide_default.diabled = true;
+        detail_to_display.style.display = "block"
+        
+    }
+    function hiding_function_2_a(){
+        const inputs = document.getElementsByClassName("subcat_of_details");
+        const values = [];
+
+        for (let i = 0; i < inputs.length; i++) {
+            const value = inputs[i].value;
+            if (!values.includes(value)) {
+            values.push(value);
+            }
+        }
+
+        for (let e = 0; e < values.length; e++) {
+            var items_hide = document.getElementsByClassName(values[e])
+            for (var o = 0; o < items_hide.length; o++) {
+                items_hide[o].style.display = "none";
+            }
+        }
+        
+    }
+</script>
 </html>

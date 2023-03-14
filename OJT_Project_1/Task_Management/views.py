@@ -137,22 +137,29 @@ def subcategory(request):
 
 
 def steps(request):
-    return render(request, 'html/Steps.html')
+    if request.method == "POST":
+        if 'form1' in request.POST:
+            cat_to_add = request.POST.get('cat_to_add')
+            sub_to_add = request.POST.get('sub_to_add')
+            new_details = request.POST.get('new_details')
 
-# Create your views here.
+            new_step = detail.objects.create(
+                category=cat_to_add, subcategory=sub_to_add, details=new_details)
+            new_step.save()
+            return redirect("steps")
 
+        elif 'form2' in request.POST:
+            detail_to_del = request.POST.get('sub_to_del')
 
-# for 2 forms submital
-# def submit_form(request):
-#     if request.method == 'POST':
-#         if 'form1' in request.POST:
-#             # process form1 data
-#             # ...
-#             return redirect('form1_success')
-#         else:
-#             # process form2 data
-#             # ...
-#             return redirect('form2_success')
+            selected_detail = detail.objects.get(
+                subcategory=detail_to_del)
+            selected_detail.delete()
+            return redirect('steps')
 
-#     # render the initial form page
-#     return render(request, 'mytemplate.html')
+    category_list = categories.objects.all()
+    subcategory_list = subcategories.objects.all()
+    details_list = detail.objects.all()
+    context = {"category_list": category_list,
+               "subcategory_list": subcategory_list,
+               "details_list": details_list}
+    return render(request, 'html/Steps.html', context)
