@@ -308,11 +308,9 @@
                         <label for="cat_add">Select Category</label>
                         <select name="cat_add" id="cat_add" required>
                             <option value="" disabled selected>Select your option</option>
-                            <option value="1st Category">1st Category</option>
-                            <option value="2nd Category">2nd Category</option>
-                            <option value="3rd Category">3rd Category</option>
-                            <option value="4th Category">4th Category</option>
-                            <option value="5th Category">5th Category</option>
+                            {% for category in category_list %}
+                            <option value="{{category.category}}">{{category.category}}</option>
+                            {% endfor %}
                         </select>
 
                         <label for="nsubcat">New Subcategory</label>
@@ -333,20 +331,22 @@
                         <label for="cat_del">Select Category</label>
                         <select name="cat_del" id="cat_del" onchange="filter_sub()" required>
                             <option value="" disabled selected>Select your option</option>
-                            <option value="1st Category">1st Category</option>
-                            <option value="2nd Category">2nd Category</option>
-                            <option value="3rd Category">3rd Category</option>
-                            <option value="4th Category">4th Category</option>
-                            <option value="5th Category">5th Category</option>
+                            {% for category in category_list %}
+                            <option value="{{category.category}}">{{category.category}}</option>
+                            {% endfor %}
                         </select>
                         
                         <label for="dsubcat">Select Subcategory</label>
                         <select name="dsubcat" id="dsubcat" required>
                             <option value="" disabled selected>Select your option</option>
                         {% for subcategory in subcategory_list %}
-                            <option value="{{subcategory.subcategory}}" class="{{subcategory.category}}">{{subcategory.subcategory}}</option>
+                            <option style="display: none;" value="{{subcategory.subcategory}}" class="{{subcategory.category}}">{{subcategory.subcategory}}</option>
                         {% endfor %}
                         </select>
+
+                        {% for subcategory in subcategory_list %}
+                        <input type="text" class="cat_of_sub" value="{{subcategory.category}}" hidden>
+                        {% endfor %}
 
                         <br>
                         <div class="btn_sidebyside">
@@ -361,80 +361,94 @@
 </body>
 <script>
     function filter_sub(){
-        var chosen_category = document.getElementById("cat_del")
-        var chosen_subcategory = document.getElementById("dsubcat")
-        const option_list_1 = document.getElementsByClassName("1st Category")
-        const option_list_2 = document.getElementsByClassName("2nd Category")
-        const option_list_3 = document.getElementsByClassName("3rd Category")
-        const option_list_4 = document.getElementsByClassName("4th Category")
-        const option_list_5 = document.getElementsByClassName("5th Category")
-        
-        if (chosen_category.value == "1st Category"){
-            hiding_function()
-            for (var i = 0; i < option_list_1.length; i++) {
-                option_list_1[i].style.display = "block";
-            }
-            chosen_subcategory.selectedIndex = "0"
+        hiding_function()
 
-        }else if (chosen_category.value == "2nd Category"){
-            hiding_function()
-            for (var i = 0; i < option_list_2.length; i++) {
-                option_list_2[i].style.display = "block";
+        // JavaScript code to get the value of input elements with the "my-input" class and append them to an array, removing any repeated values
+        const chosen_category = document.getElementById("cat_del").value;
+        const inputs = document.getElementsByClassName("cat_of_sub");
+        const values = [];
+
+        for (let i = 0; i < inputs.length; i++) {
+            const value = inputs[i].value;
+            if (!values.includes(value)) {
+            values.push(value);
             }
-            chosen_subcategory.selectedIndex = "0"
-            
-        }else if (chosen_category.value == "3rd Category"){
-            hiding_function()
-            for (var i = 0; i < option_list_3.length; i++) {
-                option_list_3[i].style.display = "block";
+        }
+
+        if (values.includes(chosen_category)) {
+            var option_list = document.getElementsByClassName(chosen_category)
+            for (var i = 0; i < option_list.length; i++) {
+                option_list[i].style.display = "block";
             }
-            chosen_subcategory.selectedIndex = "0"
-            
-        }else if (chosen_category.value == "4th Category"){
-            hiding_function()
-            for (var i = 0; i < option_list_4.length; i++) {
-                option_list_4[i].style.display = "block";
-            }
-            chosen_subcategory.selectedIndex = "0"
-            
-        }else if (chosen_category.value == "5th Category"){
-            hiding_function()
-            for (var i = 0; i < option_list_5.length; i++) {
-                option_list_5[i].style.display = "block";
-            }
-            chosen_subcategory.selectedIndex = "0"
-            
+
+        } else {
+        console.log('Element not found in array');
         }
     }
-    function hiding_function (){
-        var chosen_category = document.getElementById("cat_del")
-        const option_list_1 = document.getElementsByClassName("1st Category")
-        const option_list_2 = document.getElementsByClassName("2nd Category")
-        const option_list_3 = document.getElementsByClassName("3rd Category")
-        const option_list_4 = document.getElementsByClassName("4th Category")
-        const option_list_5 = document.getElementsByClassName("5th Category")
+
+
+        // 
+        // var chosen_subcategory = document.getElementById("dsubcat")
+        // const option_list_1 = document.getElementsByClassName("1st Category")
+        // const option_list_2 = document.getElementsByClassName("2nd Category")
+        // const option_list_3 = document.getElementsByClassName("3rd Category")
+        // const option_list_4 = document.getElementsByClassName("4th Category")
+        // const option_list_5 = document.getElementsByClassName("5th Category")
         
-       
-        for (var i = 0; i < option_list_1.length; i++) {
-            option_list_1[i].style.display = "none";
+        // if (chosen_category.value == "1st Category"){
+        //     hiding_function()
+        //     for (var i = 0; i < option_list_1.length; i++) {
+        //         option_list_1[i].style.display = "block";
+        //     }
+        //     chosen_subcategory.selectedIndex = "0"
+
+        // }else if (chosen_category.value == "2nd Category"){
+        //     hiding_function()
+        //     for (var i = 0; i < option_list_2.length; i++) {
+        //         option_list_2[i].style.display = "block";
+        //     }
+        //     chosen_subcategory.selectedIndex = "0"
+            
+        // }else if (chosen_category.value == "3rd Category"){
+        //     hiding_function()
+        //     for (var i = 0; i < option_list_3.length; i++) {
+        //         option_list_3[i].style.display = "block";
+        //     }
+        //     chosen_subcategory.selectedIndex = "0"
+            
+        // }else if (chosen_category.value == "4th Category"){
+        //     hiding_function()
+        //     for (var i = 0; i < option_list_4.length; i++) {
+        //         option_list_4[i].style.display = "block";
+        //     }
+        //     chosen_subcategory.selectedIndex = "0"
+            
+        // }else if (chosen_category.value == "5th Category"){
+        //     hiding_function()
+        //     for (var i = 0; i < option_list_5.length; i++) {
+        //         option_list_5[i].style.display = "block";
+        //     }
+        //     chosen_subcategory.selectedIndex = "0"
+            
+        // }
+    function hiding_function (){
+
+        const inputs = document.getElementsByClassName("cat_of_sub");
+        const values = [];
+
+        for (let i = 0; i < inputs.length; i++) {
+            const value = inputs[i].value;
+            if (!values.includes(value)) {
+            values.push(value);
+            }
         }
 
-        for (var i = 0; i < option_list_2.length; i++) {
-            option_list_2[i].style.display = "none";
+        for (let e = 0; e < values.length; e++) {
+            var items_hide = document.getElementsByClassName(values[e])
+            for (var o = 0; o < items_hide.length; o++) {
+                items_hide[o].style.display = "none";
+            }
         }
-
-        for (var i = 0; i < option_list_3.length; i++) {
-            option_list_3[i].style.display = "none";
-        }
-
-        for (var i = 0; i < option_list_4.length; i++) {
-            option_list_4[i].style.display = "none";
-        }
-
-        for (var i = 0; i < option_list_5.length; i++) {
-            option_list_5[i].style.display = "none";
-        }
-
     }
 
     
