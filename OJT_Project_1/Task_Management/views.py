@@ -156,6 +156,16 @@ def steps(request):
             selected_detail.delete()
             return redirect('steps')
 
+        elif 'form3' in request.POST:
+            detail_to_up = request.POST.get('sub_to_up')
+            new_details = request.POST.get('new_details')
+
+            selected_detail = detail.objects.get(
+                subcategory=detail_to_up)
+            selected_detail.details = new_details
+            selected_detail.save()
+            return redirect('steps')
+
     category_list = categories.objects.all()
     subcategory_list = subcategories.objects.all()
     details_list = detail.objects.all()

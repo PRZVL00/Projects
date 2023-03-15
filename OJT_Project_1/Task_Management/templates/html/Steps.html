@@ -343,6 +343,7 @@
                         </div>
                     </form>
                 </div>
+<!-- ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
                 <div class="container_2">
                     <h1>Delete</h1>
                     <form method="POST">
@@ -381,31 +382,42 @@
                         </div>
                     </form>
                 </div>
+<!-- ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
                 <div class="container_2">
                     <h1>Edit</h1>
-                    <form>
-                        <label for="dcat">Select Category</label>
-                        <select name="" id="">
-                            <option value="sample_1">sample_1</option>
-                            <option value="sample_1">sample_1</option>
-                            <option value="sample_1">sample_1</option>
-                            <option value="sample_1">sample_1</option>
+                    <form method="POST">
+                        {% csrf_token %}
+                        <label for="cat_to_up">Select Category</label>
+                        <select name="cat_to_up" id="cat_to_up" onchange="filter_sub_3()" required>
+                            <option value="" disabled selected>Select your option</option>
+                            {% for category in category_list %}
+                            <option value="{{category.category}}">{{category.category}}</option>
+                            {% endfor %}
                         </select>
 
-                        <label for="dcat">Select Subcategory</label>
-                        <select name="" id="">
-                            <option value="sample_1">sample_1</option>
-                            <option value="sample_1">sample_1</option>
-                            <option value="sample_1">sample_1</option>
-                            <option value="sample_1">sample_1</option>
+                        <label for="sub_to_up">Select Subcategory</label>
+                        <select name="sub_to_up" id="sub_to_up" onchange="filter_sub_3_a()" required>
+                            <option value="" disabled selected>Select your option</option>
+                            {% for detail in details_list %}
+                            <option style="display: none;" value="{{detail.subcategory}}" class="{{detail.category}}_3">{{detail.subcategory}}</option>
+                            {% endfor %}
                         </select>
 
-                        <textarea id="step" name="step" rows="8" cols="50"></textarea>
+                        {% for subcategory in subcategory_list %}
+                        <input type="text" class="cat_of_sub_3" value="{{subcategory.category}}" hidden>
+                        {% endfor %}
+
+                        <textarea id="steps_2" name="steps_2" rows="8" cols="50" placeholder="Details will show here"disabled></textarea>
+
+                        {% for detail in details_list %}
+                        <textarea style="display: none;" class='{{detail.subcategory}}_3' id="{{detail.subcategory}}_3" name="new_details" rows="8" cols="50" >{{detail.details}}</textarea>
+                        <input type="text" class="subcat_of_details_2" value="{{detail.subcategory}}" hidden>
+                        {% endfor %}
 
                         <br>
                         <div class="btn_sidebyside">
                             <button type="button" class="cancel">Cancel</button>
-                            <button type="submit">Submit</button>
+                            <button type="submit" name="form3" id="form3">Submit</button>
                         </div>
                     </form>
                 </div>
@@ -418,7 +430,10 @@
         hiding_function()
         const chosen_category = document.getElementById("cat_to_add").value;
         const inputs = document.getElementsByClassName("cat_of_sub");
+        const chosen_subcategory = document.getElementById("sub_to_add");
+
         const values = [];
+        chosen_subcategory.selectedIndex = "0"
 
         for (let i = 0; i < inputs.length; i++) {
             const value = inputs[i].value;
@@ -456,16 +471,22 @@
         }
     }
 
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
     function filter_sub_2(){
         hiding_function_2()
         const chosen_category = document.getElementById("cat_to_del").value;
         const inputs = document.getElementsByClassName("cat_of_sub_2");
+        const chosen_subcategory = document.getElementById("sub_to_del");
         const values = [];
+
+        chosen_subcategory.selectedIndex = "0"
 
         for (let i = 0; i < inputs.length; i++) {
             const value = inputs[i].value;
             if (!values.includes(value)) {
             values.push(value);
+
             }
         }
 
@@ -477,6 +498,7 @@
         } else {
         console.log('Element not found in array');
         }
+        hiding_function_2_a()
     }
 
     function hiding_function_2(){
@@ -511,7 +533,12 @@
     }
     function hiding_function_2_a(){
         const inputs = document.getElementsByClassName("subcat_of_details");
+        const hide_default = document.getElementById('steps');
         const values = [];
+
+        hide_default.diabled = false;
+        hide_default.style.display = "block";
+        hide_default.diabled = true;
 
         for (let i = 0; i < inputs.length; i++) {
             const value = inputs[i].value;
@@ -526,7 +553,92 @@
                 items_hide[o].style.display = "none";
             }
         }
-        
+
     }
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    function filter_sub_3(){
+        hiding_function_3()
+        const chosen_category = document.getElementById("cat_to_up").value;
+        const inputs = document.getElementsByClassName("cat_of_sub_2");
+        const chosen_subcategory = document.getElementById("sub_to_up");
+        const values = [];
+
+        chosen_subcategory.selectedIndex = "0"
+
+        for (let i = 0; i < inputs.length; i++) {
+            const value = inputs[i].value;
+            if (!values.includes(value)) {
+            values.push(value);
+            }
+        }
+
+        if (values.includes(chosen_category)) {
+            var option_list = document.getElementsByClassName(chosen_category + '_3')
+            for (var i = 0; i < option_list.length; i++) {
+                option_list[i].style.display = "block";
+            }
+        } else {
+        console.log('Element not found in array');
+        }
+
+        hiding_function_3_a()
+    }
+
+    function hiding_function_3(){
+        const inputs = document.getElementsByClassName("cat_of_sub_3");
+        const values = [];
+
+        for (let i = 0; i < inputs.length; i++) {
+            const value = inputs[i].value;
+            if (!values.includes(value)) {
+            values.push(value);
+            }
+        }
+
+        for (let e = 0; e < values.length; e++) {
+            var items_hide = document.getElementsByClassName(values[e] + '_3')
+            for (var o = 0; o < items_hide.length; o++) {
+                items_hide[o].style.display = "none";
+            }
+        }
+    }
+    function filter_sub_3_a(){
+        hiding_function_3_a()
+        const chosen_subcategory = document.getElementById("sub_to_up").value;
+        const detail_to_display = document.getElementById(chosen_subcategory + "_3");
+        const hide_default = document.getElementById('steps_2');
+        
+
+        hide_default.diabled = false;
+        hide_default.style.display = "none";
+        hide_default.diabled = true;
+        detail_to_display.style.display = "block"
+    }
+    function hiding_function_3_a(){
+        const inputs = document.getElementsByClassName("subcat_of_details_2");
+        const hide_default = document.getElementById('steps_2');
+        const values = [];
+
+        hide_default.diabled = false;
+        hide_default.style.display = "block";
+        hide_default.diabled = true;
+
+        for (let i = 0; i < inputs.length; i++) {
+            const value = inputs[i].value;
+            if (!values.includes(value)) {
+            values.push(value);
+            }
+        }
+
+        for (let e = 0; e < values.length; e++) {
+            var items_hide = document.getElementsByClassName(values[e] + "_3")
+            for (var o = 0; o < items_hide.length; o++) {
+                items_hide[o].style.display = "none";
+            }
+        }
+
+    }
+
 </script>
 </html>
