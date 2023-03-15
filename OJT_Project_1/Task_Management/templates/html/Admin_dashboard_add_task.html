@@ -255,6 +255,10 @@
         border-radius: 15;
         resize: none;
       }
+      textarea:disabled {
+        background-color: #ffffff; /* Change the background color */
+        color: #000000; /* Change the text color */
+      }
 </style>
 
 <body>
@@ -315,7 +319,7 @@
 		<main class="content_1">
             <h2>New Task</h2>
             <div class="content">
-                <form method="POST">
+                <form method="POST" id="myForm">
                     {% csrf_token %}
                     <div class="form_style">
                         <label for="task_name">Task Name:</label>
@@ -323,27 +327,35 @@
 
                         <label for="employees">Select Employee</label>
                         <select name="employees" id="employees" required>
-                            <option value="employee_1">employee_1</option>
-                            <option value="employee_2">employee_2</option>
-                            <option value="employee_3">employee_3</option>
-                            <option value="employee_4">employee_4</option>
+                            <option value="" disabled selected>Select an Employee</option>
+                            {% for employee in employee_list %}
+                            <option value="{{employee.first_name}} {{employee.last_name}}">{{employee.first_name}} {{employee.last_name}}</option>
+                            {% endfor %}
                         </select>
 
                         <label for="categories">Select Category</label>
-                        <select name="categories" id="categories" required>
-                            <option value="category_1">category_1</option>
-                            <option value="category_2">category_2</option>
-                            <option value="category_3">category_3</option>
-                            <option value="category_4">category_4</option>
+                        <select name="categories" id="categories" onchange="filter_sub()" required>
+                            <option value="" disabled selected>Select a Category</option>
+                            {% for category in category_list %}
+                            <option value="{{category.category}}">{{category.category}}</option>
+                            {% endfor %}
                         </select>
 
                         <label for="subcategories">Select Subcategory</label>
-                        <select name="subcategories" id="subcategories" required>
-                            <option value="subcategories_1">subcategories_1</option>
-                            <option value="subcategories_2">subcategories_2</option>
-                            <option value="subcategories_3">subcategories_3</option>
-                            <option value="subcategories_4">subcategories_4</option>
+                        <select name="subcategories" id="subcategories" onchange="filter_details()" required>
+                            <option value="" disabled selected>Select a Subcategory</option>
+                            {% for subcategory in subcategory_list %}
+                                {% for details in details_list %}
+                                    {% if subcategory.subcategory == details.subcategory %}
+                                        <option value="{{subcategory.subcategory}}" class="{{subcategory.category}}">{{subcategory.subcategory}}</option>
+                                    {% endif %}
+                                {% endfor %}
+                            {% endfor %}
                         </select>
+
+                        {% for subcategory in subcategory_list %}
+                        <input class="cat_of_sub" value="{{subcategory.category}}" hidden>
+                        {% endfor %}
 
                         <label for="stat">Select Status</label>
                         <select name="stat" id="stat" required>
@@ -354,12 +366,16 @@
                         <br>
                         <div class="btn_sidebyside">
                             <button type="button" class="cancel">Cancel</button>
-                            <button type="submit">Submit</button>
+                            <button type="button" onclick="submit_form()">Submit</button>
                         </div>
                     </div>
                     
                     <div class="form_style">
-                        <textarea style="padding-bottom: 25px;" id="steps" name="steps" rows="15.5" cols="50" required disabled></textarea>
+                        <textarea style="padding-bottom: 25px;" id="default" name="steps" rows="15.5" cols="50" required disabled></textarea>
+                        {% for details in details_list %}
+                        <textarea style="padding-bottom: 25px; display: none;" class="the_details" id="{{details.subcategory}}" name="details" rows="15.5" cols="50" required disabled>{{details.details}}</textarea>
+                        <input class="sub_of_details" value="{{subcategory.category}}" hidden>
+                        {% endfor %}
                         <br>
                         <div class="btn_sidebyside2">
                             <button type="button" class="cancel">Cancel</button>
@@ -371,4 +387,107 @@
 		</main>
 	</div>
 </body>
+<script>
+     function filter_sub(){
+        hiding_function()
+        const chosen_category = document.getElementById("categories").value;
+        const cat_of_sub_input = document.getElementsByClassName("cat_of_sub");
+        const values = [];
+
+        const chosen_subcategory = document.getElementById("subcategories")
+        chosen_subcategory.selectedIndex = "0"
+        
+        var items_hide = document.getElementsByClassName("the_details")
+            for (var o = 0; o < items_hide.length; o++) {
+                items_hide[o].style.display = "none";
+            }
+        
+        const show_default = document.getElementById('default');
+        show_default.diabled = false;
+        show_default.style.display = "block";
+        show_default.diabled = true;
+
+        for (let i = 0; i < cat_of_sub_input.length; i++) {
+            const value = cat_of_sub_input[i].value;
+            if (!values.includes(value)) {
+                values.push(value);
+            }
+        }
+    
+        if (values.includes(chosen_category)) {
+            var option_list = document.getElementsByClassName(chosen_category)
+            for (var i = 0; i < option_list.length; i++) {
+                option_list[i].style.display = "block";
+            }
+        } else {
+        console.log('Element not found in array');
+        }
+    }
+
+    function hiding_function(){
+        const cat_of_sub_input = document.getElementsByClassName("cat_of_sub");
+        const values = [];
+
+        for (let i = 0; i < cat_of_sub_input.length; i++) {
+            const value = cat_of_sub_input[i].value;
+            if (!values.includes(value)) {
+            values.push(value);
+            }
+        }
+
+        for (let e = 0; e < values.length; e++) {
+            var items_hide = document.getElementsByClassName(values[e])
+            for (var o = 0; o < items_hide.length; o++) {
+                items_hide[o].style.display = "none";
+            }
+        }
+    }
+
+    function filter_details(){
+        hiding_function_2()
+        const chosen_subcategory = document.getElementById("subcategories").value;
+        const detail_to_display = document.getElementById(chosen_subcategory);
+        const hide_default = document.getElementById('default');
+        
+        hide_default.diabled = false;
+        hide_default.style.display = "none";
+        hide_default.diabled = true;
+        detail_to_display.style.display = "block"
+    }
+    function hiding_function_2(){
+        const inputs = document.getElementsByClassName("sub_of_details");
+        const show_default = document.getElementById('default');
+        const values = [];
+
+        show_default.diabled = false;
+        show_default.style.display = "block";
+        show_default.diabled = true;
+
+        for (let i = 0; i < inputs.length; i++) {
+            const value = inputs[i].value;
+            if (!values.includes(value)) {
+            values.push(value);
+            }
+        }
+
+        for (let e = 0; e < values.length; e++) {
+            var items_hide = document.getElementsByClassName(values[e])
+            for (var o = 0; o < items_hide.length; o++) {
+                items_hide[o].style.display = "none";
+            }
+        }
+    }
+    function submit_form(){
+        alert("hello")
+        var subcat = document.getElementById("subcategories").value
+        alert(subcat)
+        var detailses = document.getElementById(subcat);
+
+        alert("hello2")
+
+        detailses.disabled = false
+
+        document.getElementById("myForm").submit()
+    }
+</script>
 </html>

@@ -67,20 +67,26 @@ def admin_add_task(request):
     if request.method == "POST":
         task_name = request.POST.get('task_name')
         employees = request.POST.get('employees')
-        categories = request.POST.get('categories')
-        subcategories = request.POST.get('subcategories')
+        categ = request.POST.get('categories')
+        subcateg = request.POST.get('subcategories')
         stat = request.POST.get('stat')
-        steps = request.POST.get('steps')
+        the_details = request.POST.get('details')
 
         published_date = date.today()
 
-        new_task = tasks.objects.create(task_name=task_name, category=categories, subcategory=subcategories, details=steps,
+        new_task = tasks.objects.create(task_name=task_name, category=categ, subcategory=subcateg, details=the_details,
                                         assigned_by="SAMPLE", assigned_to=employees, date_published=published_date,
                                         date_completed="NONE", status=stat)
         new_task.save()
         return redirect("admin_add_task")
 
-    return render(request, 'html/Admin_dashboard_add_task.html')
+    employee_list = app_users.objects.filter(position="EMPLOYEE")
+    category_list = categories.objects.all()
+    subcategory_list = subcategories.objects.all()
+    details_list = detail.objects.all()
+    context = {"employee_list": employee_list, "category_list": category_list,
+               "subcategory_list": subcategory_list, "details_list": details_list}
+    return render(request, 'html/Admin_dashboard_add_task.html', context)
 
 
 def admin_edit(request):
@@ -129,7 +135,6 @@ def subcategory(request):
             return redirect('subcategory')
 
     category_list = categories.objects.all()
-    context = {"category_list": category_list}
     subcategory_list = subcategories.objects.all()
     context = {"category_list": category_list,
                "subcategory_list": subcategory_list}
