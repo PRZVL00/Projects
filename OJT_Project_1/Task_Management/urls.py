@@ -8,6 +8,7 @@ urlpatterns = [
     path('client_complete', views.client_complete, name='client_complete'),
     path('admin_home', views.admin_home, name='admin_home'),
     path('admin_pending', views.admin_pending, name='admin_pending'),
+    path('delete-task/<int:task_id>/', views.delete_task, name='delete_task'),
     path('admin_complete', views.admin_complete, name='admin_complete'),
     path('admin_users', views.admin_users, name='admin_users'),
     path('add_user', views.add_user, name='add_user'),

@@ -56,7 +56,7 @@
         margin: 9px 0;
     }
 
-    a {
+    .menu {
         display: flex;
         align-items: center;
         padding: 10px 20px;
@@ -65,7 +65,7 @@
         transition: all 0.3s ease-in-out;
     }
 
-    a:hover {
+    .menu:hover {
         background-color: #00BFFF;
     }
 
@@ -184,12 +184,14 @@
         border-radius: 5px;
         cursor: pointer;
         transition: background-color 0.3s ease-in-out;
+        padding: 10%;
     }
     .cancel_btn:hover {
         background-color: rgb(255, 0, 0);
     }
     .material-icons{
         color: rgb(0, 126, 251);
+        cursor: pointer;
     }
     .input-container {
         position: relative;
@@ -242,6 +244,43 @@
     .sign_out{
         margin-top: 20px;
     }
+    /* The Modal (background) */
+    .modal {
+        display: none;
+        position: fixed;
+        z-index: 999;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgba(0,0,0,0.4);
+    }
+
+    /* Modal Content */
+    .modal-content {
+        background-color: #fefefe;
+        margin: 15% auto;
+        padding: 20px;
+        border: 1px solid #888;
+        width: 80%;
+    }
+
+    /* Close Button */
+    .close {
+        color: #aaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+    }
+
+    .close:hover,
+    .close:focus {
+        color: black;
+        text-decoration: none;
+        cursor: pointer;
+    }
+
 </style>
 
 <body>
@@ -254,36 +293,36 @@
 			<ul>
                 <img class="profile_pic" src="1x1x1.jpg" alt="">
 				<li>
-					<a href="{% url 'admin_home' %}">
+					<a href="{% url 'admin_home' %}" class="menu">
 						<i class="fas fa-home"></i>
 						<span>Home</span>
 					</a>
 				</li>
 				<li>
-					<a href="{% url 'admin_pending' %}">
+					<a href="{% url 'admin_pending' %}" class="menu">
 						<i class="fa fa-hourglass-half"></i>
 						<span>Pending Task</span>
 					</a>
 				</li>
 				<li>
-					<a href="{% url 'admin_complete' %}">
+					<a href="{% url 'admin_complete' %}" class="menu">
 						<i class="fa fa-check-circle"></i>
 						<span>Complete Task</span>
 					</a>
 				</li>
-                    <a href="{% url 'admin_users' %}">
+                    <a href="{% url 'admin_users' %}" class="menu">
                         <i class="fas fa-user-tie"></i>
 						<span>Employees</span>
 					</a>
 				</li>
                 <li>
-					<a href="{% url 'admin_add_task' %}">
+					<a href="{% url 'admin_add_task' %}" class="menu">
 						<i class="fas fa-tasks"></i>
 						<span>Add Task</span>
 					</a>
 				</li>
                 <li>
-					<a href="{% url 'admin_edit' %}">
+					<a href="{% url 'admin_edit' %}" class="menu">
 						<i class="fas fa-edit"></i>
 						<span>Edit</span>
 					</a>
@@ -292,7 +331,7 @@
                 <br>
                 <br>
 				<li>
-					<a href="#">
+					<a href="#" class="menu">
 						<i class="fa fa-sign-out sign_out"></i>
 						<span class="sign_out">Logout</span>
 					</a>
@@ -332,180 +371,64 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td><i class="fa fa-circle urgent_icon"></td>
-                            <td>T-0001</td>
-                            <td>Row 1, Column 2</td>
-                            <td>Row 1, Column 3</td>
-                            <td>Row 1, Column 1</td>
-                            <td>Row 1, Column 2</td>
-                            <td><i class="material-icons">info</i></td>
-                            <td><button class="cancel_btn">cancel</button></td>
-                        </tr>
-                        <tr>
-                            <td><i class="fa fa-circle late_icon"></td>
-                            <td>T-0002</td>
-                            <td>Row 2, Column 2</td>
-                            <td>Row 2, Column 3</td>
-                            <td>Row 1, Column 1</td>
-                            <td>Row 1, Column 2</td>
-                            <td><i class="material-icons">info</i></td>
-                            <td><button class="cancel_btn">cancel</button></td>
-                        </tr>
-                        <tr>
-                            <td><i class="fa fa-circle normal_icon"></td>
-                            <td>T-0003</td>
-                            <td>Row 3, Column 2</td>
-                            <td>Row 3, Column 3</td>
-                            <td>Row 1, Column 1</td>
-                            <td>Row 1, Column 2</td>
-                            <td><i class="material-icons">info</i></td>
-                            <td><button class="cancel_btn">cancel</button></td>
-                        </tr>
-                        <tr>
-                            <td><i class="fa fa-circle urgent_icon"></td>
-                            <td>T-0004</td>
-                            <td>Row 4, Column 2</td>
-                            <td>Row 4, Column 3</td>
-                            <td>Row 1, Column 1</td>
-                            <td>Row 1, Column 2</td>
-                            <td><i class="material-icons">info</i></td>
-                            <td><button class="cancel_btn">cancel</button></td>
-                        </tr>
-                        <tr>
-                            <td><i class="fa fa-circle late_icon"></td>
-                            <td>T-0005</td>
-                            <td>Row 5, Column 2</td>
-                            <td>Row 5, Column 3</td>
-                            <td>Row 1, Column 1</td>
-                            <td>Row 1, Column 2</td>
-                            <td><i class="material-icons">info</i></td>
-                            <td><button class="cancel_btn">cancel</button></td>
-                        </tr>
-                        <tr>
-                            <td><i class="fa fa-circle normal_icon"></td>
-                            <td>T-0006</td>
-                            <td>Row 6, Column 2</td>
-                            <td>Row 6, Column 3</td>
-                            <td>Row 1, Column 1</td>
-                            <td>Row 1, Column 2</td>
-                            <td><i class="material-icons">info</i></td>
-                            <td><button class="cancel_btn">cancel</button></td>
-                        </tr>
-                        <tr>
-                            <td><i class="fa fa-circle urgent_icon"></td>
-                            <td>T-0007</td>
-                            <td>Row 7, Column 2</td>
-                            <td>Row 7, Column 3</td>
-                            <td>Row 1, Column 1</td>
-                            <td>Row 1, Column 2</td>
-                            <td><i class="material-icons">info</i></td>
-                            <td><button class="cancel_btn">cancel</button></td>
-                        </tr>
-                        <tr>
-                            <td><i class="fa fa-circle late_icon"></td>
-                            <td>T-0008</td>
-                            <td>Row 8, Column 2</td>
-                            <td>Row 8, Column 3</td>
-                            <td>Row 1, Column 2</td>
-                            <td>Row 1, Column 3</td>
-                            <td><i class="material-icons">info</i></td>
-                            <td><button class="cancel_btn">cancel</button></td>
-                        </tr>
-                        <tr>
-                            <td><i class="fa fa-circle normal_icon"></td>
-                            <td>T-0009</td>
-                            <td>Row 8, Column 2</td>
-                            <td>Row 8, Column 3</td>
-                            <td>Row 1, Column 1</td>
-                            <td>Row 1, Column 2</td>
-                            <td><i class="material-icons">info</i></td>
-                            <td><button class="cancel_btn">cancel</button></td>
-                        </tr>
-                        <tr>
-                            <td><i class="fa fa-circle urgent_icon"></td>
-                            <td>T-0010</td>
-                            <td>Row 8, Column 2</td>
-                            <td>Row 8, Column 3</td>
-                            <td>Row 1, Column 1</td>
-                            <td>Row 1, Column 3</td>
-                            <td><i class="material-icons">info</i></td>
-                            <td><button class="cancel_btn">cancel</button></td>
-                        </tr>
-                        <tr>
-                            <td><i class="fa fa-circle late_icon"></td>
-                            <td>T-0011</td>
-                            <td>Row 8, Column 2</td>
-                            <td>Row 8, Column 3</td>
-                            <td>Row 1, Column 2</td>
-                            <td>Row 1, Column 3</td>
-                            <td><i class="material-icons">info</i></td>
-                            <td><button class="cancel_btn">cancel</button></td>
-                        </tr>
-                        <tr>
-                            <td><i class="fa fa-circle normal_icon"></td>
-                            <td>T-0012</td>
-                            <td>Row 8, Column 2</td>
-                            <td>Row 8, Column 3</td>
-                            <td>Row 1, Column 1</td>
-                            <td>Row 1, Column 3</td>
-                            <td><i class="material-icons">info</i></td>
-                            <td><button class="cancel_btn">cancel</button></td>
-                        </tr>
-                        <tr>
-                            <td><i class="fa fa-circle urgent_icon"></td>
-                            <td>T-0013</td>
-                            <td>Row 8, Column 2</td>
-                            <td>Row 8, Column 3</td>
-                            <td>Row 1, Column 2</td>
-                            <td>Row 1, Column 3</td>
-                            <td><i class="material-icons">info</i></td>
-                            <td><button class="cancel_btn">cancel</button></td>
-                        </tr>
-                        <tr>
-                            <td><i class="fa fa-circle urgent_icon"></td>
-                            <td>T-0014</td>
-                            <td>Row 8, Column 2</td>
-                            <td>Row 8, Column 3</td>
-                            <td>Row 1, Column 1</td>
-                            <td>Row 1, Column 3</td>
-                            <td><i class="material-icons">info</i></td>
-                            <td><button class="cancel_btn">cancel</button></td>
-                        </tr>
-                        <tr>
-                            <td><i class="fa fa-circle urgent_icon"></td>
-                            <td>T-0015</td>
-                            <td>Row 8, Column 2</td>
-                            <td>Row 1, Column 1</td>
-                            <td>Row 1, Column 2</td>
-                            <td>Row 1, Column 3</td>
-                            <td><i class="material-icons">info</i></td>
-                            <td><button class="cancel_btn">cancel</button></td>
-                        </tr>
-                        <tr>
-                            <td><i class="fa fa-circle urgent_icon"></td>
-                            <td>T-0016</td>
-                            <td>Row 8, Column 2</td>
-                            <td>Row 8, Column 3</td>
-                            <td>Row 1, Column 2</td>
-                            <td>Row 1, Column 3</td>
-                            <td><i class="material-icons">info</i></td>
-                            <td><button class="cancel_btn">cancel</button></td>
-                        </tr>
-                        <tr>
-                            <td><i class="fa fa-circle urgent_icon"></td>
-                            <td>T-0017</td>
-                            <td>Row 8, Column 2</td>
-                            <td>Row 1, Column 1</td>
-                            <td>Row 1, Column 2</td>
-                            <td>Row 1, Column 3</td>
-                            <td><i class="material-icons">info</i></td>
-                            <td><button class="cancel_btn">cancel</button></td>
-                        </tr>
+                    {% for tasks in task_list %}
+                        {% if tasks.status == "Urgent" %}
+                            <tr>
+                                <td><i class="fa fa-circle urgent_icon"></td>
+                                <td>{{tasks.id}}</td>
+                                <td>{{tasks.task_name}}</td>
+                                <td>{{tasks.assigned_to}}</td>
+                                <td>{{tasks.assigned_by}}</td>
+                                <td>{{tasks.date_published}}</td>
+                                <td><i class="material-icons" onclick="open_modal('{{tasks.id}}')">info</i></td>
+                                <td><a href="{% url 'delete_task' tasks.id %}" class="cancel_btn"><button style="background-color: rgba(255, 255, 255, 0); border-color: #00bfff00; color: white;">Cancel</button></a></td>
+                            </tr>
+                        {% else %}
+                            <tr>
+                                <td><i class="fa fa-circle normal_icon"></td>
+                                <td>{{tasks.id}}</td>
+                                <td>{{tasks.task_name}}</td>
+                                <td>{{tasks.assigned_to}}</td>
+                                <td>{{tasks.assigned_by}}</td>
+                                <td>{{tasks.date_published}}</td>
+                                <td><i class="material-icons" onclick="open_modal('{{tasks.id}}')">info</i></td>
+                                <td><a href="{% url 'delete_task' tasks.id %}" class="cancel_btn"><button style="background-color: rgba(255, 255, 255, 0); border-color: #00bfff00; color: white;">Cancel</button></a></td>
+                            </tr>
+                        {% endif %}
+                    {% endfor %}
                     </tbody>
                 </table>
-              </div>
+            {% for tasks in task_list %}
+            </div>
+                <div id="{{tasks.id}}" class="modal">
+                    <div class="modal-content">
+                    <span class="close" onclick="close_modal('{{tasks.id}}')">&times;</span>
+                    <p>{{tasks.details}}</p>
+                </div>
+            </div>
+            {% endfor %}
 		</main>
 	</div>
 </body>
+<script>
+    var active_modal = null;
+
+    function open_modal(modal_id) {
+        var modal_list = document.getElementsByClassName("modal")
+        for (var i = 0; i < modal_list.length; i++) {
+            modal_list[i].style.display = "none";
+        }
+        var modal = document.getElementById(modal_id);
+        modal.style.display = "block";
+    } 
+    function close_modal(modal_id){
+        var modal_list = document.getElementsByClassName("modal")
+        for (var i = 0; i < modal_list.length; i++) {
+            modal_list[i].style.display = "none";
+        }
+        var modal = document.getElementById(modal_id);
+        modal.style.display = "none"
+    }
+
+</script>
 </html>

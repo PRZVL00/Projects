@@ -366,20 +366,16 @@
                         <br>
                         <div class="btn_sidebyside">
                             <button type="button" class="cancel">Cancel</button>
-                            <button type="button" onclick="submit_form()">Submit</button>
+                            <button type="submit">Submit</button>
                         </div>
                     </div>
                     
                     <div class="form_style">
-                        <textarea style="padding-bottom: 25px;" id="default" name="steps" rows="15.5" cols="50" required disabled></textarea>
+                        <textarea style="padding-bottom: 25px;" id="default" name="steps" rows="17" cols="50" required disabled></textarea>
                         {% for details in details_list %}
-                        <textarea style="padding-bottom: 25px; display: none;" class="the_details" id="{{details.subcategory}}" name="details" rows="15.5" cols="50" required disabled>{{details.details}}</textarea>
+                        <textarea style="padding-bottom: 25px; display: none;" class="the_details" id="{{details.subcategory}}" name="details" rows="17" cols="50" required disabled>{{details.details}}</textarea>
                         <input class="sub_of_details" value="{{subcategory.category}}" hidden>
                         {% endfor %}
-                        <br>
-                        <div class="btn_sidebyside2">
-                            <button type="button" class="cancel">Cancel</button>
-                        </div>
                     </div>
                 </form>
                 
@@ -449,19 +445,20 @@
         const detail_to_display = document.getElementById(chosen_subcategory);
         const hide_default = document.getElementById('default');
         
-        hide_default.diabled = false;
+        hide_default.disabled = false;
         hide_default.style.display = "none";
-        hide_default.diabled = true;
-        detail_to_display.style.display = "block"
+        hide_default.disabled = true;
+        detail_to_display.style.display = "block";
+        detail_to_display.disabled = false;
     }
     function hiding_function_2(){
         const inputs = document.getElementsByClassName("sub_of_details");
         const show_default = document.getElementById('default');
         const values = [];
 
-        show_default.diabled = false;
+        show_default.disabled = false;
         show_default.style.display = "block";
-        show_default.diabled = true;
+        show_default.disabled = true;
 
         for (let i = 0; i < inputs.length; i++) {
             const value = inputs[i].value;
@@ -476,18 +473,6 @@
                 items_hide[o].style.display = "none";
             }
         }
-    }
-    function submit_form(){
-        alert("hello")
-        var subcat = document.getElementById("subcategories").value
-        alert(subcat)
-        var detailses = document.getElementById(subcat);
-
-        alert("hello2")
-
-        detailses.disabled = false
-
-        document.getElementById("myForm").submit()
     }
 </script>
 </html>

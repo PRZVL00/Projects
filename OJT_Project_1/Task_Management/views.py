@@ -17,6 +17,7 @@ def client_home(request):
 
 
 def client_pending(request):
+
     return render(request, 'html/Client_dashboard_pending.html')
 
 
@@ -29,7 +30,18 @@ def admin_home(request):
 
 
 def admin_pending(request):
-    return render(request, 'html/Admin_dashboard_pending.html')
+    if request.method == "POST":
+        pass
+
+    task_list = tasks.objects.filter(active_status="OFF")
+    context = {"task_list": task_list}
+    return render(request, 'html/Admin_dashboard_pending.html', context)
+
+
+def delete_task(request, task_id):
+    task = tasks.objects.get(id=task_id)
+    task.delete()
+    return redirect('admin_pending')
 
 
 def admin_complete(request):
@@ -76,7 +88,7 @@ def admin_add_task(request):
 
         new_task = tasks.objects.create(task_name=task_name, category=categ, subcategory=subcateg, details=the_details,
                                         assigned_by="SAMPLE", assigned_to=employees, date_published=published_date,
-                                        date_completed="NONE", status=stat)
+                                        date_completed="NONE", status=stat, active_status="OFF")
         new_task.save()
         return redirect("admin_add_task")
 
@@ -148,10 +160,15 @@ def steps(request):
             sub_to_add = request.POST.get('sub_to_add')
             new_details = request.POST.get('new_details')
 
-            new_step = detail.objects.create(
-                category=cat_to_add, subcategory=sub_to_add, details=new_details)
-            new_step.save()
-            return redirect("steps")
+            check_sub = detail.objects.filter(subcategory=sub_to_add)
+
+            if check_sub.count() >= 1:
+                print(check_sub.count())
+            else:
+                new_step = detail.objects.create(
+                    category=cat_to_add, subcategory=sub_to_add, details=new_details)
+                new_step.save()
+                return redirect("steps")
 
         elif 'form2' in request.POST:
             detail_to_del = request.POST.get('sub_to_del')

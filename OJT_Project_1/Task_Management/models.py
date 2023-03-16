@@ -21,6 +21,7 @@ class tasks(models.Model):
     date_published = models.CharField(max_length=30)
     date_completed = models.CharField(max_length=30)
     status = models.CharField(max_length=30)
+    active_status = models.CharField(max_length=30)
 
 
 class logbook(models.Model):
