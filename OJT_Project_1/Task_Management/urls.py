@@ -17,4 +17,6 @@ urlpatterns = [
     path('category', views.category, name='category'),
     path('subcategory', views.subcategory, name='subcategory'),
     path('steps', views.steps, name='steps'),
+    path('logout', views.logoutuser, name='logout'),
+
 ]

@@ -7,8 +7,24 @@ from .models import *
 
 from datetime import *
 
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
+
 
 def index(request):
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+
+        user = authenticate(request, username=username,
+                            password=password)
+        if user is not None:
+            if user.position == "Employee":
+                login(request, user)
+                return redirect("client_home")
+            else:
+                login(request, user)
+                return redirect("admin_home")
     return render(request, 'html/Login_Page.html')
 
 
@@ -195,3 +211,8 @@ def steps(request):
                "subcategory_list": subcategory_list,
                "details_list": details_list}
     return render(request, 'html/Steps.html', context)
+
+
+def logoutuser(request):
+    logout(request)
+    return redirect('index')

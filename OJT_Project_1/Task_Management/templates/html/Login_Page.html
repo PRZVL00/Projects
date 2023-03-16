@@ -109,16 +109,17 @@ input[type="text"], input[type="password"] {
 	<div class="login-container">
 		<div class="login-form">
 			<h1>Login</h1>
-			<form>
+			<form method="POST">
+        {% csrf_token %}
 				<div class="input-container">
 					<i class="fas fa-user"></i>
-					<input type="text" placeholder="Username">
+					<input type="text" placeholder="Username" name="username" id="username">
 				</div>
 				<div class="input-container">
 					<i class="fas fa-lock"></i>
-					<input type="password" placeholder="Password">
+					<input type="password" placeholder="Password" name="password" id="password">
 				</div>
-				<button class="login-btn">Login</button>
+				<button type="submit" class="login-btn">Login</button>
 			</form>
 		</div>
 		<div class="login-bg">
