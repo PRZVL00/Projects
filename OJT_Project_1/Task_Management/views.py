@@ -28,13 +28,45 @@ def index(request):
     return render(request, 'html/Login_Page.html')
 
 
+@login_required(login_url='index')
 def client_home(request):
-    return render(request, 'html/Client_dashboard_home.html')
+    first_name = request.user.first_name
+    last_name = request.user.last_name
+    full_name = first_name + " " + last_name
+    username = request.user.username
+    if request.user.is_authenticated and request.user.position == 'Employee':
+        if request.method == "POST":
+            pass
+
+        task_list = tasks.objects.filter(
+            active_status="ON", assigned_to=full_name)
+        context = {"task_list": task_list}
+        return render(request, 'html/Client_dashboard_home.html', context)
+    return redirect("index")
 
 
+@login_required(login_url='index')
 def client_pending(request):
+    first_name = request.user.first_name
+    last_name = request.user.last_name
+    full_name = first_name + " " + last_name
+    username = request.user.username
+    if request.user.is_authenticated and request.user.position == 'Employee':
+        if request.method == "POST":
+            pass
 
-    return render(request, 'html/Client_dashboard_pending.html')
+        task_list = tasks.objects.filter(
+            active_status="OFF", assigned_to=full_name)
+        context = {"task_list": task_list}
+        return render(request, 'html/Client_dashboard_pending.html', context)
+    return redirect("index")
+
+
+def accept_task(request, task_id):
+    task = tasks.objects.get(id=task_id)
+    task.active_status = "ON"
+    task.save()
+    return redirect('client_pending')
 
 
 def client_complete(request):

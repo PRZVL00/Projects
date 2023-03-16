@@ -5,6 +5,7 @@ urlpatterns = [
     path('', views.index, name='index'),
     path('client_home', views.client_home, name='client_home'),
     path('client_pending', views.client_pending, name='client_pending'),
+    path('accept-task/<int:task_id>/', views.accept_task, name='accept_task'),
     path('client_complete', views.client_complete, name='client_complete'),
     path('admin_home', views.admin_home, name='admin_home'),
     path('admin_pending', views.admin_pending, name='admin_pending'),
