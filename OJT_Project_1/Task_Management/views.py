@@ -65,6 +65,7 @@ def client_pending(request):
 def accept_task(request, task_id):
     task = tasks.objects.get(id=task_id)
     task.active_status = "ON"
+    task.date_started = date.today()
     task.save()
     return redirect('client_pending')
 

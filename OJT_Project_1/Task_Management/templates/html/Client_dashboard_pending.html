@@ -384,7 +384,37 @@
                     </tbody>
                 </table>
               </div>
+              {% for tasks in task_list %}
+            </div>
+                <div id="{{tasks.id}}" class="modal">
+                    <div class="modal-content">
+                    <span class="close" onclick="close_modal('{{tasks.id}}')">&times;</span>
+                    <p>{{tasks.details}}</p>
+                </div>
+            </div>
+            {% endfor %}
 		</main>
 	</div>
 </body>
+<script>
+    var active_modal = null;
+
+    function open_modal(modal_id) {
+        var modal_list = document.getElementsByClassName("modal")
+        for (var i = 0; i < modal_list.length; i++) {
+            modal_list[i].style.display = "none";
+        }
+        var modal = document.getElementById(modal_id);
+        modal.style.display = "block";
+    } 
+    function close_modal(modal_id){
+        var modal_list = document.getElementsByClassName("modal")
+        for (var i = 0; i < modal_list.length; i++) {
+            modal_list[i].style.display = "none";
+        }
+        var modal = document.getElementById(modal_id);
+        modal.style.display = "none"
+    }
+
+</script>
 </html>
