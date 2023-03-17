@@ -184,6 +184,7 @@ def admin_users(request):
         return redirect("client_home")
 
 
+@login_required(login_url='index')
 def add_user(request):
     first_name = request.user.first_name
     last_name = request.user.last_name
@@ -209,7 +210,9 @@ def add_user(request):
             new_user.save()
             return redirect("add_user")
 
-        return render(request, 'html/Add_user.html')
+        the_pic = app_users.objects.get(username=username)
+        context = {"the_pic": the_pic}
+        return render(request, 'html/Add_user.html', context)
     else:
         return redirect("client_home")
 
