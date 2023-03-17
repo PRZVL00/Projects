@@ -40,9 +40,21 @@ def client_home(request):
 
         task_list = tasks.objects.filter(
             active_status="ON", assigned_to=full_name)
-        context = {"task_list": task_list}
+        total_active = task_list.count()
+        the_user = full_name
+        context = {"task_list": task_list,
+                   "total_active": total_active, "the_user": the_user}
         return render(request, 'html/Client_dashboard_home.html', context)
     return redirect("index")
+
+
+def complete_task(request, task_id):
+    task = tasks.objects.get(id=task_id)
+    task.status = "Complete"
+    task.date_completed = date.today()
+    task.active_status = "DONE"
+    task.save()
+    return redirect('client_home')
 
 
 @login_required(login_url='index')
@@ -57,7 +69,10 @@ def client_pending(request):
 
         task_list = tasks.objects.filter(
             active_status="OFF", assigned_to=full_name)
-        context = {"task_list": task_list}
+        total_pending = task_list.count()
+        the_user = full_name
+        context = {"task_list": task_list,
+                   "total_pending": total_pending, "the_user": the_user}
         return render(request, 'html/Client_dashboard_pending.html', context)
     return redirect("index")
 

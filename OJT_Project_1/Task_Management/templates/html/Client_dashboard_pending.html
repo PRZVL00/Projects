@@ -247,10 +247,6 @@
      /* The Modal (background) */
      .modal {
          display: none;
-         position: fixed;
-         z-index: 999;
-         left: 0;
-         top: 0;
          width: 100%;
          height: 100%;
          overflow: auto;
@@ -260,7 +256,7 @@
      /* Modal Content */
      .modal-content {
          background-color: #fefefe;
-         margin: 15% auto;
+         margin: auto;
          padding: 20px;
          border: 1px solid #888;
          width: 80%;
@@ -279,6 +275,10 @@
          color: black;
          text-decoration: none;
          cursor: pointer;
+     }
+
+     .lalagyan{
+        margin: auto;
      }
  
  </style>
@@ -314,18 +314,18 @@
                  <br>
                  <br>
                  <li>
-                     <a href="#" class="menu">
-                         <i class="fa fa-sign-out sign_out"></i>
-                         <span class="sign_out">Logout</span>
-                     </a>
+                    <a href="#" class="menu">
+                        <i class="fa fa-sign-out sign_out"></i>
+                        <span class="sign_out">Logout</span>
+                    </a>
                  </li>
              </ul>
          </nav>
 		<main class="content">
             <h2>Pending Tasks</h2>
             <div class="details">
-                <h5>Name: Sheik Josiah S. Bautista</h5>
-                <h5>Total Pending Task:16</h5>
+                <h5>Name: {{the_user}}</h5>
+                <h5>Total Pending Task: {{total_pending}}</h5>
             </div>
             <div class="side_by_side">
                 <div class="input-container">
@@ -385,11 +385,11 @@
                 </table>
               </div>
               {% for tasks in task_list %}
-            </div>
+            <div class="lalagyan">
                 <div id="{{tasks.id}}" class="modal">
                     <div class="modal-content">
                     <span class="close" onclick="close_modal('{{tasks.id}}')">&times;</span>
-                    <p>{{tasks.details}}</p>
+                    <p>{{tasks.details|linebreaksbr}}</p>
                 </div>
             </div>
             {% endfor %}
