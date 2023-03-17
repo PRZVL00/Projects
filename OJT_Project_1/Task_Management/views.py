@@ -86,11 +86,40 @@ def accept_task(request, task_id):
 
 
 def client_complete(request):
-    return render(request, 'html/Client_dashboard_complete.html')
+    first_name = request.user.first_name
+    last_name = request.user.last_name
+    full_name = first_name + " " + last_name
+    username = request.user.username
+    if request.user.is_authenticated and request.user.position == 'Employee':
+        if request.method == "POST":
+            pass
+
+        task_list = tasks.objects.filter(
+            active_status="DONE", assigned_to=full_name)
+        total_complete = task_list.count()
+        the_user = full_name
+        context = {"task_list": task_list,
+                   "total_complete": total_complete, "the_user": the_user}
+        return render(request, 'html/Client_dashboard_complete.html', context)
+    return redirect("index")
 
 
 def admin_home(request):
-    return render(request, 'html/Admin_dashboard_home.html')
+    first_name = request.user.first_name
+    last_name = request.user.last_name
+    full_name = first_name + " " + last_name
+    username = request.user.username
+    if request.user.is_authenticated and request.user.position == 'Admin':
+        if request.method == "POST":
+            pass
+        task_list = tasks.objects.filter(
+            active_status="ON")
+        total_active = task_list.count()
+        the_user = full_name
+        context = {"task_list": task_list,
+                   "total_active": total_active, "the_user": the_user}
+        return render(request, 'html/Admin_dashboard_home.html', context)
+    return redirect("index")
 
 
 def admin_pending(request):
@@ -109,7 +138,22 @@ def delete_task(request, task_id):
 
 
 def admin_complete(request):
-    return render(request, 'html/Admin_dashboard_complete.html')
+    first_name = request.user.first_name
+    last_name = request.user.last_name
+    full_name = first_name + " " + last_name
+    username = request.user.username
+    if request.user.is_authenticated and request.user.position == 'Admin':
+        if request.method == "POST":
+            pass
+
+        task_list = tasks.objects.filter(
+            active_status="DONE")
+        total_complete = task_list.count()
+        the_user = full_name
+        context = {"task_list": task_list,
+                   "total_complete": total_complete, "the_user": the_user}
+        return render(request, 'html/Admin_dashboard_complete.html', context)
+    return redirect("index")
 
 
 def admin_users(request):
