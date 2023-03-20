@@ -255,13 +255,15 @@
 
 <body>
     <header>
-        <img class="logo_top"  src="RSB_logo.png" alt="Login Background">
+        <img class="logo_top"  src="{% static 'Media/RSB_logo.png' %}" alt="Login Background">
 		<h1>RSBarleta, CPA Consulting Firm</h1>
 	</header>
 	<div class="dashboard-container">       
 		<nav class="sidebar">
 			<ul>
-                <img class="profile_pic" src="1x1x1.jpg" alt="">
+                {% if the_pic.profile_pic %}
+                <img class="profile_pic" src="{{the_pic.profile_pic.url}}">
+                {% endif %}
 				<li>
 					<a href="{% url 'admin_home' %}">
 						<i class="fas fa-home"></i>

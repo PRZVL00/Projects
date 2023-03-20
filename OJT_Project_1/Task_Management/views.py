@@ -42,8 +42,9 @@ def client_home(request):
             active_status="ON", assigned_to=full_name)
         total_active = task_list.count()
         the_user = full_name
-        context = {"task_list": task_list,
-                   "total_active": total_active, "the_user": the_user}
+        the_pic = app_users.objects.get(username=username)
+        context = {"task_list": task_list, "total_active": total_active,
+                   "the_user": the_user, "the_pic": the_pic}
         return render(request, 'html/Client_dashboard_home.html', context)
     else:
         return redirect("admin_home")
@@ -72,8 +73,9 @@ def client_pending(request):
             active_status="OFF", assigned_to=full_name)
         total_pending = task_list.count()
         the_user = full_name
-        context = {"task_list": task_list,
-                   "total_pending": total_pending, "the_user": the_user}
+        the_pic = app_users.objects.get(username=username)
+        context = {"task_list": task_list, "total_pending": total_pending,
+                   "the_user": the_user, "the_pic": the_pic}
         return render(request, 'html/Client_dashboard_pending.html', context)
     else:
         return redirect("admin_home")
@@ -101,8 +103,9 @@ def client_complete(request):
             active_status="DONE", assigned_to=full_name)
         total_complete = task_list.count()
         the_user = full_name
-        context = {"task_list": task_list,
-                   "total_complete": total_complete, "the_user": the_user}
+        the_pic = app_users.objects.get(username=username)
+        context = {"task_list": task_list, "total_complete": total_complete,
+                   "the_user": the_user, "the_pic": the_pic}
         return render(request, 'html/Client_dashboard_complete.html', context)
     else:
         return redirect("admin_home")
@@ -121,8 +124,9 @@ def admin_home(request):
             active_status="ON")
         total_active = task_list.count()
         the_user = full_name
+        the_pic = app_users.objects.get(username=username)
         context = {"task_list": task_list,
-                   "total_active": total_active, "the_user": the_user}
+                   "total_active": total_active, "the_user": the_user, "the_pic": the_pic}
         return render(request, 'html/Admin_dashboard_home.html', context)
     else:
         return redirect("client_home")
@@ -138,8 +142,9 @@ def admin_pending(request):
         if request.method == "POST":
             pass
 
+        the_pic = app_users.objects.get(username=username)
         task_list = tasks.objects.filter(active_status="OFF")
-        context = {"task_list": task_list}
+        context = {"task_list": task_list, "the_pic": the_pic}
         return render(request, 'html/Admin_dashboard_pending.html', context)
     else:
         return redirect("client_home")
@@ -165,8 +170,9 @@ def admin_complete(request):
             active_status="DONE")
         total_complete = task_list.count()
         the_user = full_name
+        the_pic = app_users.objects.get(username=username)
         context = {"task_list": task_list,
-                   "total_complete": total_complete, "the_user": the_user}
+                   "total_complete": total_complete, "the_user": the_user, "the_pic": the_pic}
         return render(request, 'html/Admin_dashboard_complete.html', context)
     else:
         return redirect("client_home")
@@ -179,7 +185,9 @@ def admin_users(request):
     full_name = first_name + " " + last_name
     username = request.user.username
     if request.user.is_authenticated and request.user.position == 'Admin':
-        return render(request, 'html/Admin_dashboard_users.html')
+        the_pic = app_users.objects.get(username=username)
+        context = {"the_pic": the_pic}
+        return render(request, 'html/Admin_dashboard_users.html', context)
     else:
         return redirect("client_home")
 
@@ -244,8 +252,9 @@ def admin_add_task(request):
         category_list = categories.objects.all()
         subcategory_list = subcategories.objects.all()
         details_list = detail.objects.all()
+        the_pic = app_users.objects.get(username=username)
         context = {"employee_list": employee_list, "category_list": category_list,
-                   "subcategory_list": subcategory_list, "details_list": details_list}
+                   "subcategory_list": subcategory_list, "details_list": details_list, "the_pic": the_pic}
         return render(request, 'html/Admin_dashboard_add_task.html', context)
     else:
         return redirect("client_home")
@@ -258,7 +267,10 @@ def admin_edit(request):
     full_name = first_name + " " + last_name
     username = request.user.username
     if request.user.is_authenticated and request.user.position == 'Admin':
-        return render(request, 'html/Admin_dashboard_edit.html')
+
+        the_pic = app_users.objects.get(username=username)
+        context = {"the_pic": the_pic}
+        return render(request, 'html/Admin_dashboard_edit.html', context)
     else:
         return redirect("client_home")
 
@@ -286,7 +298,8 @@ def category(request):
                 return redirect('category')
 
         category_list = categories.objects.all()
-        context = {"category_list": category_list}
+        the_pic = app_users.objects.get(username=username)
+        context = {"category_list": category_list, "the_pic": the_pic}
         return render(request, 'html/Category.html', context)
     else:
         return redirect("client_home")
@@ -320,8 +333,9 @@ def subcategory(request):
 
         category_list = categories.objects.all()
         subcategory_list = subcategories.objects.all()
+        the_pic = app_users.objects.get(username=username)
         context = {"category_list": category_list,
-                   "subcategory_list": subcategory_list}
+                   "subcategory_list": subcategory_list, "the_pic": the_pic}
         return render(request, 'html/Subcategory.html', context)
     else:
         return redirect("client_home")
@@ -371,9 +385,9 @@ def steps(request):
         category_list = categories.objects.all()
         subcategory_list = subcategories.objects.all()
         details_list = detail.objects.all()
-        context = {"category_list": category_list,
-                   "subcategory_list": subcategory_list,
-                   "details_list": details_list}
+        the_pic = app_users.objects.get(username=username)
+        context = {"category_list": category_list, "subcategory_list": subcategory_list,
+                   "details_list": details_list, "the_pic": the_pic}
         return render(request, 'html/Steps.html', context)
     else:
         return redirect("client_home")
