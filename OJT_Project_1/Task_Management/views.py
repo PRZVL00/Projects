@@ -184,9 +184,28 @@ def admin_users(request):
     last_name = request.user.last_name
     full_name = first_name + " " + last_name
     username = request.user.username
+    counts_active = []
+    counts_pending = []
     if request.user.is_authenticated and request.user.position == 'Admin':
+
+        employee_list = app_users.objects.filter(position="Employee")
+        for i in employee_list:
+            fname = i.first_name
+            lname = i.last_name
+            fu_name = fname + " " + lname
+            employee_list_count_active = tasks.objects.filter(
+                assigned_to=fu_name, active_status="ON").count()
+
+            counts_active.append(employee_list_count_active)
+
+            employee_list_count_pending = tasks.objects.filter(
+                assigned_to=fu_name, active_status="OFF").count()
+
+            counts_pending.append(employee_list_count_pending)
+
         the_pic = app_users.objects.get(username=username)
-        context = {"the_pic": the_pic}
+        context = {"the_pic": the_pic, "counts_active": counts_active, "counts_pending": counts_pending,
+                   "employee_list": employee_list}
         return render(request, 'html/Admin_dashboard_users.html', context)
     else:
         return redirect("client_home")
