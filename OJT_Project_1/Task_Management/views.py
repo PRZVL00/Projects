@@ -10,6 +10,8 @@ from datetime import *
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 
+from django.contrib import messages
+
 
 def index(request):
     if request.method == 'POST':
@@ -142,7 +144,19 @@ def admin_home(request):
     username = request.user.username
     if request.user.is_authenticated and request.user.position == 'Admin':
         if request.method == "POST":
-            pass
+            if 'search' in request.POST:
+                item = request.POST.get("search_bar")
+                print(item)
+                task_list = tasks.objects.filter(
+                    active_status="ON", id=item)
+                total_active = task_list.count()
+                the_user = full_name
+                the_pic = app_users.objects.get(username=username)
+                messages.success(request, 'Your message here.')
+                context = {"task_list": task_list,
+                           "total_active": total_active, "the_user": the_user, "the_pic": the_pic}
+                return render(request, 'html/Admin_dashboard_home.html', context)
+
         task_list = tasks.objects.filter(
             active_status="ON")
         total_active = task_list.count()
@@ -163,7 +177,12 @@ def admin_pending(request):
     username = request.user.username
     if request.user.is_authenticated and request.user.position == 'Admin':
         if request.method == "POST":
-            pass
+            if 'search' in request.POST:
+                item = request.POST.get("search_bar")
+                the_pic = app_users.objects.get(username=username)
+                task_list = tasks.objects.filter(active_status="OFF", id=item)
+                context = {"task_list": task_list, "the_pic": the_pic}
+                return render(request, 'html/Admin_dashboard_pending.html', context)
 
         the_pic = app_users.objects.get(username=username)
         task_list = tasks.objects.filter(active_status="OFF")
@@ -196,7 +215,16 @@ def admin_complete(request):
     username = request.user.username
     if request.user.is_authenticated and request.user.position == 'Admin':
         if request.method == "POST":
-            pass
+            if 'search' in request.POST:
+                item = request.POST.get("search_bar")
+                task_list = tasks.objects.filter(
+                    active_status="DONE", id=item)
+                total_complete = task_list.count()
+                the_user = full_name
+                the_pic = app_users.objects.get(username=username)
+                context = {"task_list": task_list,
+                           "total_complete": total_complete, "the_user": the_user, "the_pic": the_pic}
+                return render(request, 'html/Admin_dashboard_complete.html', context)
 
         task_list = tasks.objects.filter(
             active_status="DONE")
