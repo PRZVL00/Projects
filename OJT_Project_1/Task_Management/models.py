@@ -7,6 +7,9 @@ class app_users(AbstractUser):
     id_number = models.CharField(max_length=30)
     contact_number = models.CharField(max_length=11)
     position = models.CharField(max_length=100)
+    full_name = models.CharField(max_length=100)
+    active_task_count = models.CharField(max_length=11)
+    pending_task_count = models.CharField(max_length=11)
     profile_pic = models.ImageField(upload_to="profile_pic/")
 
 

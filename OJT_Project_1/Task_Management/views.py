@@ -51,11 +51,22 @@ def client_home(request):
 
 
 def complete_task(request, task_id):
+    username = request.user.username
     task = tasks.objects.get(id=task_id)
     task.status = "Complete"
     task.date_completed = date.today()
     task.active_status = "DONE"
     task.save()
+
+    full_name = app_users.objects.get(username=username)
+    active_task_count = tasks.objects.filter(
+        assigned_to=full_name.full_name, active_status="ON").count()
+    pending_task_count = tasks.objects.filter(
+        assigned_to=full_name.full_name, active_status="OFF").count()
+
+    full_name.active_task_count = active_task_count
+    full_name.pending_task_count = pending_task_count
+    full_name.save()
     return redirect('client_home')
 
 
@@ -82,10 +93,22 @@ def client_pending(request):
 
 
 def accept_task(request, task_id):
+    username = request.user.username
     task = tasks.objects.get(id=task_id)
     task.active_status = "ON"
     task.date_started = date.today()
     task.save()
+
+    full_name = app_users.objects.get(username=username)
+    active_task_count = tasks.objects.filter(
+        assigned_to=full_name.full_name, active_status="ON").count()
+    pending_task_count = tasks.objects.filter(
+        assigned_to=full_name.full_name, active_status="OFF").count()
+
+    full_name.active_task_count = active_task_count
+    full_name.pending_task_count = pending_task_count
+    full_name.save()
+
     return redirect('client_pending')
 
 
@@ -153,6 +176,15 @@ def admin_pending(request):
 def delete_task(request, task_id):
     task = tasks.objects.get(id=task_id)
     task.delete()
+
+    full_name = app_users.objects.get(full_name=task.assigned_to)
+    active_task_count = tasks.objects.filter(
+        assigned_to=full_name.full_name, active_status="ON").count()
+    pending_task_count = tasks.objects.filter(
+        assigned_to=full_name.full_name, active_status="OFF").count()
+    full_name.active_task_count = active_task_count
+    full_name.pending_task_count = pending_task_count
+    full_name.save()
     return redirect('admin_pending')
 
 
@@ -184,28 +216,10 @@ def admin_users(request):
     last_name = request.user.last_name
     full_name = first_name + " " + last_name
     username = request.user.username
-    counts_active = []
-    counts_pending = []
     if request.user.is_authenticated and request.user.position == 'Admin':
-
         employee_list = app_users.objects.filter(position="Employee")
-        for i in employee_list:
-            fname = i.first_name
-            lname = i.last_name
-            fu_name = fname + " " + lname
-            employee_list_count_active = tasks.objects.filter(
-                assigned_to=fu_name, active_status="ON").count()
-
-            counts_active.append(employee_list_count_active)
-
-            employee_list_count_pending = tasks.objects.filter(
-                assigned_to=fu_name, active_status="OFF").count()
-
-            counts_pending.append(employee_list_count_pending)
-
         the_pic = app_users.objects.get(username=username)
-        context = {"the_pic": the_pic, "counts_active": counts_active, "counts_pending": counts_pending,
-                   "employee_list": employee_list}
+        context = {"the_pic": the_pic, "employee_list": employee_list}
         return render(request, 'html/Admin_dashboard_users.html', context)
     else:
         return redirect("client_home")
@@ -232,8 +246,12 @@ def add_user(request):
 
             position = "Employee"
 
-            new_user = app_users.objects.create(username=username, password=password, first_name=fname, last_name=lname, email=email,
-                                                id_number=idnum, contact_number=cnum, position=position, profile_pic=pic)
+            full_name = fname + " " + lname
+
+            new_user = app_users.objects.create(username=username, password=password, first_name=fname,
+                                                last_name=lname, email=email, id_number=idnum,
+                                                contact_number=cnum, position=position, profile_pic=pic,
+                                                full_name=full_name, active_task_count=0, pending_task_count=0)
             new_user.save()
             return redirect("add_user")
 
@@ -265,6 +283,13 @@ def admin_add_task(request):
                                             assigned_by="SAMPLE", assigned_to=employees, date_published=published_date,
                                             date_completed="NONE", status=stat, active_status="OFF")
             new_task.save()
+
+            the_pending_task_count = tasks.objects.filter(
+                active_status="OFF", assigned_to=employees).count()
+            add_pending_task = app_users.objects.get(full_name=employees)
+            add_pending_task.pending_task_count = the_pending_task_count
+            add_pending_task.save()
+
             return redirect("admin_add_task")
 
         employee_list = app_users.objects.filter(position="EMPLOYEE")

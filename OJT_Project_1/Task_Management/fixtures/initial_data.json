@@ -1,0 +1,18 @@
+[{
+    "model": "Task_Management.app_users",
+    "pk": 1,
+    "fields":
+     {
+        "password": "pbkdf2_sha256$320000$fEuJLre4qECSS0dqJlBXuw$r14uyO2v8XV7EfmsNcEXzoRS3TwqVnLglIWrDHiuo0s=",
+        "username": "admin-0000",
+        "first_name": "Ronaldo",
+        "last_name": "Barleta",
+	"full_name": "Ronaldo Barleta",
+        "id_number": "admin-0000",
+        "position": "Admin",
+        "profile_pic": "profile_pic/RSB_logo.png",
+        "is_staff": 1,
+        "is_active":1,
+        "is_superuser": 1
+    }
+  }]

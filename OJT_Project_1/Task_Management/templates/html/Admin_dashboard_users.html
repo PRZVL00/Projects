@@ -348,19 +348,15 @@
                     </thead>
                     <tbody>
                         {% for employees in employee_list %}
-                        {% for counts_active in counts_active %}
-                        {% for counts_pending in counts_pending %}
                             <tr>
                                 <td>{{employees.id_number}}</td>
                                 <td>{{employees.first_name}} {{employees.last_name}}</td>
                                 <td>{{employees.contact_number}}</td>
                                 <td>{{employees.email}}</td>
-                                <td>{{counts_active}}</td>
-                                <td>{{counts_pending}}</td>
+                                <td>{{employees.active_task_count}}</td>
+                                <td>{{employees.pending_task_count}}</td>
                                 <td>Under Maintenance</td>
                             </tr>
-                        {% endfor %}
-                        {% endfor %}
                         {% endfor %}
                     </tbody>
                 </table>
