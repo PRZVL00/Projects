@@ -198,29 +198,88 @@
     .input-container {
         position: relative;
         margin-top: 1.5%;
-        
+        margin-right: -20px;
     }
 
-    .input-container i {
+    .input-container_1 {
+        position: relative;
+        margin-top: 1.5%;
+        margin-right: inherit;
+
+    }
+
+    .input-container_2 {
+        position: relative;
+        margin-top: 1.5%;
+        margin-right: inherit;
+    }
+
+    .input-container_none{
+        margin-top: 1.5%;
+    }
+
+    .input-container_none_special{
+        margin-top: 1.5%;
+        margin-left: 1.5%;
+    }
+
+
+    .input-container i, .input-container_1 i, .input-container_2 i {
         position: absolute;
         left: 10px;
-        top: 50%;
+        top: 40%;
         transform: translateY(-50%);
         color: #999;
     }
 
-    input[type="text"], input[type="password"] {
-        width: 60%;
-        padding: 5px 50px 5px 35px;
-        border: black;
+    input[type="text"], input[type="password"]{
+        width: 80%;
+        padding: 5px 5px 5px 35px;
+        border: 2px solid black;
         border-radius: 5px;
         background-color: #f2f2f2;
         color: #333;
         font-size: small;
+        outline: 2px black;
+    }
+    
+    input[type="date"]{
+        width: auto;
+        padding: 5px 5px 5px 5px;
+        border: 2px solid black;
+        border-radius: 5px;
+        background-color: #f2f2f2;
+        color: #333;
+        font-size: small;
+        outline: 2px black;
+    }
+
+    .select_style{
+        width:fit-content;
+        padding: 5px 50px 5px 35px;
+        border: 2px solid black;
+        border-radius: 5px;
+        background-color: #f2f2f2;
+        color: #333;
+        height: 32px;
+        font-size: small;
+        outline: 2px black;
+        margin: auto;
+    }
+    .special_select_style{
+        width:fit-content;
+        border: 2px solid black;
+        border-radius: 5px;
+        background-color: #f2f2f2;
+        color: #333;
+        height: 32px;
+        font-size: small;
+        outline: 2px black;
+        margin: auto;
     }
     .side_by_side{
         display: flex;
-        margin: 1.5% 3% 1.5% 1.5%;
+        margin: 1.5% 1.5% 1.5% 1.5%;
     }
     .login-btn {
         margin-left: auto;
@@ -240,6 +299,26 @@
         background-color: #00BFFF;
         color: black;
     }
+
+    .date_search {
+        margin-left: 10px;
+        width: auto;
+        background-color: #29166F;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        font-size: 1.2rem;
+        cursor: pointer;
+        transition: background-color 0.3s ease-in-out;
+    }
+
+    .date_search:hover {
+        background-color: #00BFFF;
+        color: black;
+    }
+
+    
+
     .modal {
          display: none;
          width: 100%;
@@ -374,15 +453,37 @@
             <h2>Active Tasks</h2>
             <div class="side_by_side">
                 <div class="input-container">
-                    <i class="fas fa-search" onclick="submit_search()"></i>
+                    <i class="fas fa-search" onclick="click_general_search()"></i>
                     <form method="POST">
                         {% csrf_token %}
                         <input type="text" placeholder="Task ID" id="search_bar" name="search_bar">
-                        <button type="submit" name="search" id="search" hidden></button>
+                        <button type="submit" name="general_search" id="general_search" hidden></button>
                     </form>   
                 </div>
+                <div class="input-container_none_special">
+                    <select class="special_select_style" id="search_bar" name="search_bar">
+                        <option value="All">All</option>
+                        <option value="Date Published">Date Published</option>
+                        <option value="Date Started">Date Started</option>
+                    </select>
+                    <input type="date" placeholder="Task ID" id="search_bar" name="search_bar"> 
+                </div>
+                <div class="input-container_none">
+                <h3>-</h3>
+                </div>
+                <div class="input-container_none">
+                    <input type="date" placeholder="Task ID" id="search_bar" name="search_bar">
+                    <button type="button" class="date_search" onclick="click_date_search()">Search</button>
+                </div> 
                 <a href="#" class="login-btn">Report</a>
             </div>
+            <form method="POST">
+                {% csrf_token %}
+                <input type="text" id="tvalue_date_category" name="tvalue_date_category" hidden>
+                <input type="text" id="tvalue_from_date" name="tvalue_from_date" hidden>
+                <input type="text" id="tvalue_to_date" name="tvalue_to_date" hidden>
+                <button type="submit" name="date_search" id="date_search" hidden></button>
+            </form>
             <div class="tableFixHead">
                 <table>
                     <thead>
@@ -459,8 +560,12 @@ o
         var modal = document.getElementById(modal_id);
         modal.style.display = "none"
     }
-    function submit_search(){
-        submit_btn = document.getElementById("search");
+    function click_general_search(){
+        submit_btn = document.getElementById("general_search");
+        submit_btn.click()
+    }
+    function click_date_search(){
+        submit_btn = document.getElementById("date_search");
         submit_btn.click()
     }
     

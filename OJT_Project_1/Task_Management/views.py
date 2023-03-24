@@ -144,11 +144,50 @@ def admin_home(request):
     username = request.user.username
     if request.user.is_authenticated and request.user.position == 'Admin':
         if request.method == "POST":
-            if 'search' in request.POST:
+            if 'general_search' in request.POST:
+                # the item that is searched
                 item = request.POST.get("search_bar")
-                print(item)
-                task_list = tasks.objects.filter(
+
+                # different collumns to besearched
+                # serach by id
+                id_task_list = tasks.objects.filter(
                     active_status="ON", id=item)
+
+                # serach by task name
+                tname_task_list = tasks.objects.filter(
+                    active_status="ON", task_name=item)
+
+                # serach by assigned to (via first name)
+                f_get_name = app_users.objects.filter(
+                    first_name=item)
+
+                f_task_list = tasks.objects.filter(
+                    active_status="ON", assigned_to=f_get_name.full_name)
+
+                # search through all tables
+
+                # from django.db.models import Q
+                # from .models import MyModel
+
+                # def search(request):
+                #     query = request.GET.get('q')
+                #     if query:
+                #         queryset = MyModel.objects.filter(
+                #             Q(first_name__icontains=query) |
+                #             Q(last_name__icontains=query) |
+                #             Q(full_name__icontains=query) |
+                #             Q(number__icontains=query) |
+                #             Q(id__icontains=query)
+                #         )
+                #     else:
+                #         queryset = MyModel.objects.all()
+
+                #     context = {
+                #         'queryset': queryset,
+                #         'query': query
+                #     }
+                #     return render(request, 'search_results.html', context)
+
                 total_active = task_list.count()
                 the_user = full_name
                 the_pic = app_users.objects.get(username=username)
