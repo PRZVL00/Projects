@@ -12,6 +12,8 @@ from django.contrib.auth.decorators import login_required
 
 from django.contrib import messages
 
+from django.db.models import Q
+
 
 def index(request):
     if request.method == 'POST':
@@ -148,53 +150,46 @@ def admin_home(request):
                 # the item that is searched
                 item = request.POST.get("search_bar")
 
-                # different collumns to besearched
-                # serach by id
-                id_task_list = tasks.objects.filter(
-                    active_status="ON", id=item)
-
-                # serach by task name
-                tname_task_list = tasks.objects.filter(
-                    active_status="ON", task_name=item)
-
-                # serach by assigned to (via first name)
-                f_get_name = app_users.objects.filter(
-                    first_name=item)
-
-                f_task_list = tasks.objects.filter(
-                    active_status="ON", assigned_to=f_get_name.full_name)
-
-                # search through all tables
-
-                # from django.db.models import Q
-                # from .models import MyModel
-
-                # def search(request):
-                #     query = request.GET.get('q')
-                #     if query:
-                #         queryset = MyModel.objects.filter(
-                #             Q(first_name__icontains=query) |
-                #             Q(last_name__icontains=query) |
-                #             Q(full_name__icontains=query) |
-                #             Q(number__icontains=query) |
-                #             Q(id__icontains=query)
-                #         )
-                #     else:
-                #         queryset = MyModel.objects.all()
-
-                #     context = {
-                #         'queryset': queryset,
-                #         'query': query
-                #     }
-                #     return render(request, 'search_results.html', context)
+                task_list = tasks.objects.filter(
+                    Q(id__icontains=item, active_status="ON") |
+                    Q(task_name__icontains=item, active_status="ON") |
+                    Q(category__icontains=item, active_status="ON") |
+                    Q(subcategory__icontains=item, active_status="ON") |
+                    Q(assigned_by__icontains=item, active_status="ON") |
+                    Q(assigned_to__icontains=item, active_status="ON")
+                )
 
                 total_active = task_list.count()
                 the_user = full_name
                 the_pic = app_users.objects.get(username=username)
-                messages.success(request, 'Your message here.')
                 context = {"task_list": task_list,
                            "total_active": total_active, "the_user": the_user, "the_pic": the_pic}
-                return render(request, 'html/Admin_dashboard_home.html', context)
+                return render(request, 'html/Admin_dashboard_home.html', context)\
+
+            elif 'date_search' in request.POST:
+                date_category = request.POST.get("tvalue_date_category")
+                from_date = request.POST.get("tvalue_from_date")
+                to_date = request.POST.get("tvalue_to_date")
+
+                if date_category == "Date Published":
+                    task_list = tasks.objects.filter(
+                        date_published__range=(from_date, to_date), active_status="ON")
+                    total_active = task_list.count()
+                    the_user = full_name
+                    the_pic = app_users.objects.get(username=username)
+                    context = {"task_list": task_list,
+                               "total_active": total_active, "the_user": the_user, "the_pic": the_pic}
+                    return render(request, 'html/Admin_dashboard_home.html', context)
+
+                elif date_category == "Date Started":
+                    task_list = tasks.objects.filter(
+                        date_started__range=(from_date, to_date), active_status="ON")
+                    total_active = task_list.count()
+                    the_user = full_name
+                    the_pic = app_users.objects.get(username=username)
+                    context = {"task_list": task_list,
+                               "total_active": total_active, "the_user": the_user, "the_pic": the_pic}
+                    return render(request, 'html/Admin_dashboard_home.html', context)
 
         task_list = tasks.objects.filter(
             active_status="ON")

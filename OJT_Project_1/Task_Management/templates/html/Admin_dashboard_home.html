@@ -461,18 +461,17 @@
                     </form>   
                 </div>
                 <div class="input-container_none_special">
-                    <select class="special_select_style" id="search_bar" name="search_bar">
-                        <option value="All">All</option>
+                    <select class="special_select_style" id="date_cat" name="date_cat">
                         <option value="Date Published">Date Published</option>
                         <option value="Date Started">Date Started</option>
                     </select>
-                    <input type="date" placeholder="Task ID" id="search_bar" name="search_bar"> 
+                    <input type="date" placeholder="Task ID" id="from" name="from"> 
                 </div>
                 <div class="input-container_none">
                 <h3>-</h3>
                 </div>
                 <div class="input-container_none">
-                    <input type="date" placeholder="Task ID" id="search_bar" name="search_bar">
+                    <input type="date" placeholder="Task ID" id="to" name="to">
                     <button type="button" class="date_search" onclick="click_date_search()">Search</button>
                 </div> 
                 <a href="#" class="login-btn">Report</a>
@@ -561,11 +560,23 @@ o
         modal.style.display = "none"
     }
     function click_general_search(){
-        submit_btn = document.getElementById("general_search");
+        var submit_btn = document.getElementById("general_search");
         submit_btn.click()
     }
     function click_date_search(){
-        submit_btn = document.getElementById("date_search");
+        var old_cat = document.getElementById("date_cat")
+        var old_from_date = document.getElementById("from")
+        var old_to_date = document.getElementById("to")
+
+        var new_cat = document.getElementById("tvalue_date_category")
+        var new_from_date = document.getElementById("tvalue_from_date")
+        var new_to_date = document.getElementById("tvalue_to_date")
+
+        new_cat.value = old_cat.value
+        new_from_date.value = old_from_date.value
+        new_to_date.value = old_to_date.value
+
+        var submit_btn = document.getElementById("date_search");
         submit_btn.click()
     }
     
