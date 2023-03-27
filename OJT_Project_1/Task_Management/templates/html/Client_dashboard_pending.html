@@ -331,8 +331,12 @@
             </div>
             <div class="side_by_side">
                 <div class="input-container">
-                    <i class="fas fa-search"></i>
-                    <input type="text" placeholder="Task ID">   
+                    <i class="fas fa-search" onclick="click_general_search()"></i>
+                    <form method="POST">
+                        {% csrf_token %}
+                        <input type="text" placeholder="Search..." id="search_bar" name="search_bar">
+                        <button type="submit" name="general_search" id="general_search" hidden></button>
+                    </form>   
                 </div>
                 <div class="elmnt">
                     <i class="fa fa-circle normal_icon"></i>
@@ -364,7 +368,7 @@
                                 <td><i class="fa fa-circle urgent_icon"></td>
                                 <td>{{tasks.id}}</td>
                                 <td>{{tasks.task_name}}</td>
-                                <td>{{tasks.assigned_to}}</td>
+                                <td>{{tasks.category}}</td>
                                 <td>{{tasks.assigned_by}}</td>
                                 <td>{{tasks.date_published}}</td>
                                 <td><i class="material-icons" onclick="open_modal('{{tasks.id}}')">info</i></td>
@@ -416,6 +420,10 @@
         }
         var modal = document.getElementById(modal_id);
         modal.style.display = "none"
+    }
+    function click_general_search(){
+        var submit_btn = document.getElementById("general_search");
+        submit_btn.click()
     }
 
 </script>

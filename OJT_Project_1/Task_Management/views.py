@@ -40,7 +40,24 @@ def client_home(request):
     username = request.user.username
     if request.user.is_authenticated and request.user.position == 'Employee':
         if request.method == "POST":
-            pass
+            item = request.POST.get("search_bar")
+
+            task_list = tasks.objects.filter(
+                Q(id__icontains=item, active_status="ON", assigned_to=full_name) |
+                Q(task_name__icontains=item, active_status="ON", assigned_to=full_name) |
+                Q(category__icontains=item, active_status="ON", assigned_to=full_name) |
+                Q(subcategory__icontains=item, active_status="ON", assigned_to=full_name) |
+                Q(assigned_by__icontains=item, active_status="ON", assigned_to=full_name) |
+                Q(assigned_to__icontains=item,
+                  active_status="ON", assigned_to=full_name)
+            )
+
+            total_active = task_list.count()
+            the_user = full_name
+            the_pic = app_users.objects.get(username=username)
+            context = {"task_list": task_list, "total_active": total_active,
+                       "the_user": the_user, "the_pic": the_pic}
+            return render(request, 'html/Client_dashboard_home.html', context)
 
         task_list = tasks.objects.filter(
             active_status="ON", assigned_to=full_name)
@@ -82,7 +99,24 @@ def client_pending(request):
     username = request.user.username
     if request.user.is_authenticated and request.user.position == 'Employee':
         if request.method == "POST":
-            pass
+            item = request.POST.get("search_bar")
+
+            task_list = tasks.objects.filter(
+                Q(id__icontains=item, active_status="OFF", assigned_to=full_name) |
+                Q(task_name__icontains=item, active_status="OFF", assigned_to=full_name) |
+                Q(category__icontains=item, active_status="OFF", assigned_to=full_name) |
+                Q(subcategory__icontains=item, active_status="OFF", assigned_to=full_name) |
+                Q(assigned_by__icontains=item, active_status="OFF", assigned_to=full_name) |
+                Q(assigned_to__icontains=item,
+                  active_status="OFF", assigned_to=full_name)
+            )
+
+            total_pending = task_list.count()
+            the_user = full_name
+            the_pic = app_users.objects.get(username=username)
+            context = {"task_list": task_list, "total_pending": total_pending,
+                       "the_user": the_user, "the_pic": the_pic}
+            return render(request, 'html/Client_dashboard_pending.html', context)
 
         task_list = tasks.objects.filter(
             active_status="OFF", assigned_to=full_name)
@@ -124,7 +158,23 @@ def client_complete(request):
     username = request.user.username
     if request.user.is_authenticated and request.user.position == 'Employee':
         if request.method == "POST":
-            pass
+            item = request.POST.get("search_bar")
+
+            task_list = tasks.objects.filter(
+                Q(id__icontains=item, active_status="DONE", assigned_to=full_name) |
+                Q(task_name__icontains=item, active_status="DONE", assigned_to=full_name) |
+                Q(category__icontains=item, active_status="DONE", assigned_to=full_name) |
+                Q(subcategory__icontains=item, active_status="DONE", assigned_to=full_name) |
+                Q(assigned_by__icontains=item, active_status="DONE", assigned_to=full_name) |
+                Q(assigned_to__icontains=item,
+                  active_status="DONE", assigned_to=full_name)
+            )
+            total_complete = task_list.count()
+            the_user = full_name
+            the_pic = app_users.objects.get(username=username)
+            context = {"task_list": task_list, "total_complete": total_complete,
+                       "the_user": the_user, "the_pic": the_pic}
+            return render(request, 'html/Client_dashboard_complete.html', context)
 
         task_list = tasks.objects.filter(
             active_status="DONE", assigned_to=full_name)
@@ -327,6 +377,21 @@ def admin_users(request):
     full_name = first_name + " " + last_name
     username = request.user.username
     if request.user.is_authenticated and request.user.position == 'Admin':
+        if request.method == "POST":
+            item = request.POST.get("search_bar")
+
+            employee_list = app_users.objects.filter(
+                Q(first_name__icontains=item, position="Employee") |
+                Q(last_name__icontains=item, position="Employee") |
+                Q(email__icontains=item, position="Employee") |
+                Q(id_number__icontains=item, position="Employee") |
+                Q(contact_number__icontains=item, position="Employee") |
+                Q(full_name__icontains=item, position="Employee"))
+
+            the_pic = app_users.objects.get(username=username)
+            context = {"the_pic": the_pic, "employee_list": employee_list}
+            return render(request, 'html/Admin_dashboard_users.html', context)
+
         employee_list = app_users.objects.filter(position="Employee")
         the_pic = app_users.objects.get(username=username)
         context = {"the_pic": the_pic, "employee_list": employee_list}

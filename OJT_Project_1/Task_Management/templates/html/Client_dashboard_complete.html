@@ -332,8 +332,12 @@
             </div>
             <div class="side_by_side">
                 <div class="input-container">
-                    <i class="fas fa-search"></i>
-                    <input type="text" placeholder="Task ID">   
+                    <i class="fas fa-search" onclick="click_general_search()"></i>
+                    <form method="POST">
+                        {% csrf_token %}
+                        <input type="text" placeholder="Search..." id="search_bar" name="search_bar">
+                        <button type="submit" name="general_search" id="general_search" hidden></button>
+                    </form>   
                 </div>
             </div>
             <div class="tableFixHead">
@@ -392,6 +396,10 @@
         }
         var modal = document.getElementById(modal_id);
         modal.style.display = "none"
+    }
+    function click_general_search(){
+        var submit_btn = document.getElementById("general_search");
+        submit_btn.click()
     }
 
 </script>
