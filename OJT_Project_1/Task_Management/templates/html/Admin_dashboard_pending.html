@@ -57,7 +57,7 @@
         margin: 9px 0;
     }
 
-    .menu {
+    a {
         display: flex;
         align-items: center;
         padding: 10px 20px;
@@ -66,7 +66,7 @@
         transition: all 0.3s ease-in-out;
     }
 
-    .menu:hover {
+    a:hover {
         background-color: #00BFFF;
     }
 
@@ -127,9 +127,9 @@
     }
 
     .tableFixHead {
-        margin: 0% 1.5% 1.5% 1.5%;
+        margin: 1.5%;
         overflow-y: auto; /* make the table scrollable if height is more than 200 px  */
-        height: 495px; /* gives an initial height of 200px to the table */
+        height: 500px; /* gives an initial height of 200px to the table */
         
     }
     .tableFixHead thead th {
@@ -178,74 +178,147 @@
     .start_btn:hover {
         background-color: rgb(0, 213, 0);
     }
-    .cancel_btn {
-        background-color: rgb(180, 0, 0);
+    .finish_btn {
+        background-color: rgb(145, 0, 0);
         color: #fff;
         border: none;
         border-radius: 5px;
         cursor: pointer;
         transition: background-color 0.3s ease-in-out;
-        padding: 10%;
     }
-    .cancel_btn:hover {
-        background-color: rgb(255, 0, 0);
+    .finish_btn:hover {
+        background-color: red;
     }
     .material-icons{
         color: rgb(0, 126, 251);
-        cursor: pointer;
-    }
-    .input-container {
-        position: relative;
-        margin: 1.5%;
-        
-    }
-
-    .input-container i {
-        position: absolute;
-        left: 10px;
-        top: 50%;
-        transform: translateY(-50%);
-        color: #999;
-    }
-
-    input[type="text"], input[type="password"] {
-        width: 15%;
-        padding: 5px 50px 5px 35px;
-        border: black;
-        border-radius: 5px;
-        background-color: #f2f2f2;
-        color: #333;
-        font-size: small;
-    }
-    .elmnt{
-        margin-left: 1.5%;
-        display: flex;
-    }
-    .elmnt i{
-        font-size: small;
-        padding-top: 3px;
-    }
-    .urgent{
-        margin-left: 1%;
-        margin-right: 2%;
-    }
-    .late{
-        margin-left: 1%;
-        margin-right: 2%;
-    }
-    .urgent_icon{
-        color: red;
-    }
-    .late_icon{
-        color: rgb(255, 162, 0);
-    }
-    .active_icon{
-        color: rgb(0, 255, 0);
     }
     .sign_out{
         margin-top: 20px;
     }
-    /* The Modal (background) */
+    .input-container {
+        position: relative;
+        margin-top: 1.5%;
+        margin-right: -20px;
+    }
+
+    .input-container_1 {
+        position: relative;
+        margin-top: 1.5%;
+        margin-right: inherit;
+
+    }
+
+    .input-container_2 {
+        position: relative;
+        margin-top: 1.5%;
+        margin-right: inherit;
+    }
+
+    .input-container_none{
+        margin-top: 1.5%;
+    }
+
+    .input-container_none_special{
+        margin-top: 1.5%;
+        margin-left: 1.5%;
+    }
+
+
+    .input-container i, .input-container_1 i, .input-container_2 i {
+        position: absolute;
+        left: 10px;
+        top: 40%;
+        transform: translateY(-50%);
+        color: #999;
+    }
+
+    input[type="text"], input[type="password"]{
+        width: 80%;
+        padding: 5px 5px 5px 35px;
+        border: 2px solid black;
+        border-radius: 5px;
+        background-color: #f2f2f2;
+        color: #333;
+        font-size: small;
+        outline: 2px black;
+    }
+    
+    input[type="date"]{
+        width: auto;
+        padding: 5px 5px 5px 5px;
+        border: 2px solid black;
+        border-radius: 5px;
+        background-color: #f2f2f2;
+        color: #333;
+        font-size: small;
+        outline: 2px black;
+    }
+
+    .select_style{
+        width:fit-content;
+        padding: 5px 50px 5px 35px;
+        border: 2px solid black;
+        border-radius: 5px;
+        background-color: #f2f2f2;
+        color: #333;
+        height: 32px;
+        font-size: small;
+        outline: 2px black;
+        margin: auto;
+    }
+    .special_select_style{
+        width:fit-content;
+        border: 2px solid black;
+        border-radius: 5px;
+        background-color: #f2f2f2;
+        color: #333;
+        height: 32px;
+        font-size: small;
+        outline: 2px black;
+        margin: auto;
+    }
+    .side_by_side{
+        display: flex;
+        margin: 1.5% 1.5% 1.5% 1.5%;
+    }
+    .login-btn {
+        margin-left: auto;
+        margin-top: 1%;
+        width: auto;
+        height: 40px;
+        background-color: #29166F;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        font-size: 1.2rem;
+        cursor: pointer;
+        transition: background-color 0.3s ease-in-out;
+    }
+
+    .login-btn:hover {
+        background-color: #00BFFF;
+        color: black;
+    }
+
+    .date_search {
+        margin-left: 10px;
+        width: auto;
+        background-color: #29166F;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        font-size: 1.2rem;
+        cursor: pointer;
+        transition: background-color 0.3s ease-in-out;
+    }
+
+    .date_search:hover {
+        background-color: #00BFFF;
+        color: black;
+    }
+
+    
+
     .modal {
          display: none;
          width: 100%;
@@ -277,6 +350,79 @@
          text-decoration: none;
          cursor: pointer;
      }
+     .messages {
+        position: fixed;
+        top: 0;
+        right: 0;
+        z-index: 9999;
+    }
+
+    .messages li {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    color: #fff;
+    font-weight: bold;
+    }
+
+    .success {
+    background-color: #28a745;
+    }
+
+    .error {
+    background-color: #dc3545;
+    }
+
+    .warning {
+    background-color: #ffc107;
+    }
+
+    .info {
+    background-color: #17a2b8;
+    }
+
+    .elmnt{
+        margin-left: 1.5%;
+        display: flex;
+    }
+    .elmnt i{
+        font-size: small;
+        padding-top: 3px;
+    }
+    .urgent{
+        margin-left: 1%;
+        margin-right: 2%;
+    }
+    .late{
+        margin-left: 1%;
+        margin-right: 2%;
+    }
+    .urgent_icon{
+        color: red;
+    }
+    .late_icon{
+        color: rgb(255, 162, 0);
+    }
+    .active_icon{
+        color: rgb(0, 255, 0);
+    }
+    .cancel_btn {
+        background-color: rgb(180, 0, 0);
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease-in-out;
+        padding: 5%;
+        margin: auto;
+        width: fit-content;
+        height: fit-content;
+    }
+    .cancel_btn:hover {
+        background-color: rgb(255, 0, 0);
+    }
 
 </style>
 
@@ -292,36 +438,36 @@
                 <img class="profile_pic" src="{{the_pic.profile_pic.url}}">
                 {% endif %}
 				<li>
-					<a href="{% url 'admin_home' %}" class="menu">
+					<a href="{% url 'admin_home' %}">
 						<i class="fas fa-home"></i>
 						<span>Home</span>
 					</a>
 				</li>
 				<li>
-					<a href="{% url 'admin_pending' %}" class="menu">
+					<a href="{% url 'admin_pending' %}">
 						<i class="fa fa-hourglass-half"></i>
 						<span>Pending Task</span>
 					</a>
 				</li>
 				<li>
-					<a href="{% url 'admin_complete' %}" class="menu">
+					<a href="{% url 'admin_complete' %}">
 						<i class="fa fa-check-circle"></i>
 						<span>Complete Task</span>
 					</a>
 				</li>
-                    <a href="{% url 'admin_users' %}" class="menu">
+                    <a href="{% url 'admin_users' %}">
                         <i class="fas fa-user-tie"></i>
 						<span>Employees</span>
 					</a>
 				</li>
                 <li>
-					<a href="{% url 'admin_add_task' %}" class="menu">
+					<a href="{% url 'admin_add_task' %}">
 						<i class="fas fa-tasks"></i>
 						<span>Add Task</span>
 					</a>
 				</li>
                 <li>
-					<a href="{% url 'admin_edit' %}" class="menu">
+					<a href="{% url 'admin_edit' %}">
 						<i class="fas fa-edit"></i>
 						<span>Edit</span>
 					</a>
@@ -330,7 +476,7 @@
                 <br>
                 <br>
 				<li>
-					<a href="{% url 'logout' %}" class="menu">
+					<a href="{% url 'logout' %}">
 						<i class="fa fa-sign-out sign_out"></i>
 						<span class="sign_out">Logout</span>
 					</a>
@@ -338,26 +484,51 @@
 			</ul>
 		</nav>
 		<main class="content">
-            <h2>Pending Tasks</h2>
+            {% if messages %}
+                <ul class="messages">
+                    {% for message in messages %}
+                        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+            <h2>Active Tasks</h2>
             <div class="side_by_side">
                 <div class="input-container">
-                    <i class="fas fa-search" onclick="submit_search()"></i>
+                    <i class="fas fa-search" onclick="click_general_search()"></i>
                     <form method="POST">
                         {% csrf_token %}
                         <input type="text" placeholder="Task ID" id="search_bar" name="search_bar">
-                        <button type="submit" name="search" id="search" hidden></button>
+                        <button type="submit" name="general_search" id="general_search" hidden></button>
                     </form>   
                 </div>
-                <div class="elmnt">
-                    <i class="fa fa-circle normal_icon"></i>
-                    <p class="urgent">Normal</p>
-                    <i class="fa fa-circle active_icon"></i>
-                    <p class="urgent">Active</p>
-                    <i class="fa fa-circle urgent_icon"></i>
-                    <p class="urgent">Urgent</p>
-                    <i class="fa fa-circle late_icon"></i>
-                    <p class="late">Late</p>
+                <div class="input-container_none_special">
+                    <input type="date" placeholder="Task ID" id="from" name="from"> 
                 </div>
+                <div class="input-container_none">
+                <h3>-</h3>
+                </div>
+                <div class="input-container_none">
+                    <input type="date" placeholder="Task ID" id="to" name="to">
+                    <button type="button" class="date_search" onclick="click_date_search()">Search</button>
+                </div> 
+                <a href="#" class="login-btn">Report</a>
+            </div>
+            <form method="POST">
+                {% csrf_token %}
+                <input type="text" id="tvalue_date_category" name="tvalue_date_category" hidden>
+                <input type="text" id="tvalue_from_date" name="tvalue_from_date" hidden>
+                <input type="text" id="tvalue_to_date" name="tvalue_to_date" hidden>
+                <button type="submit" name="date_search" id="date_search" hidden></button>
+            </form>
+            <div class="elmnt">
+                <i class="fa fa-circle normal_icon"></i>
+                <p class="urgent">Normal</p>
+                <i class="fa fa-circle active_icon"></i>
+                <p class="urgent">Active</p>
+                <i class="fa fa-circle urgent_icon"></i>
+                <p class="urgent">Urgent</p>
+                <i class="fa fa-circle late_icon"></i>
+                <p class="late">Late</p>
             </div>
             <div class="tableFixHead">
                 <table>
@@ -414,6 +585,23 @@
 	</div>
 </body>
 <script>
+    document.addEventListener("DOMContentLoaded", function() {
+    setTimeout(function() {
+        var messages = document.querySelector('.messages');
+        if (messages) {
+            messages.style.opacity = 1;
+            var fadeEffect = setInterval(function() {
+                if (messages.style.opacity < 0.1) {
+                    clearInterval(fadeEffect);
+                    messages.parentNode.removeChild(messages);
+                } else {
+                    messages.style.opacity -= 0.1;
+                }
+            }, 50);
+        }
+    }, 5000);
+});
+o
     var active_modal = null;
 
     function open_modal(modal_id) {
@@ -432,9 +620,23 @@
         var modal = document.getElementById(modal_id);
         modal.style.display = "none"
     }
-    function submit_search(){
-        submit_btn = document.getElementById("search");
+    function click_general_search(){
+        var submit_btn = document.getElementById("general_search");
         submit_btn.click()
     }
+    function click_date_search(){
+        var old_from_date = document.getElementById("from")
+        var old_to_date = document.getElementById("to")
+
+        var new_from_date = document.getElementById("tvalue_from_date")
+        var new_to_date = document.getElementById("tvalue_to_date")
+
+        new_from_date.value = old_from_date.value
+        new_to_date.value = old_to_date.value
+
+        var submit_btn = document.getElementById("date_search");
+        submit_btn.click()
+    }
+    
 </script>
 </html>

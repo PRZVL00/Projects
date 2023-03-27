@@ -211,11 +211,37 @@ def admin_pending(request):
     username = request.user.username
     if request.user.is_authenticated and request.user.position == 'Admin':
         if request.method == "POST":
-            if 'search' in request.POST:
+            if 'general_search' in request.POST:
+                # the item that is searched
                 item = request.POST.get("search_bar")
+
+                task_list = tasks.objects.filter(
+                    Q(id__icontains=item, active_status="OFF") |
+                    Q(task_name__icontains=item, active_status="OFF") |
+                    Q(category__icontains=item, active_status="OFF") |
+                    Q(subcategory__icontains=item, active_status="OFF") |
+                    Q(assigned_by__icontains=item, active_status="OFF") |
+                    Q(assigned_to__icontains=item, active_status="OFF")
+                )
+
+                total_active = task_list.count()
+                the_user = full_name
                 the_pic = app_users.objects.get(username=username)
-                task_list = tasks.objects.filter(active_status="OFF", id=item)
-                context = {"task_list": task_list, "the_pic": the_pic}
+                context = {"task_list": task_list,
+                           "total_active": total_active, "the_user": the_user, "the_pic": the_pic}
+                return render(request, 'html/Admin_dashboard_pending.html', context)
+
+            elif 'date_search' in request.POST:
+                from_date = request.POST.get("tvalue_from_date")
+                to_date = request.POST.get("tvalue_to_date")
+
+                task_list = tasks.objects.filter(
+                    date_published__range=(from_date, to_date), active_status="OFF")
+                total_active = task_list.count()
+                the_user = full_name
+                the_pic = app_users.objects.get(username=username)
+                context = {"task_list": task_list,
+                           "total_active": total_active, "the_user": the_user, "the_pic": the_pic}
                 return render(request, 'html/Admin_dashboard_pending.html', context)
 
         the_pic = app_users.objects.get(username=username)
