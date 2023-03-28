@@ -13,6 +13,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 
 from django.db.models import Q
+from django.core.mail import send_mail
 
 
 def index(request):
@@ -50,7 +51,7 @@ def client_home(request):
                 Q(assigned_by__icontains=item, active_status="ON", assigned_to=full_name) |
                 Q(assigned_to__icontains=item,
                   active_status="ON", assigned_to=full_name)
-            )
+            ).order_by("-id")
 
             total_active = task_list.count()
             the_user = full_name
@@ -60,7 +61,7 @@ def client_home(request):
             return render(request, 'html/Client_dashboard_home.html', context)
 
         task_list = tasks.objects.filter(
-            active_status="ON", assigned_to=full_name)
+            active_status="ON", assigned_to=full_name).order_by("-id")
         total_active = task_list.count()
         the_user = full_name
         the_pic = app_users.objects.get(username=username)
@@ -109,7 +110,7 @@ def client_pending(request):
                 Q(assigned_by__icontains=item, active_status="OFF", assigned_to=full_name) |
                 Q(assigned_to__icontains=item,
                   active_status="OFF", assigned_to=full_name)
-            )
+            ).order_by("-id")
 
             total_pending = task_list.count()
             the_user = full_name
@@ -119,7 +120,7 @@ def client_pending(request):
             return render(request, 'html/Client_dashboard_pending.html', context)
 
         task_list = tasks.objects.filter(
-            active_status="OFF", assigned_to=full_name)
+            active_status="OFF", assigned_to=full_name).order_by("-id")
         total_pending = task_list.count()
         the_user = full_name
         the_pic = app_users.objects.get(username=username)
@@ -168,7 +169,8 @@ def client_complete(request):
                 Q(assigned_by__icontains=item, active_status="DONE", assigned_to=full_name) |
                 Q(assigned_to__icontains=item,
                   active_status="DONE", assigned_to=full_name)
-            )
+            ).order_by("-id")
+
             total_complete = task_list.count()
             the_user = full_name
             the_pic = app_users.objects.get(username=username)
@@ -177,7 +179,7 @@ def client_complete(request):
             return render(request, 'html/Client_dashboard_complete.html', context)
 
         task_list = tasks.objects.filter(
-            active_status="DONE", assigned_to=full_name)
+            active_status="DONE", assigned_to=full_name).order_by("-id")
         total_complete = task_list.count()
         the_user = full_name
         the_pic = app_users.objects.get(username=username)
@@ -207,7 +209,7 @@ def admin_home(request):
                     Q(subcategory__icontains=item, active_status="ON") |
                     Q(assigned_by__icontains=item, active_status="ON") |
                     Q(assigned_to__icontains=item, active_status="ON")
-                )
+                ).order_by("-id")
 
                 total_active = task_list.count()
                 the_user = full_name
@@ -223,7 +225,7 @@ def admin_home(request):
 
                 if date_category == "Date Published":
                     task_list = tasks.objects.filter(
-                        date_published__range=(from_date, to_date), active_status="ON")
+                        date_published__range=(from_date, to_date), active_status="ON").order_by("-id")
                     total_active = task_list.count()
                     the_user = full_name
                     the_pic = app_users.objects.get(username=username)
@@ -233,7 +235,7 @@ def admin_home(request):
 
                 elif date_category == "Date Started":
                     task_list = tasks.objects.filter(
-                        date_started__range=(from_date, to_date), active_status="ON")
+                        date_started__range=(from_date, to_date), active_status="ON").order_by("-id")
                     total_active = task_list.count()
                     the_user = full_name
                     the_pic = app_users.objects.get(username=username)
@@ -242,7 +244,7 @@ def admin_home(request):
                     return render(request, 'html/Admin_dashboard_home.html', context)
 
         task_list = tasks.objects.filter(
-            active_status="ON")
+            active_status="ON").order_by("-id")
         total_active = task_list.count()
         the_user = full_name
         the_pic = app_users.objects.get(username=username)
@@ -272,7 +274,7 @@ def admin_pending(request):
                     Q(subcategory__icontains=item, active_status="OFF") |
                     Q(assigned_by__icontains=item, active_status="OFF") |
                     Q(assigned_to__icontains=item, active_status="OFF")
-                )
+                ).order_by("-id")
 
                 total_active = task_list.count()
                 the_user = full_name
@@ -286,7 +288,7 @@ def admin_pending(request):
                 to_date = request.POST.get("tvalue_to_date")
 
                 task_list = tasks.objects.filter(
-                    date_published__range=(from_date, to_date), active_status="OFF")
+                    date_published__range=(from_date, to_date), active_status="OFF").order_by("-id")
                 total_active = task_list.count()
                 the_user = full_name
                 the_pic = app_users.objects.get(username=username)
@@ -295,7 +297,7 @@ def admin_pending(request):
                 return render(request, 'html/Admin_dashboard_pending.html', context)
 
         the_pic = app_users.objects.get(username=username)
-        task_list = tasks.objects.filter(active_status="OFF")
+        task_list = tasks.objects.filter(active_status="OFF").order_by("-id")
         context = {"task_list": task_list, "the_pic": the_pic}
         return render(request, 'html/Admin_dashboard_pending.html', context)
     else:
@@ -336,7 +338,7 @@ def admin_complete(request):
                     Q(subcategory__icontains=item, active_status="DONE") |
                     Q(assigned_by__icontains=item, active_status="DONE") |
                     Q(assigned_to__icontains=item, active_status="DONE")
-                )
+                ).order_by("-id")
 
                 total_active = task_list.count()
                 the_user = full_name
@@ -350,7 +352,7 @@ def admin_complete(request):
                 to_date = request.POST.get("tvalue_to_date")
 
                 task_list = tasks.objects.filter(
-                    date_published__range=(from_date, to_date), active_status="DONE")
+                    date_published__range=(from_date, to_date), active_status="DONE").order_by("-id")
                 total_active = task_list.count()
                 the_user = full_name
                 the_pic = app_users.objects.get(username=username)
@@ -386,13 +388,14 @@ def admin_users(request):
                 Q(email__icontains=item, position="Employee") |
                 Q(id_number__icontains=item, position="Employee") |
                 Q(contact_number__icontains=item, position="Employee") |
-                Q(full_name__icontains=item, position="Employee"))
+                Q(full_name__icontains=item, position="Employee")).order_by("-id_number")
 
             the_pic = app_users.objects.get(username=username)
             context = {"the_pic": the_pic, "employee_list": employee_list}
             return render(request, 'html/Admin_dashboard_users.html', context)
 
-        employee_list = app_users.objects.filter(position="Employee")
+        employee_list = app_users.objects.filter(
+            position="Employee").order_by("-id_number")
         the_pic = app_users.objects.get(username=username)
         context = {"the_pic": the_pic, "employee_list": employee_list}
         return render(request, 'html/Admin_dashboard_users.html', context)
@@ -428,6 +431,12 @@ def add_user(request):
                                                 contact_number=cnum, position=position, profile_pic=pic,
                                                 full_name=full_name, active_task_count=0, pending_task_count=0)
             new_user.save()
+
+            send_mail(
+                'Test Run for Registration',
+                'Good Day! You are now registered on RSB Task Management System. For your authentication, use your Id number as your username (RSB-XXXX) and combination of last name and id (Surname-RSB-XXXX). You can access your account in this website (Future link here).',
+                'rsb.taskmanagement@gmail.com',
+                [email],)
             return redirect("add_user")
 
         the_pic = app_users.objects.get(username=username)

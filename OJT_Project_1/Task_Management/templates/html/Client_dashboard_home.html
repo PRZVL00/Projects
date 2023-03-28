@@ -358,7 +358,7 @@
                             <td>{{tasks.date_published}}</td>
                             <td>{{tasks.date_started}}</td>
                             <td><i class="material-icons" onclick="open_modal('{{tasks.id}}')">info</i></td>
-                            <td><a href="{% url 'complete_task' tasks.id %}" class="start_btn"><button style="background-color: rgba(255, 255, 255, 0); border-color: #00bfff00; color: white;">Start</button></a></td>
+                            <td><a href="{% url 'complete_task' tasks.id %}" class="start_btn"><button style="background-color: rgba(255, 255, 255, 0); border-color: #00bfff00; color: white;">Finish</button></a></td>
                         </tr>
                         {% endfor %}
                     </tbody>
@@ -377,6 +377,9 @@
 	</div>
 </body>
 <script>
+    setTimeout(function(){
+    location.reload();
+    }, 60000);
     var active_modal = null;
 
     function open_modal(modal_id) {
