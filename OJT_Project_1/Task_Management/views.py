@@ -15,6 +15,8 @@ from django.contrib import messages
 from django.db.models import Q
 from django.core.mail import send_mail
 
+from datetime import *
+
 
 def index(request):
     if request.method == 'POST':
@@ -26,10 +28,49 @@ def index(request):
         if user is not None:
             if user.position == "Employee":
                 login(request, user)
-                return redirect("client_home")
+
+                today = date.today()
+                date_today = today.strftime("%Y-%m-%d")
+                the_user = app_users.objects.get(username=username)
+
+                now = datetime.now()
+                current_time = now.strftime("%H:%M:%S")
+
+                the_log = logbook.objects.filter(
+                    name=the_user.full_name, date_logged=date_today).count()
+
+                if the_log == 0:
+
+                    log_time = logbook.objects.create(name=the_user.full_name, id_number=the_user.id_number,
+                                                      date_logged=date_today, time_logged=current_time)
+                    log_time.save()
+                    return redirect("client_home")
+
+                else:
+                    return redirect("client_home")
             else:
                 login(request, user)
-                return redirect("admin_home")
+
+                today = date.today()
+                date_today = today.strftime("%Y-%m-%d")
+                the_user = app_users.objects.get(username=username)
+
+                now = datetime.now()
+                current_time = now.strftime("%H:%M:%S")
+
+                the_log = logbook.objects.filter(
+                    name=the_user.full_name, date_logged=date_today).count()
+
+                if the_log == 0:
+
+                    log_time = logbook.objects.create(name=the_user.full_name, id_number=the_user.id_number,
+                                                      date_logged=date_today, time_logged=current_time)
+                    log_time.save()
+                    return redirect("client_home")
+
+                else:
+                    return redirect("client_home")
+
     return render(request, 'html/Login_Page.html')
 
 
@@ -396,8 +437,9 @@ def admin_users(request):
 
         employee_list = app_users.objects.filter(
             position="Employee").order_by("-id_number")
+        log_list = logbook.objects.all()
         the_pic = app_users.objects.get(username=username)
-        context = {"the_pic": the_pic, "employee_list": employee_list}
+        context = {"the_pic": the_pic, "employee_list": employee_list, "log_list":log_list}
         return render(request, 'html/Admin_dashboard_users.html', context)
     else:
         return redirect("client_home")

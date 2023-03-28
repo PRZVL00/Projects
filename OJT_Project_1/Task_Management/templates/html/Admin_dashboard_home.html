@@ -9,6 +9,12 @@
     <script src="https://kit.fontawesome.com/yourcode.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <script type="text/javascript" src="https://unpkg.com/xlsx@0.15.1/dist/xlsx.full.min.js"></script>
+    <script type="text/javascript" src="https://unpkg.com/xlsx@0.15.1/dist/xlsx.full.min.js"></script>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.6/jspdf.plugin.autotable.min.js"></script>
 </head>
 
 <style>
@@ -386,6 +392,7 @@
         display: none;
     }
     }
+    
 
 </style>
 
@@ -475,7 +482,7 @@
                     <input type="date" placeholder="Task ID" id="to" name="to">
                     <button type="button" class="date_search" onclick="click_date_search()">Search</button>
                 </div> 
-                <a href="#" class="login-btn">Report</a>
+                <button type="button" class="login-btn" onclick="transcribe();dlexcel('xlsx');">Report</button>
             </div>
             <form method="POST">
                 {% csrf_token %}
@@ -485,7 +492,7 @@
                 <button type="submit" name="date_search" id="date_search" hidden></button>
             </form>
             <div class="tableFixHead">
-                <table>
+                <table id="active_task_table">
                     <thead>
                         <tr>
                             <th onclick="trial_1()"> Task ID</th>
@@ -580,6 +587,86 @@ o
         var submit_btn = document.getElementById("date_search");
         submit_btn.click()
     }
-    
+
+    function transcribe() {
+        var today = new Date();
+        var dd = String(today.getDate()).padStart(2, '0');
+        var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+        var yyyy = today.getFullYear();
+        today = mm + '-' + dd + '-' + yyyy;
+        
+        var doc = new jsPDF('p', 'pt', 'letter');
+        var htmlstring = '';
+        var tempVarToCheckPageHeight = 0;
+        var pageHeight = 0;
+        pageHeight = doc.internal.pageSize.height;
+        specialElementHandlers = {
+            // element with id of "bypass" - jQuery style selector  
+            '#bypassme': function (element, renderer) {
+                // true = "handled elsewhere, bypass text extraction"  
+                return true
+            }
+        };
+        alert("HIS")
+        margins = {
+            top: 50,
+            bottom: 50,
+            left: 50,
+            right: 150,
+            width: 850,
+        };
+        var y = 20;
+        doc.setLineWidth(5);
+        doc.text(250, y = y + 30, "RSB Active Tasks");
+        doc.autoTable({
+            html: '#active_task_table',
+            startY: 60,
+            theme: 'grid',
+            columnStyles: {
+                0: {
+                    autoSize: true,
+                },
+                1: {
+                    autoSize: true,
+                },
+                2: {
+                    autoSize: true,
+                },
+                3: {
+                    autoSize: true,
+                },
+                4: {
+                    autoSize: true,
+                },
+                5: {
+                    autoSize: true,
+                },
+                6: {
+                    autoSize: true,
+                },
+                7: {
+                    autoSize: true,
+                }
+            },
+            styles: {
+                minCellHeight: 5
+            }
+        })
+        doc.save('RSB-ACTIVE-TASKS-RECORD(' + today + ').pdf');
+        }
+
+    function dlexcel(type, fn, dl) {
+        var today = new Date();
+        var dd = String(today.getDate()).padStart(2, '0');
+        var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+        var yyyy = today.getFullYear();
+        today = mm + '-' + dd + '-' + yyyy;
+        
+        var elt = document.getElementById('active_task_table');
+        var wb = XLSX.utils.table_to_book(elt, { sheet: "sheet1" });
+        return dl ?
+            XLSX.write(wb, { bookType: type, bookSST: true, type: 'base64' }) :
+            XLSX.writeFile(wb, fn || ('RSB-ACTIVE-TASKS-RECORD(' + today + ').' + (type || 'xlsx')));
+    }
 </script>
 </html>

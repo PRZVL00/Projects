@@ -346,6 +346,8 @@
                     </thead>
                     <tbody>
                         {% for employees in employee_list %}
+                        {% for log in log_list %}
+                        {% if log.name ==  employees.full_name %}
                             <tr>
                                 <td>{{employees.id_number}}</td>
                                 <td>{{employees.first_name}} {{employees.last_name}}</td>
@@ -353,8 +355,10 @@
                                 <td>{{employees.email}}</td>
                                 <td>{{employees.active_task_count}}</td>
                                 <td>{{employees.pending_task_count}}</td>
-                                <td>Under Maintenance</td>
-                            </tr>
+                                <td>{{log.date_logged}} {{log.time_logged}}</td>
+                            </tr>   
+                        {% endif %}
+                        {% endfor %}
                         {% endfor %}
                     </tbody>
                 </table>
