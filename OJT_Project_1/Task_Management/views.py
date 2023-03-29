@@ -437,9 +437,9 @@ def admin_users(request):
 
         employee_list = app_users.objects.filter(
             position="Employee").order_by("-id_number")
-        log_list = logbook.objects.all()
         the_pic = app_users.objects.get(username=username)
-        context = {"the_pic": the_pic, "employee_list": employee_list, "log_list":log_list}
+        context = {"the_pic": the_pic,
+                   "employee_list": employee_list}
         return render(request, 'html/Admin_dashboard_users.html', context)
     else:
         return redirect("client_home")
@@ -486,6 +486,55 @@ def add_user(request):
         return render(request, 'html/Add_user.html', context)
     else:
         return redirect("client_home")
+
+
+@login_required(login_url='index')
+def admin_logbook(request):
+    first_name = request.user.first_name
+    last_name = request.user.last_name
+    full_name = first_name + " " + last_name
+    username = request.user.username
+    if request.user.is_authenticated and request.user.position == 'Admin':
+        if request.method == "POST":
+            if 'general_search' in request.POST:
+                # the item that is searched
+                item = request.POST.get("search_bar")
+
+                log_list = logbook.objects.filter(
+                    Q(id_number__icontains=item) |
+                    Q(name__icontains=item) |
+                    Q(time_logged__icontains=item)
+                ).order_by("-id")
+
+                the_user = full_name
+                the_pic = app_users.objects.get(username=username)
+                context = {"log_list": log_list,
+                           "the_user": the_user, "the_pic": the_pic}
+                return render(request, 'html/Admin_dashboard_logbook.html', context)\
+
+            elif 'date_search' in request.POST:
+                from_date = request.POST.get("tvalue_from_date")
+                to_date = request.POST.get("tvalue_to_date")
+
+                log_list = logbook.objects.filter(
+                    date_logged__range=(from_date, to_date)).order_by("-id")
+                the_user = full_name
+                the_pic = app_users.objects.get(username=username)
+                context = {"log_list": log_list,
+                           "the_user": the_user, "the_pic": the_pic}
+                return render(request, 'html/Admin_dashboard_logbook.html', context)
+
+        today = date.today()
+        date_today = today.strftime("%Y-%m-%d")
+        log_list = logbook.objects.filter(
+            date_logged=str(date_today)).order_by("-id")
+        the_user = full_name
+        the_pic = app_users.objects.get(username=username)
+        context = {"log_list": log_list,
+                   "the_user": the_user, "the_pic": the_pic}
+        return render(request, 'html/Admin_dashboard_logbook.html', context)
+    else:
+        return redirect("client_logbook")
 
 
 @login_required(login_url='index')

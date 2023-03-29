@@ -9,6 +9,7 @@
     <script src="https://kit.fontawesome.com/yourcode.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <script type="text/javascript" src="https://unpkg.com/xlsx@0.15.1/dist/xlsx.full.min.js"></script>
     <script type="text/javascript" src="https://unpkg.com/xlsx@0.15.1/dist/xlsx.full.min.js"></script>
     
@@ -385,6 +386,14 @@
     .info {
     background-color: #17a2b8;
     }
+
+    @media only screen and (width: 320px) {
+    * {
+        display: none;
+    }
+    }
+    
+
 </style>
 
 <body>
@@ -398,7 +407,7 @@
                 {% if the_pic.profile_pic %}
                 <img class="profile_pic" src="{{the_pic.profile_pic.url}}">
                 {% endif %}
-                <li>
+				<li>
 					<a href="{% url 'admin_home' %}">
 						<i class="fas fa-home"></i>
 						<span>Home</span>
@@ -448,7 +457,14 @@
 			</ul>
 		</nav>
 		<main class="content">
-            <h2>Complete Tasks</h2>
+            {% if messages %}
+                <ul class="messages">
+                    {% for message in messages %}
+                        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+            <h2>Logbook</h2>
             <div class="side_by_side">
                 <div class="input-container">
                     <i class="fas fa-search" onclick="click_general_search()"></i>
@@ -472,38 +488,33 @@
             </div>
             <form method="POST">
                 {% csrf_token %}
+                <input type="text" id="tvalue_date_category" name="tvalue_date_category" hidden>
                 <input type="text" id="tvalue_from_date" name="tvalue_from_date" hidden>
                 <input type="text" id="tvalue_to_date" name="tvalue_to_date" hidden>
                 <button type="submit" name="date_search" id="date_search" hidden></button>
             </form>
             <div class="tableFixHead">
-                <table id="completed_task_table">
+                <table id="active_task_table">
                     <thead>
                         <tr>
-                            <th>Task ID</th>
-                            <th>Task Name</th>
-                            <th>Assigned To</th>
-                            <th>Published By</th>
-                            <th>Date Published</th>
-                            <th>Date Completed</th>
-                            <th>Details</th>
+                            <th>ID Number</th>
+                            <th>Name</th>
+                            <th>Date</th>
+                            <th>Time</th>
                         </tr>
                     </thead>
                     <tbody>
-                    {% for tasks in task_list %}
+                    {% for log in log_list %}    
                         <tr>
-                            <td>{{tasks.id}}</td>
-                            <td>{{tasks.task_name}}</td>
-                            <td>{{tasks.assigned_to}}</td>
-                            <td>{{tasks.assigned_by}}</td>
-                            <td>{{tasks.date_published}}</td>
-                            <td>{{tasks.date_completed}}</td>
-                            <td><i class="material-icons" onclick="open_modal('{{tasks.id}}')">info</i></td>
+                            <td>{{log.id_number}}</td>
+                            <td>{{log.name}}</td>
+                            <td>{{log.date_logged}}</td>
+                            <td>{{log.time_logged}}</td>
                         </tr>
                     {% endfor %}
                     </tbody>
                 </table>
-              </div>
+            </div>
             {% for tasks in task_list %}
             <div class="lalagyan">
                 <div id="{{tasks.id}}" class="modal">
@@ -569,6 +580,7 @@ o
         var submit_btn = document.getElementById("date_search");
         submit_btn.click()
     }
+
     function transcribe() {
         var today = new Date();
         var dd = String(today.getDate()).padStart(2, '0');
@@ -598,9 +610,9 @@ o
         };
         var y = 20;
         doc.setLineWidth(5);
-        doc.text(250, y = y + 30, "RSB Completed Tasks");
+        doc.text(250, y = y + 30, "RSB Logbook");
         doc.autoTable({
-            html: '#completed_task_table',
+            html: '#active_task_table',
             startY: 60,
             theme: 'grid',
             columnStyles: {
@@ -633,7 +645,7 @@ o
                 minCellHeight: 5
             }
         })
-        doc.save('RSB-COMPLETE-TASKS-RECORD(' + today + ').pdf');
+        doc.save('RSB-LOGBOOK-RECORD(' + today + ').pdf');
         }
 
     function dlexcel(type, fn, dl) {
@@ -643,11 +655,11 @@ o
         var yyyy = today.getFullYear();
         today = mm + '-' + dd + '-' + yyyy;
         
-        var elt = document.getElementById('completed_task_table');
+        var elt = document.getElementById('active_task_table');
         var wb = XLSX.utils.table_to_book(elt, { sheet: "sheet1" });
         return dl ?
             XLSX.write(wb, { bookType: type, bookSST: true, type: 'base64' }) :
-            XLSX.writeFile(wb, fn || ('RSB-COMPLETE-TASKS-RECORD(' + today + ').' + (type || 'xlsx')));
+            XLSX.writeFile(wb, fn || ('RSB-LOGBOOK-RECORD(' + today + ').' + (type || 'xlsx')));
     }
 </script>
 </html>

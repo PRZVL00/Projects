@@ -21,6 +21,7 @@ urlpatterns = [
     path('admin_complete', views.admin_complete, name='admin_complete'),
     path('admin_users', views.admin_users, name='admin_users'),
     path('add_user', views.add_user, name='add_user'),
+    path('admin_logbook', views.admin_logbook, name='admin_logbook'),
     path('admin_add_task', views.admin_add_task, name='admin_add_task'),
     path('admin_edit', views.admin_edit, name='admin_edit'),
     path('category', views.category, name='category'),
