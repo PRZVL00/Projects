@@ -130,6 +130,14 @@ def complete_task(request, task_id):
     full_name.active_task_count = active_task_count
     full_name.pending_task_count = pending_task_count
     full_name.save()
+
+    send_mail(
+        task.task_name + ' Finished',
+        'Task number ' + str(task.id) + " with a task name of " +
+        task.task_name + ", was finished by " + task.assigned_to + " with a date stamp of " +
+        str(date.today()) + ".",
+        'rsb.taskmanagement@gmail.com',
+        ["josiahbautista00@gmail.com"],)
     return redirect('client_home')
 
 
@@ -188,6 +196,14 @@ def accept_task(request, task_id):
     full_name.active_task_count = active_task_count
     full_name.pending_task_count = pending_task_count
     full_name.save()
+
+    send_mail(
+        task.task_name + 'Started',
+        'Task number ' + str(task.id) + " with a task name of " +
+        task.task_name + ", was started by " + task.assigned_to + " with a date stamp of " +
+        str(date.today()) + ".",
+        'rsb.taskmanagement@gmail.com',
+        ["josiahbautista00@gmail.com"],)
 
     return redirect('client_pending')
 
@@ -572,7 +588,7 @@ def admin_add_task(request):
             published_date = date.today()
 
             new_task = tasks.objects.create(task_name=task_name, category=categ, subcategory=subcateg, details=the_details,
-                                            assigned_by="SAMPLE", assigned_to=employees, date_published=published_date,
+                                            assigned_by=full_name, assigned_to=employees, date_published=published_date,
                                             date_completed="NONE", status=stat, active_status="OFF")
             new_task.save()
 
@@ -581,6 +597,15 @@ def admin_add_task(request):
             add_pending_task = app_users.objects.get(full_name=employees)
             add_pending_task.pending_task_count = the_pending_task_count
             add_pending_task.save()
+
+            chosen_employee = app_users.objects.get(full_name=employees)
+
+            send_mail(
+                'New Task "' + task_name + '"',
+                'Good Day! A new task was assigned to you by ' + full_name + " with a task name " +
+                task_name + ". Visit your pending task on (Future Link Here)",
+                'rsb.taskmanagement@gmail.com',
+                [chosen_employee.email],)
 
             messages.success(
                 request, 'New task is added to ' + employees + ".")
