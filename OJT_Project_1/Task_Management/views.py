@@ -468,24 +468,41 @@ def add_user(request):
 
             full_name = fname + " " + lname
 
-            new_user = app_users.objects.create(username=username, password=password, first_name=fname,
-                                                last_name=lname, email=email, id_number=idnum,
-                                                contact_number=cnum, position=position, profile_pic=pic,
-                                                full_name=full_name, active_task_count=0, pending_task_count=0)
-            new_user.save()
+            existing_user = app_users.objects.filter(id_number=idnum).count()
 
-            send_mail(
-                'Test Run for Registration',
-                'Good Day! You are now registered on RSB Task Management System. For your authentication, use your Id number as your username (RSB-XXXX) and combination of last name and id (Surname-RSB-XXXX). You can access your account in this website (Future link here).',
-                'rsb.taskmanagement@gmail.com',
-                [email],)
-            return redirect("add_user")
+            if existing_user >= 1:
+                messages.error(request,  idnum + ' is already existing.')
+                return redirect("add_user")
+
+            else:
+                new_user = app_users.objects.create(username=username, password=password, first_name=fname,
+                                                    last_name=lname, email=email, id_number=idnum,
+                                                    contact_number=cnum, position=position, profile_pic=pic,
+                                                    full_name=full_name, active_task_count=0, pending_task_count=0)
+                new_user.save()
+
+                send_mail(
+                    'Test Run for Registration',
+                    'Good Day! You are now registered on RSB Task Management System. For your authentication, use your Id number as your username (RSB-XXXX) and combination of last name and id (Surname-RSB-XXXX). You can access your account in this website (Future link here).',
+                    'rsb.taskmanagement@gmail.com',
+                    [email],)
+                messages.success(request,  idnum + ' was created succesfully.')
+                return redirect("add_user")
 
         the_pic = app_users.objects.get(username=username)
         context = {"the_pic": the_pic}
         return render(request, 'html/Add_user.html', context)
     else:
         return redirect("client_home")
+
+
+def delete_user(request, employees_id):
+    user = app_users.objects.get(id=employees_id)
+    the_tasks = tasks.objects.filter(
+        active_status__in=["ON", "OFF"], assigned_to=user.full_name)
+    the_tasks.delete()
+    user.delete()
+    return redirect('admin_users')
 
 
 @login_required(login_url='index')
@@ -565,6 +582,9 @@ def admin_add_task(request):
             add_pending_task.pending_task_count = the_pending_task_count
             add_pending_task.save()
 
+            messages.success(
+                request, 'New task is added to ' + employees + ".")
+
             return redirect("admin_add_task")
 
         employee_list = app_users.objects.filter(position="EMPLOYEE")
@@ -607,6 +627,8 @@ def category(request):
 
                 new_category = categories.objects.create(category=ncat.upper())
                 new_category.save()
+                messages.success(
+                    request, 'New category was added succesfully.')
                 return redirect("category")
 
             else:
@@ -614,6 +636,7 @@ def category(request):
 
                 selected_category = categories.objects.get(category=dcat)
                 selected_category.delete()
+                messages.error(request, 'Category was deleted succesfully.')
                 return redirect('category')
 
         category_list = categories.objects.all()
@@ -639,6 +662,8 @@ def subcategory(request):
                 new_subcategory = subcategories.objects.create(
                     category=cat_add, subcategory=nsubcat.upper())
                 new_subcategory.save()
+                messages.success(
+                    request, 'New subcategory was added succesfully.')
                 return redirect("subcategory")
 
             else:
@@ -648,6 +673,7 @@ def subcategory(request):
                 selected_subcategory = subcategories.objects.get(
                     category=cat_del, subcategory=dsubcat)
                 selected_subcategory.delete()
+                messages.error(request, 'Subcategory was deleted succesfully.')
                 return redirect('subcategory')
 
         category_list = categories.objects.all()
@@ -681,6 +707,8 @@ def steps(request):
                     new_step = detail.objects.create(
                         category=cat_to_add, subcategory=sub_to_add, details=new_details)
                     new_step.save()
+                    messages.success(
+                        request, 'New details was added succesfully.')
                     return redirect("steps")
 
             elif 'form2' in request.POST:
@@ -689,6 +717,7 @@ def steps(request):
                 selected_detail = detail.objects.get(
                     subcategory=detail_to_del)
                 selected_detail.delete()
+                messages.error(request, 'Details was deleted succesfully.')
                 return redirect('steps')
 
             elif 'form3' in request.POST:
@@ -699,6 +728,7 @@ def steps(request):
                     subcategory=detail_to_up)
                 selected_detail.details = new_details
                 selected_detail.save()
+                messages.success(request, 'Details was updated succesfully.')
                 return redirect('steps')
 
         category_list = categories.objects.all()

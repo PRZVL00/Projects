@@ -108,7 +108,7 @@
     .profile_pic{
         margin-left: 13%;
         width: 70%;
-        height: auto;
+        height: 70%;
         border-radius: 50%;
         
     }
@@ -226,6 +226,69 @@
       .btn_sidebyside{
         display: flex;
       }
+      .messages {
+        position: fixed;
+        top: 0;
+        right: 0;
+        z-index: 9999;
+    }
+
+    .messages li {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    color: #fff;
+    font-weight: bold;
+    }
+
+    .success {
+    background-color: #28a745;
+    }
+
+    .error {
+    background-color: #dc3545;
+    }
+
+    .warning {
+    background-color: #ffc107;
+    }
+
+    .info {
+    background-color: #17a2b8;
+    }.messages {
+        position: fixed;
+        top: 0;
+        right: 0;
+        z-index: 9999;
+    }
+
+    .messages li {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    color: #fff;
+    font-weight: bold;
+    }
+
+    .success {
+    background-color: #28a745;
+    }
+
+    .error {
+    background-color: #dc3545;
+    }
+
+    .warning {
+    background-color: #ffc107;
+    }
+
+    .info {
+    background-color: #17a2b8;
+    }
 </style>
 
 <body>
@@ -289,6 +352,13 @@
 			</ul>
 		</nav>
 		<main class="content">
+            {% if messages %}
+                <ul class="messages">
+                    {% for message in messages %}
+                        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
             <div class="container_2">
                 <h1>Information Sheet</h1>
                 <form method="POST" enctype= multipart/form-data>
@@ -322,5 +392,22 @@
 		</main>
 	</div>
 </body>
-
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+    setTimeout(function() {
+        var messages = document.querySelector('.messages');
+        if (messages) {
+            messages.style.opacity = 1;
+            var fadeEffect = setInterval(function() {
+                if (messages.style.opacity < 0.1) {
+                    clearInterval(fadeEffect);
+                    messages.parentNode.removeChild(messages);
+                } else {
+                    messages.style.opacity -= 0.1;
+                }
+            }, 50);
+        }
+    }, 5000);
+});
+</script>
 </html>

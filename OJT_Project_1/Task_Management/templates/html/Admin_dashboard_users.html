@@ -105,7 +105,7 @@
     .profile_pic{
         margin-left: 13%;
         width: 70%;
-        height: auto;
+        height: 70%;
         border-radius: 50%;
         
     }
@@ -185,6 +185,10 @@
         border-radius: 5px;
         cursor: pointer;
         transition: background-color 0.3s ease-in-out;
+        padding: 5%;
+        margin: auto;
+        width: fit-content;
+        height: fit-content;
     }
     .cancel_btn:hover {
         background-color: rgb(255, 0, 0);
@@ -347,6 +351,7 @@
                             <th>Email</th>
                             <th>Active Task</th>
                             <th>Pending Task</th>
+                            <th>Terminate</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -358,6 +363,7 @@
                                 <td>{{employees.email}}</td>
                                 <td>{{employees.active_task_count}}</td>
                                 <td>{{employees.pending_task_count}}</td>
+                                <td><a href="{% url 'delete_user' employees.id %}" class="cancel_btn"><button style="background-color: rgba(255, 255, 255, 0); border-color: #00bfff00; color: white;">Terminate</button></a></td>
                             </tr>   
                         {% endfor %}
                     </tbody>
