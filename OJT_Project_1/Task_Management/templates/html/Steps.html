@@ -379,7 +379,7 @@
 
                         <br>
                         <div class="btn_sidebyside">
-                            <button type="button" class="cancel">Cancel</button>
+                            <button type="button" class="cancel" onclick="clear_fields_1()">Cancel</button>
                             <button type="submit" name="form1" id="form1">Submit</button>
                         </div>
                     </form>
@@ -418,7 +418,7 @@
 
                         <br>
                         <div class="btn_sidebyside">
-                            <button type="button" class="cancel">Cancel</button>
+                            <button type="button" class="cancel" onclick="clear_fields_2()">Cancel</button>
                             <button type="submit" name="form2" id="form2">Submit</button>
                         </div>
                     </form>
@@ -457,7 +457,7 @@
 
                         <br>
                         <div class="btn_sidebyside">
-                            <button type="button" class="cancel">Cancel</button>
+                            <button type="button" class="cancel" onclick="clear_fields_3()">Cancel</button>
                             <button type="submit" name="form3" id="form3">Submit</button>
                         </div>
                     </form>
@@ -694,6 +694,33 @@
                 items_hide[o].style.display = "none";
             }
         }
+
+    }
+
+    function clear_fields_1(){
+        var cat_to_add = document.getElementById("cat_to_add")
+        var sub_to_add = document.getElementById("sub_to_add")
+        var new_details= document.getElementById("new_details")
+
+        cat_to_add.selectedIndex = 0
+        sub_to_add.selectedIndex = 0
+        new_details.value = ""
+    }
+
+    function clear_fields_2(){
+        var cat_to_del = document.getElementById("cat_to_del")
+        var sub_to_del = document.getElementById("sub_to_del")
+    
+        cat_to_del.selectedIndex = 0
+        sub_to_del.selectedIndex = 0
+
+    }
+    function clear_fields_3(){
+        var cat_to_up = document.getElementById("cat_to_up")
+        var sub_to_up = document.getElementById("sub_to_up")
+    
+        cat_to_up.selectedIndex = 0
+        sub_to_up.selectedIndex = 0
 
     }
 

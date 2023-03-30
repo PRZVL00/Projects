@@ -361,7 +361,7 @@
             {% endif %}
             <div class="container_2">
                 <h1>Information Sheet</h1>
-                <form method="POST" enctype= multipart/form-data>
+                <form method="POST" enctype= multipart/form-data id="my-form" name="my-form">
                     {% csrf_token %}
                   <label for="fname">First Name:</label>
                   <input type="text" id="fname" name="fname" placeholder="Enter your first name" required>
@@ -383,7 +383,7 @@
                   
                   <br>
                   <div class="btn_sidebyside">
-                    <button type="button" class="cancel">Cancel</button>
+                    <button type="button" class="cancel" onclick="clear_feilds()">Cancel</button>
                     <button type="submit">Submit</button>
                   </div>
                   
@@ -409,5 +409,21 @@
         }
     }, 5000);
 });
+
+function clear_feilds(){
+    // Get the form element by its ID
+    var myForm = document.getElementById("my-form");
+
+    // Get all the form elements inside the form
+    var formElements = myForm.elements;
+
+    // Loop through all the form elements and set their values to an empty string
+    for (var i = 0; i < formElements.length; i++) {
+    var element = formElements[i];
+    if (element.tagName.toLowerCase() !== "button") {
+        element.value = "";
+    }
+    }
+}
 </script>
 </html>

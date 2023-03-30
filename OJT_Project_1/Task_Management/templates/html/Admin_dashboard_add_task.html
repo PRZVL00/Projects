@@ -438,7 +438,7 @@
 
                         <br>
                         <div class="btn_sidebyside">
-                            <button type="button" class="cancel">Cancel</button>
+                            <button type="button" class="cancel" onclick="clear_fields()" >Cancel</button>
                             <button type="submit">Submit</button>
                         </div>
                     </div>
@@ -562,6 +562,17 @@
                 items_hide[o].style.display = "none";
             }
         }
+    }
+    function clear_fields(){
+        var task_name = document.getElementById("task_name")
+        var employees = document.getElementById("employees")
+        var categories = document.getElementById("categories")
+        var subcategories = document.getElementById("subcategories")
+        
+        task_name.value = "";
+        employees.selectedIndex = 0;
+        categories.selectedIndex = 0;
+        subcategories.selectedIndex = 0;
     }
 </script>
 </html>

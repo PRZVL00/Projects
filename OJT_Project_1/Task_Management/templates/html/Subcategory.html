@@ -390,7 +390,7 @@
 
                         <br>
                         <div class="btn_sidebyside">
-                            <button type="button" class="cancel">Cancel</button>
+                            <button type="button" class="cancel" onclick="clear_fields_1()">Cancel</button>
                             <button type="submit" name="form1" id="form1">Submit</button>
                         </div>
                     </form>
@@ -422,7 +422,7 @@
 
                         <br>
                         <div class="btn_sidebyside">
-                            <button type="button" class="cancel">Cancel</button>
+                            <button type="button" class="cancel" onclick="clear_fields_2()">Cancel</button>
                             <button type="submit" name="form2" id="form2">Submit</button>
                         </div>
                     </form>
@@ -493,6 +493,23 @@
         }
     }
 
+    function clear_fields_1(){
+        var cat_add = document.getElementById("cat_add")
+        var nsubcat = document.getElementById("nsubcat")
+
+        cat_add.selectedIndex = 0
+        nsubcat.value = ""
+
+    }
+
+    function clear_fields_2(){
+        var cat_del = document.getElementById("cat_del")
+        var dsubcat = document.getElementById("dsubcat")
+
+        cat_del.selectedIndex = 0
+        dsubcat.selectedIndex = 0
+
+    }
     
 </script>
 </html>

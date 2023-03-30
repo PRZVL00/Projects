@@ -383,7 +383,7 @@
 
                     <br>
                     <div class="btn_sidebyside">
-                        <button type="button" class="cancel">Cancel</button>
+                        <button type="button" class="cancel" onclick="clear_fields_1()">Cancel</button>
                         <button type="submit" name="form1" id="form1">Submit</button>
                     </div>
                     
@@ -403,7 +403,7 @@
 
                     <br>
                     <div class="btn_sidebyside">
-                        <button type="button" class="cancel">Cancel</button>
+                        <button type="button" class="cancel" onclick="clear_fields_2()">Cancel</button>
                         <button type="submit" name="form2" id="form2">Submit</button>
                     </div>
                     
@@ -430,5 +430,15 @@
         }
     }, 5000);
 });
+
+function clear_fields_1(){
+    var ncat = document.getElementById("ncat")
+    ncat.value = ""
+}
+
+function clear_fields_2(){
+    var dcat = document.getElementById("dcat")
+    dcat.selectedIndex = 0
+}
 </script>
 </html>
