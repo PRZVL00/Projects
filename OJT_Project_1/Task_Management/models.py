@@ -50,9 +50,8 @@ class tasks(models.Model):
 class task_history(models.Model):
     id = models.AutoField(primary_key=True, unique=True)
     task_id = models.CharField(max_length=30)
-    date_continued = models.CharField(max_length=30)
+    date = models.CharField(max_length=30)
     time_continued = models.CharField(max_length=30)
-    date_paused = models.CharField(max_length=30)
     time_paused = models.CharField(max_length=30)
     man_hours = models.CharField(max_length=30)
     status = models.CharField(max_length=30)
@@ -64,7 +63,6 @@ class logbook(models.Model):
     id_number = models.CharField(max_length=30)
     date_logged = models.CharField(max_length=30)
     time_logged = models.CharField(max_length=30)
-    date_logged_out = models.CharField(max_length=30)
     time_logged_out = models.CharField(max_length=30)
     total_hours = models.CharField(max_length=30)
 

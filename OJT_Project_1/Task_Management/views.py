@@ -34,7 +34,7 @@ def index(request):
                 the_user = app_users.objects.get(username=username)
 
                 now = datetime.now()
-                current_time = now.strftime("%H:%M:%S")
+                current_time = now.strftime("%H:%M")
 
                 the_log = logbook.objects.filter(
                     name=the_user.full_name, date_logged=date_today).count()
@@ -42,7 +42,7 @@ def index(request):
                 if the_log == 0:
 
                     log_time = logbook.objects.create(name=the_user.full_name, id_number=the_user.id_number,
-                                                      date_logged=date_today, time_logged=current_time)
+                                                      date_logged=date_today, time_logged=current_time, time_logged_out="NTO")
                     log_time.save()
                     return redirect("client_home")
 
@@ -56,7 +56,7 @@ def index(request):
                 the_user = app_users.objects.get(username=username)
 
                 now = datetime.now()
-                current_time = now.strftime("%H:%M:%S")
+                current_time = now.strftime("%H:%M")
 
                 the_log = logbook.objects.filter(
                     name=the_user.full_name, date_logged=date_today).count()
@@ -64,7 +64,7 @@ def index(request):
                 if the_log == 0:
 
                     log_time = logbook.objects.create(name=the_user.full_name, id_number=the_user.id_number,
-                                                      date_logged=date_today, time_logged=current_time)
+                                                      date_logged=date_today, time_logged=current_time, time_logged_out="NTO")
                     log_time.save()
                     return redirect("client_home")
 
@@ -101,9 +101,30 @@ def client_home(request):
                        "the_user": the_user, "the_pic": the_pic}
             return render(request, 'html/Client_dashboard_home.html', context)
 
+        now = datetime.now()
+        current_time = now.strftime("%H:%M")
+
         task_list = tasks.objects.filter(
             active_status="ON", assigned_to=full_name).order_by("-id")
         total_active = task_list.count()
+
+        for the_tasks in task_list:
+            time_str1 = str(the_tasks.time_started)
+            time_str2 = str(current_time)
+
+            # convert string to time object
+            time1 = datetime.strptime(time_str1, '%H:%M').time()
+            time2 = datetime.strptime(time_str2, '%H:%M').time()
+
+            # calculate the difference in minutes
+            timedelta = datetime.combine(datetime.today(
+            ), time2) - datetime.combine(datetime.today(), time1)
+            minutes_diff = (timedelta.seconds // 60) / 60
+            total = '{:0.2f}'.format(minutes_diff)
+
+            the_tasks.total_hours = total
+            the_tasks.save()
+
         the_user = full_name
         the_pic = app_users.objects.get(username=username)
         context = {"task_list": task_list, "total_active": total_active,
@@ -182,10 +203,19 @@ def client_pending(request):
 
 def accept_task(request, task_id):
     username = request.user.username
+
+    now = datetime.now()
+    current_time = now.strftime("%H:%M")
+
     task = tasks.objects.get(id=task_id)
     task.active_status = "ON"
     task.date_started = date.today()
+    task.time_started = current_time
+    task.total_hours = "0"
     task.save()
+
+    task = task_history.objects.create(task_id=task_id, date=date.today(
+    ), time_continued=current_time, time_paused="N/A", man_hours="N/A", status="ACTIVE")
 
     full_name = app_users.objects.get(username=username)
     active_task_count = tasks.objects.filter(
@@ -768,5 +798,56 @@ def steps(request):
 
 
 def logoutuser(request):
-    logout(request)
-    return redirect('index')
+    print("nangyare?1")
+    first_name = request.user.first_name
+    last_name = request.user.last_name
+    full_name = first_name + " " + last_name
+    username = request.user.username
+
+    print("nangyare?2")
+
+    today = date.today()
+    date_today = today.strftime("%Y-%m-%d")
+    the_user = app_users.objects.get(username=username)
+
+    print("nangyare?3")
+
+    now = datetime.now()
+    current_time = now.strftime("%H:%M")
+    print("nangyare?4")
+
+    the_log = logbook.objects.filter(
+        name=the_user.full_name, date_logged=date_today, time_logged_out="NTO").count()
+    print("nangyare?5")
+
+    if the_log == 1:
+        print("nangyare?6")
+
+        log_time_out = logbook.objects.get(
+            name=the_user.full_name, date_logged=date_today, time_logged_out="NTO")
+        log_time_out.time_logged_out = current_time
+
+        time_str1 = str(log_time_out.time_logged)
+        time_str2 = str(current_time)
+
+        # convert string to time object
+        time1 = datetime.strptime(time_str1, '%H:%M').time()
+        time2 = datetime.strptime(time_str2, '%H:%M').time()
+
+        # calculate the difference in minutes
+        timedelta = datetime.combine(datetime.today(
+        ), time2) - datetime.combine(datetime.today(), time1)
+        minutes_diff = (timedelta.seconds // 60) / 60
+        total = '{:0.2f}'.format(minutes_diff)
+
+        log_time_out.total_hours = str(total)
+        log_time_out.save()
+
+        print("nangyare?7")
+        logout(request)
+        return redirect('index')
+
+    else:
+        print("nangyare?8")
+        logout(request)
+        return redirect('index')

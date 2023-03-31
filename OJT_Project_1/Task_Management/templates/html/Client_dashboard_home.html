@@ -190,6 +190,20 @@
      .start_btn:hover {
          background-color: rgb(0, 213, 0);
      }
+
+     .pause_btn {
+         background-color: green;
+         color: #fff;
+         border: none;
+         border-radius: 5px;
+         cursor: pointer;
+         transition: background-color 0.3s ease-in-out;
+         padding: 10%;
+     }
+     .pause_btn:hover {
+         background-color: rgb(0, 213, 0);
+     }
+
      .material-icons{
          color: rgb(0, 126, 251);
          cursor: pointer;
@@ -340,11 +354,13 @@
                         <tr>
                             <th>Task ID</th>
                             <th>Task Name</th>
-                            <th>Category</th>
                             <th>Published By</th>
                             <th>Date Published</th>
                             <th>Date Started</th>
+                            <th>Time Started</th>
+                            <th>Total Hours Spent</th>
                             <th>Details</th>
+                            <th>Pause /Continue</th>
                             <th>Finish</th>
                         </tr>
                     </thead>
@@ -353,11 +369,13 @@
                         <tr>
                             <td>{{tasks.id}}</td>
                             <td>{{tasks.task_name}}</td>
-                            <td>{{tasks.category}}</td>
                             <td>{{tasks.assigned_by}}</td>
                             <td>{{tasks.date_published}}</td>
                             <td>{{tasks.date_started}}</td>
+                            <td>{{tasks.time_started}}</td>
+                            <td>{{tasks.total_hours}}</td>
                             <td><i class="material-icons" onclick="open_modal('{{tasks.id}}')">info</i></td>
+                            <td><a href="{% url 'complete_task' tasks.id %}" class="pause_btn"><button style="background-color: rgba(255, 255, 255, 0); border-color: #00bfff00; color: white;">Pause</button></a></td>
                             <td><a href="{% url 'complete_task' tasks.id %}" class="start_btn"><button style="background-color: rgba(255, 255, 255, 0); border-color: #00bfff00; color: white;">Finish</button></a></td>
                         </tr>
                         {% endfor %}
@@ -369,6 +387,8 @@
             <div id="{{tasks.id}}" class="modal">
                 <div class="modal-content">
                 <span class="close" onclick="close_modal('{{tasks.id}}')">&times;</span>
+                <p>Category: {{tasks.category}}</p>
+                <p>Client: {{tasks.subcategory}}</p>
                 <p>{{tasks.details|linebreaksbr}}</p>
             </div>
         </div>
