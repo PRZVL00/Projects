@@ -22,8 +22,13 @@ class tasks(models.Model):
     assigned_by = models.CharField(max_length=30)
     assigned_to = models.CharField(max_length=30)
     date_published = models.CharField(max_length=30)
+    time_continued = models.CharField(max_length=30)
     date_started = models.CharField(max_length=30)
+    time_started = models.CharField(max_length=30)
+    time_continued = models.CharField(max_length=30)
     date_completed = models.CharField(max_length=30)
+    time_completed = models.CharField(max_length=30)
+    time_pause = models.CharField(max_length=30)
     status = models.CharField(max_length=30)
     active_status = models.CharField(max_length=30)
 
@@ -34,6 +39,8 @@ class logbook(models.Model):
     id_number = models.CharField(max_length=30)
     date_logged = models.CharField(max_length=30)
     time_logged = models.CharField(max_length=30)
+    date_logged_out = models.CharField(max_length=30)
+    time_logged_out = models.CharField(max_length=30)
 
 
 class categories(models.Model):
