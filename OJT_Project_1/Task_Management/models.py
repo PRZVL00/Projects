@@ -28,7 +28,8 @@ class app_users(AbstractUser):
 
 
 class tasks(models.Model):
-    task_id = PrefixedAutoField("RSB-Task-", primary_key=True, unique=True)
+    id = models.AutoField(primary_key=True, unique=True)
+    task_id = models.CharField(max_length=30, unique=True)
     task_name = models.CharField(max_length=30)
     task_id = models.CharField(max_length=30)
     category = models.CharField(max_length=30)

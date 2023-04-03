@@ -106,26 +106,12 @@ def client_home(request):
 
         task_list = tasks.objects.filter(
             active_status="ON", assigned_to=full_name).order_by("-id")
-        total_active = task_list.count()
 
         for the_tasks in task_list:
-            time_str1 = str(the_tasks.time_started)
-            time_str2 = str(current_time)
-
-            # convert string to time object
-            time1 = datetime.strptime(time_str1, '%H:%M').time()
-            time2 = datetime.strptime(time_str2, '%H:%M').time()
-
-            # calculate the difference in minutes
-            timedelta = datetime.combine(datetime.today(
-            ), time2) - datetime.combine(datetime.today(), time1)
-            minutes_diff = (timedelta.seconds // 60) / 60
-            total = '{:0.2f}'.format(minutes_diff)
-
-            the_tasks.total_hours = total
-            the_tasks.save()
+            pass
 
         the_user = full_name
+        total_active = task_list.count()
         the_pic = app_users.objects.get(username=username)
         context = {"task_list": task_list, "total_active": total_active,
                    "the_user": the_user, "the_pic": the_pic}
