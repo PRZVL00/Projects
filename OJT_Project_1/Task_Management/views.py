@@ -136,10 +136,15 @@ def client_home(request):
 
 def complete_task(request, task_id):
     username = request.user.username
+
+    now = datetime.now()
+    current_time = now.strftime("%H:%M")
+
     task = tasks.objects.get(id=task_id)
     task.status = "Complete"
     task.date_completed = date.today()
     task.active_status = "DONE"
+    task.time_completed = current_time
     task.save()
 
     full_name = app_users.objects.get(username=username)
@@ -214,7 +219,7 @@ def accept_task(request, task_id):
     task.total_hours = "0"
     task.save()
 
-    task = task_history.objects.create(task_id=task_id, date=date.today(
+    new_task_history = task_history.objects.create(task_id=task_id, date=date.today(
     ), time_continued=current_time, time_paused="N/A", man_hours="N/A", status="ACTIVE")
 
     full_name = app_users.objects.get(username=username)
@@ -228,7 +233,7 @@ def accept_task(request, task_id):
     full_name.save()
 
     send_mail(
-        task.task_name + 'Started',
+        "" + task.task_name + 'Started',
         'Task number ' + str(task.id) + " with a task name of " +
         task.task_name + ", was started by " + task.assigned_to + " with a date stamp of " +
         str(date.today()) + ".",

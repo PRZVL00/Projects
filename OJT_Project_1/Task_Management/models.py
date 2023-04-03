@@ -37,7 +37,6 @@ class tasks(models.Model):
     assigned_by = models.CharField(max_length=30)
     assigned_to = models.CharField(max_length=30)
     date_published = models.CharField(max_length=30)
-    time_published = models.CharField(max_length=30)
     date_started = models.CharField(max_length=30)
     time_started = models.CharField(max_length=30)
     date_completed = models.CharField(max_length=30)
