@@ -104,11 +104,19 @@ def client_home(request):
         now = datetime.now()
         current_time = now.strftime("%H:%M")
 
+        total_man_hours = 0
+
         task_list = tasks.objects.filter(
             active_status="ON", assigned_to=full_name).order_by("-id")
 
-        for the_tasks in task_list:
-            pass
+        for the_task_list in task_list:
+            task_history_list = task_history.objects.filter(
+                task_id=the_task_list.task_id)
+
+            for num_hours in task_history_list:
+                total_man_hours += int(num_hours.man_hours)
+
+                print(total_man_hours)
 
         the_user = full_name
         total_active = task_list.count()
@@ -205,8 +213,9 @@ def accept_task(request, task_id):
     task.total_hours = "0"
     task.save()
 
-    new_task_history = task_history.objects.create(task_id=task_id, date=date.today(
-    ), time_continued=current_time, time_paused="N/A", man_hours="N/A", status="ACTIVE")
+    new_task_history = task_history.objects.create(task_id=task.task_id, date=date.today(
+    ), time_continued=current_time, time_paused="N/A", man_hours="0", status="ACTIVE")
+    new_task_history.save()
 
     full_name = app_users.objects.get(username=username)
     active_task_count = tasks.objects.filter(
@@ -613,6 +622,10 @@ def admin_add_task(request):
                                             date_completed="NONE", status=stat, active_status="OFF")
             new_task.save()
 
+            latest_task = tasks.objects.latest("id")
+            latest_task.task_id = "RSB-T-" + str(latest_task.id)
+            latest_task.save()
+
             the_pending_task_count = tasks.objects.filter(
                 active_status="OFF", assigned_to=employees).count()
             add_pending_task = app_users.objects.get(full_name=employees)
@@ -624,7 +637,8 @@ def admin_add_task(request):
             send_mail(
                 'New Task "' + task_name + '"',
                 'Good Day! A new task was assigned to you by ' + full_name + " with a task name " +
-                task_name + ". Visit your pending task on (Future Link Here)",
+                task_name +
+                ". Visit your pending task on (Future Link Here)",
                 'rsb.taskmanagement@gmail.com',
                 [chosen_employee.email],)
 
