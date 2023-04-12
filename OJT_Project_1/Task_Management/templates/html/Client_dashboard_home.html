@@ -185,27 +185,27 @@
          border-radius: 5px;
          cursor: pointer;
          transition: background-color 0.3s ease-in-out;
-         padding: 10%;
+         padding: inherit;
      }
      .start_btn:hover {
          background-color: rgb(0, 213, 0);
      }
 
      .pause_btn {
-         background-color: green;
+         background-color: rgb(165, 0, 0);
          color: #fff;
          border: none;
          border-radius: 5px;
          cursor: pointer;
          transition: background-color 0.3s ease-in-out;
-         padding: 10%;
+         padding: inherit;
      }
      .pause_btn:hover {
-         background-color: rgb(0, 213, 0);
+         background-color: rgb(255, 0, 0);
      }
 
      .material-icons{
-         color: rgb(0, 126, 251);
+         color: rgb(0, 126, 251);    
          cursor: pointer;
      }
      .input-container {
@@ -355,10 +355,8 @@
                             <th>Task ID</th>
                             <th>Task Name</th>
                             <th>Published By</th>
-                            <th>Date Published</th>
                             <th>Date Started</th>
                             <th>Time Started</th>
-                            <th>Total Hours Spent</th>
                             <th>Details</th>
                             <th>Pause /Continue</th>
                             <th>Finish</th>
@@ -366,18 +364,29 @@
                     </thead>
                     <tbody>
                         {% for tasks in task_list %}
+                        {% if tasks.active_status == "PAUSED"%}
                         <tr>
                             <td>{{tasks.task_id}}</td>
                             <td>{{tasks.task_name}}</td>
                             <td>{{tasks.assigned_by}}</td>
-                            <td>{{tasks.date_published}}</td>
                             <td>{{tasks.date_started}}</td>
                             <td>{{tasks.time_started}}</td>
-                            <td>{{tasks.total_hours}}</td>
                             <td><i class="material-icons" onclick="open_modal('{{tasks.id}}')">info</i></td>
-                            <td><a href="{% url 'complete_task' tasks.id %}" class="pause_btn"><button style="background-color: rgba(255, 255, 255, 0); border-color: #00bfff00; color: white;">Pause</button></a></td>
-                            <td><a href="{% url 'complete_task' tasks.id %}" class="start_btn"><button style="background-color: rgba(255, 255, 255, 0); border-color: #00bfff00; color: white;">Finish</button></a></td>
+                            <td><a href="{% url 'continue_task' tasks.task_id %}" class="pause_btn"><button style="background-color: rgba(255, 255, 255, 0); border-color: #00bfff00; color: white;">Continue</button></a></td>
+                            <td><a href="{% url 'complete_task' tasks.task_id %}" class="start_btn"><button style="background-color: rgba(255, 255, 255, 0); border-color: #00bfff00; color: white;">Finish</button></a></td>
                         </tr>
+                        {% else %}
+                        <tr>
+                            <td>{{tasks.task_id}}</td>
+                            <td>{{tasks.task_name}}</td>
+                            <td>{{tasks.assigned_by}}</td>
+                            <td>{{tasks.date_started}}</td>
+                            <td>{{tasks.time_started}}</td>
+                            <td><i class="material-icons" onclick="open_modal('{{tasks.id}}')">info</i></td>
+                            <td><a href="{% url 'pause_task' tasks.task_id %}" class="pause_btn"><button style="background-color: rgba(255, 255, 255, 0); border-color: #00bfff00; color: white;" >Pause</button></a></td>
+                            <td><a href="{% url 'complete_task' tasks.task_id %}" class="start_btn"><button style="background-color: rgba(255, 255, 255, 0); border-color: #00bfff00; color: white;" >Finish</button></a></td>
+                        </tr>
+                        {% endif %}
                         {% endfor %}
                     </tbody>
                 </table>

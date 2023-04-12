@@ -371,7 +371,7 @@
                     {% endfor %}
                 </ul>
             {% endif %}
-            <h2>Subcategory</h2>
+            <h2>Client</h2>
             <div class="content">
                 <div class="container_2">
                     <h1>Add</h1>
@@ -385,7 +385,7 @@
                             {% endfor %}
                         </select>
 
-                        <label for="nsubcat">New Subcategory</label>
+                        <label for="nsubcat">New Client</label>
                         <input type="text" id="nsubcat" name="nsubcat" placeholder="Enter subcategory name" required> 
 
                         <br>
@@ -408,7 +408,7 @@
                             {% endfor %}
                         </select>
                         
-                        <label for="dsubcat">Select Subcategory</label>
+                        <label for="dsubcat">Select Client</label>
                         <select name="dsubcat" id="dsubcat" required>
                             <option value="" disabled selected>Select your option</option>
                         {% for subcategory in subcategory_list %}

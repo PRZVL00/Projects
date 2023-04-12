@@ -101,23 +101,51 @@ def client_home(request):
                        "the_user": the_user, "the_pic": the_pic}
             return render(request, 'html/Client_dashboard_home.html', context)
 
+######################################################################################
         now = datetime.now()
         current_time = now.strftime("%H:%M")
 
-        total_man_hours = 0
-
-        task_list = tasks.objects.filter(
+        task_list2 = tasks.objects.filter(
             active_status="ON", assigned_to=full_name).order_by("-id")
 
-        for the_task_list in task_list:
+        for the_task_list in task_list2:
             task_history_list = task_history.objects.filter(
-                task_id=the_task_list.task_id)
+                task_id=the_task_list.task_id, status="ACTIVE")
 
             for num_hours in task_history_list:
-                total_man_hours += int(num_hours.man_hours)
 
-                print(total_man_hours)
+                time1 = datetime.strptime(
+                    num_hours.time_continued, '%H:%M').time()
+                time2 = datetime.strptime(current_time, '%H:%M').time()
+                diff = datetime.combine(
+                    datetime.today(), time2) - datetime.combine(datetime.today(), time1)
+                diff_minutes = round(diff.total_seconds() / 3600, 2)
 
+                num_hours.man_hours = diff_minutes
+                num_hours.save()
+
+        base_ttl = 0
+
+        for the_task_list2 in task_list2:
+            task_history_list = task_history.objects.filter(
+                task_id=the_task_list2.task_id)
+            print(str(task_history_list.count()))
+
+            for num_hours2 in task_history_list:
+                base_ttl += float(num_hours2.man_hours)
+
+                print(base_ttl)
+
+                ttl_hrs = (base_ttl - float(the_task_list2.total_hours)
+                           ) + float(the_task_list2.total_hours)
+
+                the_task_list2.total_hours = round(ttl_hrs, 2)
+                the_task_list2.save()
+
+
+######################################################################################
+        task_list = tasks.objects.filter(
+            active_status__in=["ON", "PAUSED"], assigned_to=full_name).order_by("-id")
         the_user = full_name
         total_active = task_list.count()
         the_pic = app_users.objects.get(username=username)
@@ -134,7 +162,7 @@ def complete_task(request, task_id):
     now = datetime.now()
     current_time = now.strftime("%H:%M")
 
-    task = tasks.objects.get(id=task_id)
+    task = tasks.objects.get(task_id=task_id)
     task.status = "Complete"
     task.date_completed = date.today()
     task.active_status = "DONE"
@@ -151,13 +179,53 @@ def complete_task(request, task_id):
     full_name.pending_task_count = pending_task_count
     full_name.save()
 
+    ttl_hrs = 0
+
+    count_hrs = task_history.objects.filter(task_id=task_id)
+    for man_hrs in count_hrs:
+        ttl_hrs += float(man_hrs.man_hours)
+        task.total_hours = round(ttl_hrs, 2)
+
     send_mail(
         task.task_name + ' Finished',
-        'Task number ' + str(task.id) + " with a task name of " +
+        'Task ID ' + str(task.task_id) + " with a task name of " +
         task.task_name + ", was finished by " + task.assigned_to + " with a date stamp of " +
         str(date.today()) + ".",
         'rsb.taskmanagement@gmail.com',
         ["josiahbautista00@gmail.com"],)
+    return redirect('client_home')
+
+
+def pause_task(request, task_id):
+    now = datetime.now()
+    current_time = now.strftime("%H:%M")
+
+    task = tasks.objects.get(task_id=task_id)
+    task.status = "Paused"
+    task.active_status = "PAUSED"
+    task.save()
+
+    the_task_history = task_history.objects.filter(
+        task_id=task_id, status="ACTIVE").latest('id')
+    the_task_history.time_paused = current_time
+    the_task_history.status = "Paused"
+    the_task_history.save()
+    return redirect('client_home')
+
+
+def continue_task(request, task_id):
+    now = datetime.now()
+    current_time = now.strftime("%H:%M")
+
+    task = tasks.objects.get(task_id=task_id)
+    task.status = "Active"
+    task.active_status = "ON"
+    task.save()
+
+    new_task_history = task_history.objects.create(task_id=task.task_id, date=date.today(
+    ), time_continued=current_time, time_paused="N/A", man_hours="0", status="Active")
+    new_task_history.save()
+
     return redirect('client_home')
 
 
@@ -329,6 +397,50 @@ def admin_home(request):
                     context = {"task_list": task_list,
                                "total_active": total_active, "the_user": the_user, "the_pic": the_pic}
                     return render(request, 'html/Admin_dashboard_home.html', context)
+
+#########################################################################################
+
+        now = datetime.now()
+        current_time = now.strftime("%H:%M")
+
+        task_list2 = tasks.objects.filter(
+            active_status="ON").order_by("-id")
+
+        for the_task_list in task_list2:
+            task_history_list = task_history.objects.filter(
+                task_id=the_task_list.task_id, status="ACTIVE")
+
+            for num_hours in task_history_list:
+
+                time1 = datetime.strptime(
+                    num_hours.time_continued, '%H:%M').time()
+                time2 = datetime.strptime(current_time, '%H:%M').time()
+                diff = datetime.combine(
+                    datetime.today(), time2) - datetime.combine(datetime.today(), time1)
+                diff_minutes = round(diff.total_seconds() / 3600, 2)
+
+                num_hours.man_hours = diff_minutes
+                num_hours.save()
+
+        base_ttl = 0
+
+        for the_task_list2 in task_list2:
+            task_history_list = task_history.objects.filter(
+                task_id=the_task_list2.task_id)
+            print(str(task_history_list.count()))
+
+            for num_hours2 in task_history_list:
+                base_ttl += float(num_hours2.man_hours)
+
+                print(base_ttl)
+
+                ttl_hrs = (base_ttl - float(the_task_list2.total_hours)
+                           ) + float(the_task_list2.total_hours)
+
+                the_task_list2.total_hours = round(ttl_hrs, 2)
+                the_task_list2.save()
+
+#########################################################################################
 
         task_list = tasks.objects.filter(
             active_status="ON").order_by("-id")

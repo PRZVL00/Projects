@@ -486,6 +486,7 @@
                             <th>Published By</th>
                             <th>Date Published</th>
                             <th>Date Completed</th>
+                            <th>Man Hours</th>
                             <th>Details</th>
                         </tr>
                     </thead>
@@ -498,6 +499,7 @@
                             <td>{{tasks.assigned_by}}</td>
                             <td>{{tasks.date_published}}</td>
                             <td>{{tasks.date_completed}}</td>
+                            <td>{{tasks.total_hours}}</td>
                             <td><i class="material-icons" onclick="open_modal('{{tasks.id}}')">info</i></td>
                         </tr>
                     {% endfor %}
