@@ -29,6 +29,33 @@
          color: #fff;
          padding: 20px;
      }
+
+     /* --------- for mobile --------- */
+    .icon {
+        display: block;
+        position: absolute;
+        right: 0;
+        top: 0;
+        position: absolute;
+        margin-top: 16px;
+        margin-right: 10px;
+        color: white;
+        display: none;
+    }
+    .topnav {
+        display: none;
+        background-color: #333;
+        position: relative;
+        width: 100%;
+        height: fit-content;
+        display: none;
+
+    }
+
+    .topnav #myLinks {
+        display: none;
+    }
+/* --------- for mobile --------- */
  
      h1 {
          margin: 0;
@@ -278,14 +305,350 @@
      .lalagyan{
         margin: auto;
      }
+
+/* ------------------------------------------------------------------------------------ */
+
+@media (max-width: 768px) {
+  * {
+     box-sizing: border-box;
+     }
+ 
+     body {
+         max-height: 100%;
+         font-family: Arial, sans-serif;
+         background-color: #f2f2f2;
+     }
+ 
+     header {
+         display: flex;
+         background-color: #29166F;
+         color: #fff;
+         padding: 20px;
+     }
+ 
+     h1 {
+         font-size: 100%;
+         padding-left: 2%;
+     }
+ 
+     .dashboard-container {
+         display: block;
+         height: auto;
+     }
+
+/* --------- for mobile --------- */
+    .icon {
+        display: block;
+        position: absolute;
+        right: 0;
+        top: 0;
+        position: absolute;
+        margin-top: 16px;
+        margin-right: 10px;
+        color: white;
+    }
+    .topnav {
+        display: none;
+        background-color: #333;
+        position: relative;
+        width: 100%;
+        height: fit-content;
+    }
+
+    .topnav #myLinks {
+        display: none;
+    }
+/* --------- for mobile --------- */
+ 
+    .sidebar {
+         flex: 0 0 220px;
+         background-color: #29166F;
+         color: #fff;
+         display: none;
+     }
+ 
+     ul {
+         list-style-type: none;
+         padding: 0;
+         margin: 0;
+     }
+
+     li {
+         margin: 0px 0;
+     }
+     
+     .menu {
+         display: flex;
+         align-items: center;
+         padding: 10px 20px;
+         color: #fff;
+         text-decoration: none;
+         transition: all 0.3s ease-in-out;
+     }
+ 
+     .menu:hover {
+         background-color: #00BFFF;
+     }
+     
+     /* a i {
+         font-size: 1.5rem;
+         margin-right: 10px;
+         display: none;
+     }
+ 
+     a span {
+         font-size: 1.2rem;
+         display: none;
+     } */
+ 
+     .content {
+         flex: 1;
+     }
+ 
+     h2 {
+         color: #333;
+         margin-bottom: 20px;
+         font-size: 2rem;
+     }
+ 
+     p {
+         color: #333;
+         font-size: 1.2rem;
+         line-height: 1;
+     }
+ 
+     .logo_top {
+     width: 5%;
+     border-radius: 50%;
+     }
+ 
+     .profile_pic{
+         margin-left: 13%;
+         width: 70%;
+         height: 70%;
+         border-radius: 50%;
+         display: none;
+     }
+ 
+     .container {
+         display: flex;
+     }
+     
+     .item {
+         flex-basis: 25%;
+         background-color: #333;
+         color: #fff;
+         padding: 10px;
+         margin: 10px;
+         text-align: center;
+     }
+ 
+     .tableFixHead {
+         margin: 0% 1.5% 1.5% 1.5%;
+         overflow-y: auto; /* make the table scrollable if height is more than 200 px  */
+         height: 455px; /* gives an initial height of 200px to the table */
+         
+     }
+     .tableFixHead thead th {
+         position: sticky; /* make the table heads sticky */
+         top: 0px; /* table head will be placed from the top of the table and sticks to it */
+         font-size: small;
+        }
+
+     table {
+         border-collapse: collapse; /* make the table borders collapse to each other */
+         width: 100%;
+         text-align: center;
+     }
+
+     th,
+     td {
+         padding: 8px 16px;
+         border: 1px solid #ccc;
+     }
+     th {
+         background: #29166F;
+         color: white;
+     }
+     tr:nth-child(even) {
+             background-color: rgb(212, 209, 209);
+     }
+     h2 {
+         text-align: center;
+         font-weight: 1000;
+         padding-top: 10px;
+     }
+     .div_ng_table{
+         height:45%;
+         overflow:auto;  
+         padding-left: 20px;
+         padding-right: 20px;
+     }
+     h5{
+         padding-left: 20px;
+     }
+     
+     .start_btn {
+         background-color: green;
+         color: #fff;
+         border: none;
+         border-radius: 5px;
+         cursor: pointer;
+         transition: background-color 0.3s ease-in-out;
+         padding: inherit;
+     }
+     .start_btn:hover {
+         background-color: rgb(0, 213, 0);
+     }
+
+     .pause_btn {
+         background-color: rgb(165, 0, 0);
+         color: #fff;
+         border: none;
+         border-radius: 5px;
+         cursor: pointer;
+         transition: background-color 0.3s ease-in-out;
+         padding: inherit;
+     }
+     .pause_btn:hover {
+         background-color: rgb(255, 0, 0);
+     }
+
+     .material-icons{
+         color: rgb(0, 126, 251);    
+         cursor: pointer;
+     }
+     .input-container {
+         position: relative;
+         margin: 1.5%;
+         
+     }
+ 
+     .input-container i {
+         position: absolute;
+         left: 10px;
+         top: 50%;
+         transform: translateY(-50%);
+         color: #999;
+     }
+ 
+     input[type="text"], input[type="password"] {
+         width: 100%;
+         padding: 5px 50px 5px 35px;
+         border: black;
+         border-radius: 5px;
+         background-color: #f2f2f2;
+         color: #333;
+         font-size: small;
+     }
+     .elmnt{
+         margin-left: 1.5%;
+         display: flex;
+     }
+     .elmnt i{
+         font-size: small;
+         padding-top: 3px;
+     }
+     .urgent{
+         margin-left: 1%;
+         margin-right: 2%;
+     }
+     .late{
+         margin-left: 1%;
+         margin-right: 2%;
+     }
+     .urgent_icon{
+         color: red;
+     }
+     .late_icon{
+         color: rgb(255, 162, 0);
+     }
+     .active_icon{
+         color: rgb(0, 255, 0);
+     }
+     /* The Modal (background) */
+     .modal {
+         display: none;
+         width: 100%;
+         height: 100%;
+         overflow: auto;
+         background-color: rgba(0,0,0,0.4);
+     }
+ 
+     /* Modal Content */
+     .modal-content {
+         background-color: #fefefe;
+         margin: auto;
+         padding: 20px;
+         border: 1px solid #888;
+         width: 80%;
+     }
+ 
+     /* Close Button */
+     .close {
+         color: #aaa;
+         float: right;
+         font-size: 28px;
+         font-weight: bold;
+     }
+ 
+     .close:hover,
+     .close:focus {
+         color: black;
+         text-decoration: none;
+         cursor: pointer;
+     }
+
+     .lalagyan{
+        margin: auto;
+     }
+}
+
+/* ------------------------------------------------------------------------------------ */
  
  </style>
  
  <header>
     <img class="logo_top"  src="{% static 'Media/RSB_logo.png' %}" alt="Login Background">
     <h1>RSBarleta, CPA Consulting Firm</h1>
+    <a href="javascript:void(0);" class="icon" onclick="myFunction()">
+        <i class="fa fa-bars"></i>
+    </a>
 </header>
-<div class="dashboard-container">       
+<div class="dashboard-container">
+    <div class="topnav" id="topnav">
+        <div id="myLinks">
+            <ul>
+                {% if the_pic.profile_pic %}
+                <img class="profile_pic" src="{{the_pic.profile_pic.url}}">
+                {% endif %}
+                <li>
+                    <a href="{% url 'client_home' %}" class="menu">
+                        <i class="fas fa-home"></i>
+                        <span>Home</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{% url 'client_pending' %}" class="menu">
+                        <i class="fa fa-hourglass-half"></i>
+                        <span>Pending Task</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{% url 'client_complete' %}" class="menu">
+                        <i class="fa fa-check-circle"></i>
+                        <span>Complete Task</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{% url 'logout' %}" class="menu">
+                        <i class="fa fa-sign-out sign_out"></i>
+                        <span class="sign_out">Logout</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>           
     <nav class="sidebar">
         <ul>
             {% if the_pic.profile_pic %}
@@ -416,6 +779,22 @@
     function click_general_search(){
         var submit_btn = document.getElementById("general_search");
         submit_btn.click()
+    }
+
+    function myFunction() {
+        var x = document.getElementById("myLinks");
+        if (x.style.display === "block") {
+            x.style.display = "none";
+        } else {
+            x.style.display = "block";
+        }
+
+        var x = document.getElementById("topnav");
+        if (x.style.display === "block") {
+            x.style.display = "none";
+        } else {
+            x.style.display = "block";
+        }
     }
 
 </script>

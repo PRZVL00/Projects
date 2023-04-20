@@ -320,14 +320,396 @@
     .info {
     background-color: #17a2b8;
     }
+/* ------------------------------------------------------------------------------------ */
+
+@media (max-width: 768px) {
+    * {
+	box-sizing: border-box;
+    }
+
+    body {
+        max-height: 100%;
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background-color: #f2f2f2;
+    }
+
+    header {
+        display: flex;
+        background-color: #29166F;
+        color: #fff;
+        padding: 20px;
+    }
+    /* --------- for mobile --------- */
+    .icon {
+        display: block;
+        position: absolute;
+        right: 0;
+        top: 0;
+        position: absolute;
+        margin-top: 16px;
+        margin-right: 10px;
+        color: white;
+    }
+    .topnav {
+        display: none;
+        background-color: #333;
+        position: relative;
+        width: 100%;
+        height: fit-content;
+    }
+
+    .topnav #myLinks {
+        display: none;
+    }
+/* --------- for mobile --------- */
+
+    h1 {
+        font-size: 100%;
+        padding-left: 2%;
+    }
+
+    .dashboard-container {
+        display: block;
+        height: auto;
+    }
+
+    .sidebar {
+         flex: 0 0 220px;
+         background-color: #29166F;
+         color: #fff;
+         display: none;
+     }
+
+    ul {
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    li {
+        margin: 0px 0;
+    }
+
+    a {
+        display: flex;
+        align-items: center;
+        padding: 10px 20px;
+        color: #fff;
+        text-decoration: none;
+        transition: all 0.3s ease-in-out;
+    }
+
+    a:hover {
+        background-color: #00BFFF;
+    }
+
+    a i {
+        font-size: 1.5rem;
+        margin-right: 10px;
+    }
+
+    a span {
+        font-size: 1.2rem;
+    }
+
+    .content_1 {
+        margin: auto auto auto auto;
+        text-align: center;
+    }
+
+    .content {
+        display: block;
+        margin-top: 5%;       
+    }
+
+    h2 {
+        color: #333;
+        margin-bottom: 10px;
+        font-size: 2rem;
+    }
+
+    p {
+        color: #333;
+        font-size: 1.2rem;
+        line-height: 1
+    }
+
+    .logo_top {
+    width: 3%;
+    height: 3%;
+    border-radius: 50%;
+    }
+
+    .profile_pic{
+        margin-left: 13%;
+        width: 70%;
+        height: 70%;
+        border-radius: 50%;
+        display: none;
+        
+    }
+
+    .container {
+        display: flex;
+		
+    }
+    
+    .item {
+        flex-basis: 25%;
+        background-color: #333;
+        color: #fff;
+        padding: 10px;
+        margin: 10px;
+        text-align: center;
+    }
+
+
+    h2 {
+        text-align: center;
+        font-weight: 1000;
+        padding: 10px 10px 5px 10px;  
+    }
+    
+    .material-icons{
+        color: rgb(0, 126, 251);
+    }
+    
+    .form_container{
+        background-color: #999;
+        width: auto;
+        height: auto;
+        padding: 30px;
+    }
+    .form_container_2{
+        background-color: #ffffff;
+        display: block;
+        text-align: center;
+    }
+/* --------------------------------------------------------------- */
+    .container_2 {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: auto;
+        margin-right: 10px;
+      }
+      
+      /* style for the form */
+      form {
+        display: block;
+        justify-content: center;
+        border-radius: 20px;
+        border: 2px solid #ccc;
+        background-color: #29166F;
+      }
+      .form_style{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: left;
+        width: 400px;
+      }
+      
+      /* style for the round edge input */
+      input[type=text], input[type=email], input[type=password], select {
+        border-radius: 10px;
+        border: 2px solid #ccc;
+        outline: none;
+        width: 100%;
+        margin-bottom: 10px;
+        font-size: small;
+      
+      }
+      input[type="file"] {
+        border-radius: 10px;
+        border: 2px solid #ccc;
+        background-color: white;
+        font-size: small;
+      }
+
+      
+      /* style for the active input */
+      input[type=text]:focus, input[type=email]:focus, input[type=password], input[type="file"], select:focus {
+        border-color: #00BFFF;
+        box-shadow: 0 0 8px 0 #00BFFF;
+      }
+      
+      /* style for the rounded button */
+      button {
+        height: auto;
+        width: 50%;
+        border-radius: 20px;
+        border: none;
+        background-color: #ccc;
+        color: black;
+        font-size: 16px;
+        cursor: pointer;
+      }
+      button:hover {
+      background-color: #00BFFF;
+      }
+      /* style for the cancel button */
+      button.cancel {
+        background-color: #ccc;
+      }
+      button.cancel:hover {
+      background-color: #00BFFF;
+      }
+      label{
+        margin-bottom: 3px;
+        color: white;
+        text-align: left;
+      }
+      .btn_sidebyside{
+        display: flex;
+      }
+
+      .btn_sidebyside2{
+        display: block;
+        align-items: center;
+      }
+      textarea{
+        border-radius: 15;
+        resize: none;
+      }
+      textarea:disabled {
+        background-color: #ffffff; /* Change the background color */
+        color: #000000; /* Change the text color */
+      }
+      .messages {
+        position: fixed;
+        top: 0;
+        right: 0;
+        z-index: 9999;
+    }
+
+    .messages li {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    color: #fff;
+    font-weight: bold;
+    }
+
+    .success {
+    background-color: #28a745;
+    }
+
+    .error {
+    background-color: #dc3545;
+    }
+
+    .warning {
+    background-color: #ffc107;
+    }
+
+    .info {
+    background-color: #17a2b8;
+    }.messages {
+        position: fixed;
+        top: 0;
+        right: 0;
+        z-index: 9999;
+    }
+
+    .messages li {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    color: #fff;
+    font-weight: bold;
+    }
+
+    .success {
+    background-color: #28a745;
+    }
+
+    .error {
+    background-color: #dc3545;
+    }
+
+    .warning {
+    background-color: #ffc107;
+    }
+
+    .info {
+    background-color: #17a2b8;
+    }
+}
+/* ------------------------------------------------------------------------------------ */
 </style>
 
 <body>
     <header>
         <img class="logo_top"  src="{% static 'Media/RSB_logo.png' %}" alt="Login Background">
 		<h1>RSBarleta, CPA Consulting Firm</h1>
+        <a href="javascript:void(0);" class="icon" onclick="myFunction()">
+            <i class="fa fa-bars"></i>
+        </a>
 	</header>
-	<div class="dashboard-container">       
+	<div class="dashboard-container">
+        <div class="topnav" id="topnav">
+            <div id="myLinks">
+                <ul>
+                    {% if the_pic.profile_pic %}
+                    <img class="profile_pic" src="{{the_pic.profile_pic.url}}">
+                    {% endif %}
+                    <li>
+                        <a href="{% url 'admin_home' %}">
+                            <i class="fas fa-home"></i>
+                            <span>Home</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% url 'admin_pending' %}">
+                            <i class="fa fa-hourglass-half"></i>
+                            <span>Pending Task</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% url 'admin_complete' %}">
+                            <i class="fa fa-check-circle"></i>
+                            <span>Complete Task</span>
+                        </a>
+                    </li>
+                        <a href="{% url 'admin_users' %}">
+                            <i class="fas fa-user-tie"></i>
+                            <span>Employees</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% url 'admin_logbook' %}">
+                            <i class="fas fa-book"></i>
+                            <span>Logbook</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% url 'admin_add_task' %}">
+                            <i class="fas fa-tasks"></i>
+                            <span>Add Task</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% url 'admin_edit' %}">
+                            <i class="fas fa-edit"></i>
+                            <span>Edit</span>
+                        </a>
+                    </li>   
+                    <li>
+                        <a href="{% url 'logout' %}">
+                            <i class="fa fa-sign-out sign_out"></i>
+                            <span class="sign_out">Logout</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>       
 		<nav class="sidebar">
 			<ul>
                 {% if the_pic.profile_pic %}
@@ -573,6 +955,21 @@
         employees.selectedIndex = 0;
         categories.selectedIndex = 0;
         subcategories.selectedIndex = 0;
+    }
+    function myFunction() {
+        var x = document.getElementById("myLinks");
+        if (x.style.display === "block") {
+            x.style.display = "none";
+        } else {
+            x.style.display = "block";
+        }
+
+        var x = document.getElementById("topnav");
+        if (x.style.display === "block") {
+            x.style.display = "none";
+        } else {
+            x.style.display = "block";
+        }
     }
 </script>
 </html>

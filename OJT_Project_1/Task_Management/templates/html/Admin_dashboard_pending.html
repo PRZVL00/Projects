@@ -36,6 +36,44 @@
         padding: 20px;
     }
 
+    /* --------- for mobile --------- */
+    .icon {
+        display: block;
+        position: absolute;
+        right: 0;
+        top: 0;
+        position: absolute;
+        margin-top: 16px;
+        margin-right: 10px;
+        color: white;
+        display: none;
+    }
+    .topnav {
+        display: none;
+        background-color: #333;
+        position: relative;
+        width: 100%;
+        height: fit-content;
+        display: none;
+
+    }
+
+    .topnav #myLinks {
+        display: none;
+    }
+
+    .side_by_side_mobile{
+        display: none;
+        margin: 1.5% 1.5% 1.5% 1.5%;
+    }
+
+    .side_by_side_2{
+        display: none;
+        margin: 1.5% 1.5% 1.5% 1.5%;
+    }
+
+/* --------- for mobile --------- */
+
     h1 {
         margin: 0;
         font-size: 2rem;
@@ -429,14 +467,485 @@
         background-color: rgb(255, 0, 0);
     }
 
+/* ------------------------------------------------------------------------------------ */
+
+@media (max-width: 768px) {
+
+* {
+box-sizing: border-box;
+}
+
+body {
+    max-height: 100%;
+    font-family: Arial, sans-serif;
+    background-color: #f2f2f2;
+}
+
+header {
+    display: flex;
+    background-color: #29166F;
+    color: #fff;
+    padding: 20px;
+}
+
+/* --------- for mobile --------- */
+.icon {
+    display: block;
+    position: absolute;
+    right: 0;
+    top: 0;
+    position: absolute;
+    margin-top: 16px;
+    margin-right: 10px;
+    color: white;
+}
+.topnav {
+    display: none;
+    background-color: #333;
+    position: relative;
+    width: 100%;
+    height: fit-content;
+}
+
+.topnav #myLinks {
+    display: none;
+}
+/* --------- for mobile --------- */
+
+
+h1 {
+    font-size: 100%;
+    padding-left: 2%;
+}
+
+.dashboard-container {
+    display: block;
+    height: auto;
+}
+
+.sidebar {
+     flex: 0 0 220px;
+     background-color: #29166F;
+     color: #fff;
+     display: none;
+ }
+
+ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+li {
+     margin: 0px 0;
+ }
+
+a {
+    display: flex;
+    align-items: center;
+    padding: 10px 20px;
+    color: #fff;
+    text-decoration: none;
+    transition: all 0.3s ease-in-out;
+}
+
+a:hover {
+    background-color: #00BFFF;
+}
+
+a i {
+    font-size: 1.5rem;
+    margin-right: 10px;
+}
+
+a span {
+    font-size: 1.2rem;
+}
+
+.content {
+    flex: 1;
+    
+}
+
+h2 {
+    color: #333;
+    margin-bottom: 20px;
+    font-size: 2rem;
+}
+
+p {
+    color: #333;
+    font-size: 1.2rem;
+    line-height: 1
+}
+
+.logo_top {
+width: 5%;
+border-radius: 50%;
+}
+
+.profile_pic{
+     margin-left: 13%;
+     width: 70%;
+     height: 70%;
+     border-radius: 50%;
+     display: none;
+ }
+
+
+
+.container {
+    display: flex;
+    
+}
+
+.item {
+     flex-basis: 25%;
+     background-color: #333;
+     color: #fff;
+     padding: 10px;
+     margin: 10px;
+     text-align: center;
+ }
+
+ .tableFixHead {
+     margin: 0% 1.5% 1.5% 1.5%;
+     overflow-y: auto; /* make the table scrollable if height is more than 200 px  */
+     height: 455px; /* gives an initial height of 200px to the table */
+     
+ }
+ .tableFixHead thead th {
+     position: sticky; /* make the table heads sticky */
+     top: 0px; /* table head will be placed from the top of the table and sticks to it */
+     font-size: small;
+    }
+
+ table {
+     border-collapse: collapse; /* make the table borders collapse to each other */
+     width: 100%;
+     text-align: center;
+ }
+
+ th,
+ td {
+     padding: 8px 16px;
+     border: 1px solid #ccc;
+ }
+ th {
+     background: #29166F;
+     color: white;
+ }
+ tr:nth-child(even) {
+         background-color: rgb(212, 209, 209);
+ }
+ h2 {
+     text-align: center;
+     font-weight: 1000;
+     padding-top: 10px;
+ }
+ .div_ng_table{
+     height:45%;
+     overflow:auto;  
+     padding-left: 20px;
+     padding-right: 20px;
+ }
+h5{
+    padding-left: 20px;
+}
+.start_btn {
+    background-color: green;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+}
+.start_btn:hover {
+    background-color: rgb(0, 213, 0);
+}
+.finish_btn {
+    background-color: rgb(145, 0, 0);
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+}
+.finish_btn:hover {
+    background-color: red;
+}
+.material-icons{
+    color: rgb(0, 126, 251);
+}
+
+.input-container {
+     position: relative;
+     margin: 1.5%;
+     
+}
+
+.input-container_1 {
+    position: relative;
+    margin-top: 1.5%;
+    margin-right: inherit;
+
+}
+
+.input-container_2 {
+    position: relative;
+    margin-top: 1.5%;
+    margin-right: inherit;
+}
+
+.input-container_none{
+    margin-top: 1.5%;
+}
+
+.input-container_none_special{
+    margin-top: 1.5%;
+    margin-left: 1.5%;
+}
+
+
+.input-container i, .input-container_1 i, .input-container_2 i {
+    position: absolute;
+    left: 10px;
+    top: 40%;
+    transform: translateY(-50%);
+    color: #999;
+}
+
+input[type="text"], input[type="password"]{
+    width: 100%;
+    padding: 5px 5px 5px 35px;
+    border: 2px solid black;
+    border-radius: 5px;
+    background-color: #f2f2f2;
+    color: #333;
+    font-size: small;
+    outline: 2px black;
+}
+
+input[type="date"]{
+    width: fit-content;
+    border: 2px solid black;
+    border-radius: 5px;
+    background-color: #f2f2f2;
+    color: #333;
+    font-size: smaller;
+    outline: 2px black;
+}
+
+.select_style{
+    width:fit-content;
+    border: 2px solid black;
+    border-radius: 5px;
+    background-color: #f2f2f2;
+    color: #333;
+    height: 32px;
+    font-size: smaller;
+    outline: 2px black;
+    margin: auto;
+}
+.special_select_style{
+    width:fit-content;
+    border: 2px solid black;
+    border-radius: 5px;
+    background-color: #f2f2f2;
+    color: #333;
+    height: 32px;
+    font-size: small;
+    outline: 2px black;
+    margin: auto;
+}
+.side_by_side{
+    display: none;
+    margin: 1.5% 1.5% 1.5% 1.5%;
+}
+
+.side_by_side_mobile{
+    display: block;
+    margin: 1.5% 1.5% 1.5% 1.5%;
+}
+
+.side_by_side_2{
+    display: flex;
+    margin: 1.5% 1.5% 1.5% 0%;
+}
+
+.login-btn {
+    margin-left: auto;
+    margin-top: 1%;
+    width: 100%;
+    height: 40px;
+    background-color: #29166F;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.login-btn:hover {
+    background-color: #00BFFF;
+    color: black;
+}
+
+.date_search {
+    margin-left: 10px;
+    width: auto;
+    background-color: #29166F;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.date_search:hover {
+    background-color: #00BFFF;
+    color: black;
+}
+
+
+
+.modal {
+     display: none;
+     width: 100%;
+     height: 100%;
+     overflow: auto;
+     background-color: rgba(0,0,0,0.4);
+ }
+
+ /* Modal Content */
+ .modal-content {
+     background-color: #fefefe;
+     margin: auto;
+     padding: 20px;
+     border: 1px solid #888;
+     width: 80%;
+ }
+
+ /* Close Button */
+ .close {
+     color: #aaa;
+     float: right;
+     font-size: 28px;
+     font-weight: bold;
+ }
+
+ .close:hover,
+ .close:focus {
+     color: black;
+     text-decoration: none;
+     cursor: pointer;
+ }
+ .messages {
+    position: fixed;
+    top: 0;
+    right: 0;
+    z-index: 9999;
+}
+
+.messages li {
+display: block;
+width: 100%;
+padding: 10px;
+margin-bottom: 10px;
+border-radius: 5px;
+color: #fff;
+font-weight: bold;
+}
+
+.success {
+background-color: #28a745;
+}
+
+.error {
+background-color: #dc3545;
+}
+
+.warning {
+background-color: #ffc107;
+}
+
+.info {
+background-color: #17a2b8;
+}
+
+}
+
+/* ------------------------------------------------------------------------------------ */
+
 </style>
 
 <body>
     <header>
         <img class="logo_top"  src="{% static 'Media/RSB_logo.png' %}" alt="Login Background">
 		<h1>RSBarleta, CPA Consulting Firm</h1>
+        <a href="javascript:void(0);" class="icon" onclick="myFunction()">
+            <i class="fa fa-bars"></i>
+        </a>
 	</header>
-	<div class="dashboard-container">       
+	<div class="dashboard-container">
+        <div class="topnav" id="topnav">
+            <div id="myLinks">
+                <ul>
+                    {% if the_pic.profile_pic %}
+                    <img class="profile_pic" src="{{the_pic.profile_pic.url}}">
+                    {% endif %}
+                    <li>
+                        <a href="{% url 'admin_home' %}">
+                            <i class="fas fa-home"></i>
+                            <span>Home</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% url 'admin_pending' %}">
+                            <i class="fa fa-hourglass-half"></i>
+                            <span>Pending Task</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% url 'admin_complete' %}">
+                            <i class="fa fa-check-circle"></i>
+                            <span>Complete Task</span>
+                        </a>
+                    </li>
+                        <a href="{% url 'admin_users' %}">
+                            <i class="fas fa-user-tie"></i>
+                            <span>Employees</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% url 'admin_logbook' %}">
+                            <i class="fas fa-book"></i>
+                            <span>Logbook</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% url 'admin_add_task' %}">
+                            <i class="fas fa-tasks"></i>
+                            <span>Add Task</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% url 'admin_edit' %}">
+                            <i class="fas fa-edit"></i>
+                            <span>Edit</span>
+                        </a>
+                    </li>   
+                    <li>
+                        <a href="{% url 'logout' %}">
+                            <i class="fa fa-sign-out sign_out"></i>
+                            <span class="sign_out">Logout</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>       
 		<nav class="sidebar">
 			<ul>
                 {% if the_pic.profile_pic %}
@@ -519,6 +1028,29 @@
                     <input type="date" placeholder="Task ID" id="to" name="to">
                     <button type="button" class="date_search" onclick="click_date_search()">Search</button>
                 </div> 
+                <button type="button" class="login-btn" onclick="transcribe();dlexcel('xlsx');">Report</button>
+            </div>
+            <div class="side_by_side_mobile">
+                <div class="input-container">
+                    <i class="fas fa-search" onclick="click_general_search()"></i>
+                    <form method="POST">
+                        {% csrf_token %}
+                        <input type="text" placeholder="Search..." id="search_bar" name="search_bar">
+                        <button type="submit" name="general_search" id="general_search" hidden></button>
+                    </form>   
+                </div>
+                <div class="side_by_side_2">
+                    <div class="input-container_none_special">
+                        <input type="date" placeholder="Task ID" id="from" name="from"> 
+                    </div>
+                    <div class="input-container_none">
+                    <h3>-</h3>
+                    </div>
+                    <div class="input-container_none">
+                        <input type="date" placeholder="Task ID" id="to" name="to">
+                        <button type="button" class="date_search" onclick="click_date_search()"><i class="fas fa-search"></i></button>
+                    </div> 
+                </div>
                 <button type="button" class="login-btn" onclick="transcribe();dlexcel('xlsx');">Report</button>
             </div>
             <form method="POST">
@@ -724,5 +1256,20 @@ o
             XLSX.writeFile(wb, fn || ('RSB-PENDING-TASKS-RECORD(' + today + ').' + (type || 'xlsx')));
     }
     
+    function myFunction() {
+        var x = document.getElementById("myLinks");
+        if (x.style.display === "block") {
+            x.style.display = "none";
+        } else {
+            x.style.display = "block";
+        }
+
+        var x = document.getElementById("topnav");
+        if (x.style.display === "block") {
+            x.style.display = "none";
+        } else {
+            x.style.display = "block";
+        }
+    }
 </script>
 </html>

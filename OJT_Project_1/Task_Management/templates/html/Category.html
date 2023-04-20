@@ -30,6 +30,44 @@
         padding: 20px;
     }
 
+    /* --------- for mobile --------- */
+    .icon {
+        display: block;
+        position: absolute;
+        right: 0;
+        top: 0;
+        position: absolute;
+        margin-top: 16px;
+        margin-right: 10px;
+        color: white;
+        display: none;
+    }
+    .topnav {
+        display: none;
+        background-color: #333;
+        position: relative;
+        width: 100%;
+        height: fit-content;
+        display: none;
+
+    }
+
+    .topnav #myLinks {
+        display: none;
+    }
+
+    .side_by_side_mobile{
+        display: none;
+        margin: 1.5% 1.5% 1.5% 1.5%;
+    }
+
+    .side_by_side_2{
+        display: none;
+        margin: 1.5% 1.5% 1.5% 1.5%;
+    }
+
+/* --------- for mobile --------- */
+
     h1 {
         margin: 0;
         font-size: 2rem;
@@ -91,9 +129,6 @@
     .content {
         display: flex;
         margin-top: 10%;
-
-        
-        
     }
 
     h2 {
@@ -302,14 +337,382 @@
     .info {
     background-color: #17a2b8;
     }
+/* ------------------------------------------------------------------------------------ */
+
+@media (max-width: 768px) {
+    * {
+	box-sizing: border-box;
+    }
+
+    body {
+        max-height: 100%;
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background-color: #f2f2f2;
+    }
+
+    header {
+        display: flex;
+        background-color: #29166F;
+        color: #fff;
+        padding: 20px;
+    }
+    /* --------- for mobile --------- */
+    .icon {
+        display: block;
+        position: absolute;
+        right: 0;
+        top: 0;
+        position: absolute;
+        margin-top: 16px;
+        margin-right: 10px;
+        color: white;
+    }
+    .topnav {
+        display: none;
+        background-color: #333;
+        position: relative;
+        width: 100%;
+        height: fit-content;
+    }
+
+    .topnav #myLinks {
+        display: none;
+    }
+/* --------- for mobile --------- */
+
+    h1 {
+        font-size: 100%;
+        padding-left: 2%;
+    }
+
+    .dashboard-container {
+        display: block;
+        height: auto;
+    }
+
+    .sidebar {
+         flex: 0 0 220px;
+         background-color: #29166F;
+         color: #fff;
+         display: none;
+     }
+
+    ul {
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    li {
+        margin: 0px 0;
+    }
+
+    a {
+        display: flex;
+        align-items: center;
+        padding: 10px 20px;
+        color: #fff;
+        text-decoration: none;
+        transition: all 0.3s ease-in-out;
+    }
+
+    a:hover {
+        background-color: #00BFFF;
+    }
+
+    a i {
+        font-size: 1.5rem;
+        margin-right: 10px;
+    }
+
+    a span {
+        font-size: 1.2rem;
+    }
+
+    .content {
+        margin: auto;
+
+        
+        
+    }
+
+    h2 {
+        color: #333;
+        font-size: 2rem;
+    }
+
+    p {
+        color: #333;
+        font-size: 1.2rem;
+        line-height: 1
+    }
+
+    .logo_top {
+    width: 5%;
+    border-radius: 50%;
+    }
+
+    .profile_pic{
+        margin-left: 13%;
+        width: 70%;
+        height: 70%;
+        border-radius: 50%;
+        display: none;
+
+    }
+
+    .container {
+        display: flex;
+		
+    }
+    
+    .item {
+        flex-basis: 25%;
+        background-color: #333;
+        color: #fff;
+        padding: 10px;
+        margin: 10px;
+        text-align: center;
+    }
+
+
+    h2 {
+        text-align: center;
+        font-weight: 1000;
+    }
+    
+    .material-icons{
+        color: rgb(0, 126, 251);
+    }
+    
+    .form_container{
+        background-color: #999;
+        width: auto;
+        height: auto;
+        padding: 30px;
+    }
+    .form_container_2{
+        background-color: #ffffff;
+        display: block;
+        text-align: center;
+    }
+/* --------------------------------------------------------------- */
+    .container_2 {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: auto;
+      }
+      
+      /* style for the form */
+      form {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: left;
+        width: 400px;
+        padding: 20px;
+        border-radius: 20px;
+        border: 2px solid #ccc;
+        background-color: #29166F;
+      }
+      
+      /* style for the round edge input */
+      input[type=text], input[type=email], input[type=password] {
+        border-radius: 10px;
+        border: 2px solid #ccc;
+        padding: 10px;
+        outline: none;
+        width: 100%;
+        margin-bottom: 10px;
+        font-size: small;
+      
+      }
+      input[type="file"] {
+        border-radius: 10px;
+        border: 2px solid #ccc;
+        padding: 10px;
+        background-color: white;
+        font-size: small;
+      }
+
+      
+      /* style for the active input */
+      input[type=text]:focus, input[type=email]:focus, input[type=password], input[type="file"]:focus {
+        border-color: #00BFFF;
+        box-shadow: 0 0 8px 0 #00BFFF;
+      }
+      
+      /* style for the rounded button */
+      button {
+        width: 50%;
+        border-radius: 20px;
+        padding: 10px 10px;
+        border: none;
+        background-color: #ccc;
+        color: black;
+        font-size: 16px;
+        cursor: pointer;
+        margin: 3px;
+      }
+      button:hover {
+      background-color: #00BFFF;
+      }
+      /* style for the cancel button */
+      button.cancel {
+        background-color: #ccc;
+      }
+      button.cancel:hover {
+      background-color: #00BFFF;
+      }
+      label{
+        margin-bottom: 3px;
+        color: white;
+      }
+      .btn_sidebyside{
+        display: flex;
+      }
+      .messages {
+        position: fixed;
+        top: 0;
+        right: 0;
+        z-index: 9999;
+    }
+
+    .messages li {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    color: #fff;
+    font-weight: bold;
+    }
+
+    .success {
+    background-color: #28a745;
+    }
+
+    .error {
+    background-color: #dc3545;
+    }
+
+    .warning {
+    background-color: #ffc107;
+    }
+
+    .info {
+    background-color: #17a2b8;
+    }.messages {
+        position: fixed;
+        top: 0;
+        right: 0;
+        z-index: 9999;
+    }
+
+    .messages li {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    color: #fff;
+    font-weight: bold;
+    }
+
+    .success {
+    background-color: #28a745;
+    }
+
+    .error {
+    background-color: #dc3545;
+    }
+
+    .warning {
+    background-color: #ffc107;
+    }
+
+    .info {
+    background-color: #17a2b8;
+    }
+    .content {
+        display: block;
+        margin-top: 10%;
+    }
+
+}
+
+/* ------------------------------------------------------------------------------------ */
+
 </style>
 
 <body>
     <header>
         <img class="logo_top"  src="{% static 'Media/RSB_logo.png' %}" alt="Login Background">
 		<h1>RSBarleta, CPA Consulting Firm</h1>
+        <a href="javascript:void(0);" class="icon" onclick="myFunction()">
+            <i class="fa fa-bars"></i>
+        </a>
 	</header>
-	<div class="dashboard-container">       
+	<div class="dashboard-container">    
+        <div class="topnav" id="topnav">
+            <div id="myLinks">
+                <ul>
+                    {% if the_pic.profile_pic %}
+                    <img class="profile_pic" src="{{the_pic.profile_pic.url}}">
+                    {% endif %}
+                    <li>
+                        <a href="{% url 'admin_home' %}">
+                            <i class="fas fa-home"></i>
+                            <span>Home</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% url 'admin_pending' %}">
+                            <i class="fa fa-hourglass-half"></i>
+                            <span>Pending Task</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% url 'admin_complete' %}">
+                            <i class="fa fa-check-circle"></i>
+                            <span>Complete Task</span>
+                        </a>
+                    </li>
+                        <a href="{% url 'admin_users' %}">
+                            <i class="fas fa-user-tie"></i>
+                            <span>Employees</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% url 'admin_logbook' %}">
+                            <i class="fas fa-book"></i>
+                            <span>Logbook</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% url 'admin_add_task' %}">
+                            <i class="fas fa-tasks"></i>
+                            <span>Add Task</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% url 'admin_edit' %}">
+                            <i class="fas fa-edit"></i>
+                            <span>Edit</span>
+                        </a>
+                    </li>   
+                    <li>
+                        <a href="{% url 'logout' %}">
+                            <i class="fa fa-sign-out sign_out"></i>
+                            <span class="sign_out">Logout</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>   
 		<nav class="sidebar">
 			<ul>
                 {% if the_pic.profile_pic %}
@@ -375,7 +778,7 @@
             <h2>Category</h2>
             <div class="content">
                 <div class="container_2">
-                    <h1>Add</h1>
+                    <h3>Add</h3>
                     <form method="POST">
                         {% csrf_token %}
                     <label for="ncat">New Category</label>
@@ -390,7 +793,7 @@
                     </form>
                 </div>
                 <div class="container_2">
-                    <h1>Delete</h1>
+                    <h3>Delete</h3>
                     <form method="POST">
                         {% csrf_token %}
                     <label for="dcat">Select Category</label>
@@ -440,5 +843,20 @@ function clear_fields_2(){
     var dcat = document.getElementById("dcat")
     dcat.selectedIndex = 0
 }
+function myFunction() {
+        var x = document.getElementById("myLinks");
+        if (x.style.display === "block") {
+            x.style.display = "none";
+        } else {
+            x.style.display = "block";
+        }
+
+        var x = document.getElementById("topnav");
+        if (x.style.display === "block") {
+            x.style.display = "none";
+        } else {
+            x.style.display = "block";
+        }
+    }
 </script>
 </html>
