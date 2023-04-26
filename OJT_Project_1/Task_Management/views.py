@@ -105,6 +105,37 @@ def client_home(request):
         now = datetime.now()
         current_time = now.strftime("%H:%M")
 
+######################################################################################
+
+        update_task_list_history = task_history.objects.filter(
+            status="ACTIVE").exclude(date=str(date.today()))
+
+        for history in update_task_list_history:
+            history.status = "Paused"
+            history.time_paused = "20:00"
+            history.save()
+
+            time_1 = datetime.strptime(
+                history.time_continued, '%H:%M').time()
+            time_2 = datetime.strptime(
+                history.time_paused, '%H:%M').time()
+            diff_time = datetime.combine(
+                datetime.today(), time_2) - datetime.combine(datetime.today(), time_1)
+            diff_minutes_time = round(diff_time.total_seconds() / 3600, 2)
+
+            history.man_hours = diff_minutes_time
+            history.save()
+
+            update_task_list = tasks.objects.get(
+                task_id=history.task_id)
+
+            update_task_list.status = "Paused"
+            update_task_list.active_status = "PAUSED"
+            update_task_list.save()
+
+
+######################################################################################
+
         task_list2 = tasks.objects.filter(
             active_status="ON", assigned_to=full_name).order_by("-id")
 
@@ -144,6 +175,7 @@ def client_home(request):
 
 
 ######################################################################################
+
         task_list = tasks.objects.filter(
             active_status__in=["ON", "PAUSED"], assigned_to=full_name).order_by("-id")
         the_user = full_name
@@ -402,6 +434,37 @@ def admin_home(request):
 
         now = datetime.now()
         current_time = now.strftime("%H:%M")
+
+######################################################################################
+
+        update_task_list_history = task_history.objects.filter(
+            status="ACTIVE").exclude(date=str(date.today()))
+
+        for history in update_task_list_history:
+            history.status = "Paused"
+            history.time_paused = "20:00"
+            history.save()
+
+            time_1 = datetime.strptime(
+                history.time_continued, '%H:%M').time()
+            time_2 = datetime.strptime(
+                history.time_paused, '%H:%M').time()
+            diff_time = datetime.combine(
+                datetime.today(), time_2) - datetime.combine(datetime.today(), time_1)
+            diff_minutes_time = round(diff_time.total_seconds() / 3600, 2)
+
+            history.man_hours = diff_minutes_time
+            history.save()
+
+            update_task_list = tasks.objects.get(
+                task_id=history.task_id)
+
+            update_task_list.status = "Paused"
+            update_task_list.active_status = "PAUSED"
+            update_task_list.save()
+
+
+######################################################################################
 
         task_list2 = tasks.objects.filter(
             active_status="ON").order_by("-id")
