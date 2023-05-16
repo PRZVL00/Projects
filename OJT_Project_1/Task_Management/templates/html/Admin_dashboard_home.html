@@ -1005,17 +1005,17 @@
                 </div>
                 <div class="side_by_side_2">
                     <div class="input-container_none_special">
-                        <select class="special_select_style" id="date_cat" name="date_cat">
+                        <select class="special_select_style" id="date_cat_2" name="date_cat">
                             <option value="Date Published">Published</option>
                             <option value="Date Started">Started</option>
                         </select>
-                        <input type="date" placeholder="Task ID" id="from" name="from"> 
+                        <input type="date" placeholder="Task ID" id="from_2" name="from"> 
                     </div>
                     <div class="input-container_none">
                     <h3>-</h3>
                     </div>
                     <div class="input-container_none">
-                        <input type="date" placeholder="Task ID" id="to" name="to">
+                        <input type="date" placeholder="Task ID" id="to_2" name="to">
                         <button type="button" class="date_search" onclick="click_date_search()"><i class="fas fa-search"></i></button>
                     </div> 
                 </div>
@@ -1118,6 +1118,23 @@ o
         var old_cat = document.getElementById("date_cat")
         var old_from_date = document.getElementById("from")
         var old_to_date = document.getElementById("to")
+
+        var new_cat = document.getElementById("tvalue_date_category")
+        var new_from_date = document.getElementById("tvalue_from_date")
+        var new_to_date = document.getElementById("tvalue_to_date")
+
+        new_cat.value = old_cat.value
+        new_from_date.value = old_from_date.value
+        new_to_date.value = old_to_date.value
+
+        var submit_btn = document.getElementById("date_search");
+        submit_btn.click()
+    }
+
+    function click_date_search_2(){
+        var old_cat = document.getElementById("date_cat_2")
+        var old_from_date = document.getElementById("from_2")
+        var old_to_date = document.getElementById("to_2")
 
         var new_cat = document.getElementById("tvalue_date_category")
         var new_from_date = document.getElementById("tvalue_from_date")

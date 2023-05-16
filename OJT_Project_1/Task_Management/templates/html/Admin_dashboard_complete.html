@@ -991,14 +991,14 @@ background-color: #17a2b8;
                 </div>
                 <div class="side_by_side_2">
                     <div class="input-container_none_special">
-                        <input type="date" placeholder="Task ID" id="from" name="from"> 
+                        <input type="date" placeholder="Task ID" id="from_2" name="from"> 
                     </div>
                     <div class="input-container_none">
                     <h3>-</h3>
                     </div>
                     <div class="input-container_none">
-                        <input type="date" placeholder="Task ID" id="to" name="to">
-                        <button type="button" class="date_search" onclick="click_date_search()"><i class="fas fa-search"></i></button>
+                        <input type="date" placeholder="Task ID" id="to_2" name="to">
+                        <button type="button" class="date_search" onclick="click_date_search_2()"><i class="fas fa-search"></i></button>
                     </div> 
                 </div>
                 <button type="button" class="login-btn" onclick="transcribe();dlexcel('xlsx');">Report</button>
@@ -1098,12 +1098,31 @@ o
         var new_from_date = document.getElementById("tvalue_from_date")
         var new_to_date = document.getElementById("tvalue_to_date")
 
+        alert(old_from_date.value + old_to_date.value)
+
         new_from_date.value = old_from_date.value
         new_to_date.value = old_to_date.value
 
         var submit_btn = document.getElementById("date_search");
         submit_btn.click()
     }
+
+    function click_date_search_2(){
+        var old_from_date = document.getElementById("from_2")
+        var old_to_date = document.getElementById("to_2")
+
+        var new_from_date = document.getElementById("tvalue_from_date")
+        var new_to_date = document.getElementById("tvalue_to_date")
+
+        alert(old_from_date.value + old_to_date.value)
+
+        new_from_date.value = old_from_date.value
+        new_to_date.value = old_to_date.value
+
+        var submit_btn = document.getElementById("date_search");
+        submit_btn.click()
+    }
+
     function transcribe() {
         var today = new Date();
         var dd = String(today.getDate()).padStart(2, '0');
