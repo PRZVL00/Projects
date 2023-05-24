@@ -17,7 +17,51 @@ from django.core.mail import send_mail
 
 from datetime import *
 
+from apscheduler.schedulers.background import BackgroundScheduler
 
+
+# FUNCTION THAT PAUSES THA TASKS BY 6PM
+def automatic_task_pause():
+    # GET ALL ACTIVE TASKS
+    update_task_list_history = task_history.objects.filter(
+        status="ACTIVE")
+
+    # GET EVERY ENTRY ONE BY ONE
+    for history in update_task_list_history:
+
+        # UPDATE TASK STATUS AND TIME PAUSED
+        history.status = "Paused"
+        history.time_paused = "18:00"
+        history.save()
+
+        # COMPUTES THE TIME
+        time_1 = datetime.strptime(
+            history.time_continued, '%H:%M').time()
+        time_2 = datetime.strptime(
+            history.time_paused, '%H:%M').time()
+        diff_time = datetime.combine(
+            datetime.today(), time_2) - datetime.combine(datetime.today(), time_1)
+        diff_minutes_time = round(diff_time.total_seconds() / 3600, 2)
+
+        history.man_hours = diff_minutes_time
+        history.save()
+
+        update_task_list = tasks.objects.get(
+            task_id=history.task_id)
+
+        update_task_list.status = "Paused"
+        update_task_list.active_status = "PAUSED"
+        update_task_list.save()
+
+    return render('html/Client_dashboard_home.html')
+
+
+# THE SCHEDULES THE PAUSING EVERY 6PM
+scheduler = BackgroundScheduler()
+scheduler.add_job(automatic_task_pause, 'cron', hour=18, minute=30)
+scheduler.start()
+
+# LOGIN PAGE
 def index(request):
     if request.method == 'POST':
         username = request.POST.get('username')
@@ -73,7 +117,7 @@ def index(request):
 
     return render(request, 'html/Login_Page.html')
 
-
+# CLIENT HOME PAGE
 @login_required(login_url='index')
 def client_home(request):
     first_name = request.user.first_name
@@ -81,6 +125,8 @@ def client_home(request):
     full_name = first_name + " " + last_name
     username = request.user.username
     if request.user.is_authenticated and request.user.position == 'Employee':
+
+        # SEARCH FUNCTIONALITY
         if request.method == "POST":
             item = request.POST.get("search_bar")
 
@@ -106,7 +152,7 @@ def client_home(request):
         current_time = now.strftime("%H:%M")
 
 ######################################################################################
-
+        # IF CLIENT FORGOT TO PAUSE THE TASK, SYSTEM WILL PAUSE IT AND CREATE AN 8PM PAUSE TIME
         update_task_list_history = task_history.objects.filter(
             status="ACTIVE").exclude(date=str(date.today()))
 
@@ -160,12 +206,9 @@ def client_home(request):
         for the_task_list2 in task_list2:
             task_history_list = task_history.objects.filter(
                 task_id=the_task_list2.task_id)
-            print(str(task_history_list.count()))
 
             for num_hours2 in task_history_list:
                 base_ttl += float(num_hours2.man_hours)
-
-                print(base_ttl)
 
                 ttl_hrs = (base_ttl - float(the_task_list2.total_hours)
                            ) + float(the_task_list2.total_hours)
@@ -188,6 +231,7 @@ def client_home(request):
         return redirect("admin_home")
 
 
+# MARKING THE TASK AS COMPLETE
 def complete_task(request, task_id):
     username = request.user.username
 
@@ -227,7 +271,7 @@ def complete_task(request, task_id):
         ["josiahbautista00@gmail.com"],)
     return redirect('client_home')
 
-
+# PAUSES THE TASK
 def pause_task(request, task_id):
     now = datetime.now()
     current_time = now.strftime("%H:%M")
@@ -244,7 +288,7 @@ def pause_task(request, task_id):
     the_task_history.save()
     return redirect('client_home')
 
-
+# CONTINUES THE TASK
 def continue_task(request, task_id):
     now = datetime.now()
     current_time = now.strftime("%H:%M")
@@ -254,13 +298,14 @@ def continue_task(request, task_id):
     task.active_status = "ON"
     task.save()
 
+    # CREATING NEW TASK HISTORY
     new_task_history = task_history.objects.create(task_id=task.task_id, date=date.today(
     ), time_continued=current_time, time_paused="N/A", man_hours="0", status="Active")
     new_task_history.save()
 
     return redirect('client_home')
 
-
+# DISPLAY ALL PENDING TASK
 @login_required(login_url='index')
 def client_pending(request):
     first_name = request.user.first_name
@@ -271,6 +316,7 @@ def client_pending(request):
         if request.method == "POST":
             item = request.POST.get("search_bar")
 
+            # SEARCHING FUNTIONALITY
             task_list = tasks.objects.filter(
                 Q(id__icontains=item, active_status="OFF", assigned_to=full_name) |
                 Q(task_name__icontains=item, active_status="OFF", assigned_to=full_name) |
@@ -299,7 +345,7 @@ def client_pending(request):
     else:
         return redirect("admin_home")
 
-
+# ACCEPTING THE TASK
 def accept_task(request, task_id):
     username = request.user.username
 
@@ -313,6 +359,7 @@ def accept_task(request, task_id):
     task.total_hours = "0"
     task.save()
 
+    # CREATING NEW TASK HISTORY
     new_task_history = task_history.objects.create(task_id=task.task_id, date=date.today(
     ), time_continued=current_time, time_paused="N/A", man_hours="0", status="ACTIVE")
     new_task_history.save()
@@ -337,7 +384,7 @@ def accept_task(request, task_id):
 
     return redirect('client_pending')
 
-
+# DISPLAYS ALL COMPLETED TASKS
 @login_required(login_url='index')
 def client_complete(request):
     first_name = request.user.first_name
@@ -376,7 +423,7 @@ def client_complete(request):
     else:
         return redirect("admin_home")
 
-
+# ADMIN HOMEPAGE
 @login_required(login_url='index')
 def admin_home(request):
     first_name = request.user.first_name
@@ -388,7 +435,8 @@ def admin_home(request):
             if 'general_search' in request.POST:
                 # the item that is searched
                 item = request.POST.get("search_bar")
-
+                
+                # sEARCH fUNCTIONALITY
                 task_list = tasks.objects.filter(
                     Q(id__icontains=item, active_status="ON") |
                     Q(task_name__icontains=item, active_status="ON") |
@@ -405,6 +453,7 @@ def admin_home(request):
                            "total_active": total_active, "the_user": the_user, "the_pic": the_pic}
                 return render(request, 'html/Admin_dashboard_home.html', context)\
 
+            # DATE RANGE SEARCH FUNTIONALITY
             elif 'date_search' in request.POST:
                 date_category = request.POST.get("tvalue_date_category")
                 from_date = request.POST.get("tvalue_from_date")
@@ -490,12 +539,10 @@ def admin_home(request):
         for the_task_list2 in task_list2:
             task_history_list = task_history.objects.filter(
                 task_id=the_task_list2.task_id)
-            print(str(task_history_list.count()))
 
             for num_hours2 in task_history_list:
                 base_ttl += float(num_hours2.man_hours)
 
-                print(base_ttl)
 
                 ttl_hrs = (base_ttl - float(the_task_list2.total_hours)
                            ) + float(the_task_list2.total_hours)
@@ -937,7 +984,7 @@ def steps(request):
                 check_sub = detail.objects.filter(subcategory=sub_to_add)
 
                 if check_sub.count() >= 1:
-                    print(check_sub.count())
+                    pass
                 else:
                     new_step = detail.objects.create(
                         category=cat_to_add, subcategory=sub_to_add, details=new_details)
@@ -978,30 +1025,24 @@ def steps(request):
 
 
 def logoutuser(request):
-    print("nangyare?1")
     first_name = request.user.first_name
     last_name = request.user.last_name
     full_name = first_name + " " + last_name
     username = request.user.username
 
-    print("nangyare?2")
 
     today = date.today()
     date_today = today.strftime("%Y-%m-%d")
     the_user = app_users.objects.get(username=username)
 
-    print("nangyare?3")
 
     now = datetime.now()
     current_time = now.strftime("%H:%M")
-    print("nangyare?4")
 
     the_log = logbook.objects.filter(
         name=the_user.full_name, date_logged=date_today, time_logged_out="NTO").count()
-    print("nangyare?5")
 
     if the_log == 1:
-        print("nangyare?6")
 
         log_time_out = logbook.objects.get(
             name=the_user.full_name, date_logged=date_today, time_logged_out="NTO")
@@ -1023,11 +1064,9 @@ def logoutuser(request):
         log_time_out.total_hours = str(total)
         log_time_out.save()
 
-        print("nangyare?7")
         logout(request)
         return redirect('index')
 
     else:
-        print("nangyare?8")
         logout(request)
         return redirect('index')

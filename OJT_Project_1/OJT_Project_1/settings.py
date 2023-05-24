@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'Task_Management',
+    "django_apscheduler",
 ]
 
 MIDDLEWARE = [
@@ -139,7 +140,7 @@ MEDIA_URL = '/media/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL = 'Task_Management.app_users'
 
-
+# EMAIL CONFIGURATION
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_USE_TLS = True
@@ -147,4 +148,18 @@ EMAIL_PORT = 587
 EMAIL_HOST_USER = 'rsb.taskmanagement@gmail.com'
 EMAIL_HOST_PASSWORD = 'vthrtolouwxkisni'
 
+# SESSION TIME OUT EVERY 6 HOURS
 SESSION_COOKIE_AGE = 21600
+
+# This scheduler config will:
+# - Store jobs in the project database
+# - Execute jobs in threads inside the application process
+SCHEDULER_CONFIG = {
+    "apscheduler.jobstores.default": {
+        "class": "django_apscheduler.jobstores:DjangoJobStore"
+    },
+    'apscheduler.executors.processpool': {
+        "type": "threadpool"
+    },
+}
+SCHEDULER_AUTOSTART = True

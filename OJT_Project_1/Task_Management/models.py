@@ -45,6 +45,7 @@ class tasks(models.Model):
     total_hours = models.CharField(max_length=30)
     status = models.CharField(max_length=30)
     active_status = models.CharField(max_length=30)
+    location = models.CharField(max_length=30)
 
 
 class task_history(models.Model):

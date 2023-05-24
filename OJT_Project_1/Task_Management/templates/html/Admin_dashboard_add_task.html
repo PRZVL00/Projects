@@ -119,7 +119,7 @@
     }
     
     .content_1 {
-        margin: auto auto auto auto;
+        margin: 10px auto auto auto;
         text-align: center;
 
         
@@ -128,10 +128,7 @@
 
     .content {
         display: flex;
-        margin-top: 5%;
 
-        
-        
     }
 
     h2 {
@@ -452,13 +449,12 @@
     }
 
     .content_1 {
-        margin: auto auto auto auto;
+        margin: 10px auto auto auto;
         text-align: center;
     }
 
     .content {
         display: block;
-        margin-top: 5%;       
     }
 
     h2 {
@@ -851,9 +847,15 @@
                         {% endfor %}
 
                         <label for="stat">Select Status</label>
-                        <select name="stat" id="stat" required>
+                        <select name="stat" id="stat" required> 
                             <option value="Normal">Normal</option>
                             <option value="Urgent">Urgent</option>
+                        </select>
+
+                        <label for="stat">Location</label>
+                        <select name="stat" id="stat" required>
+                            <option value="Normal">Inside</option>
+                            <option value="Urgent">Outside</option>
                         </select>
 
                         <br>
